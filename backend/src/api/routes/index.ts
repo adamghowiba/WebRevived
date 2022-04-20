@@ -5,8 +5,7 @@ const router = Router();
 
 /* GET home page. */
 router.get('/email', async (req: Request, res: Response) => {
-	const email = await sendFormEmail(['adamware99@hotmail.com'], req.body);
-	res.send('Email sent')
+	const email = req.query.email as string;
 });
 
 export default router;

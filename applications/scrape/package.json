@@ -1,0 +1,22 @@
+{
+  "name": "scrape",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --config nodemon.json ./src/main.ts",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "selenium-webdriver": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/chromedriver": "^81.0.1",
+    "@types/selenium-webdriver": "^4.0.18",
+    "chromedriver": "^98.0.1",
+    "nodemon": "^2.0.15"
+  }
+}

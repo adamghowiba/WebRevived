@@ -1,10 +1,11 @@
 import session from 'express-session';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 import prisma from '@controllers/db-controller';
+import { UserRole } from '@prisma/client';
 
-// const prismaStore = new PrismaSessionStore(prisma, {
-// 	checkPeriod: 2 * 60 * 1000
-// });
+const prismaStore = new PrismaSessionStore(prisma, {
+	checkPeriod: 2 * 60 * 1000,
+});
 
 /* Instantiate session function */
 export default session({
@@ -12,13 +13,13 @@ export default session({
 	cookie: {
 		maxAge: 7 * 24 * 60 * 60 * 1000
 	},
-	// store: prismaStore,
+	store: prismaStore,
 	resave: false,
 	saveUninitialized: false
 });
 
 declare module 'express-session' {
 	interface SessionData {
-		user?: { username: string; id: number };
+		user?: { email: string; id: number, role: UserRole };
 	}
 }

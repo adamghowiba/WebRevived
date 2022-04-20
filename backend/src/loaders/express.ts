@@ -1,6 +1,11 @@
 import indexRouter from '@routes/index';
-import logger from '@logger';
 import authRouter from '@routes/Auth';
+import websiteRouter from '@routes/Website';
+import accountRouter from '@routes/Account';
+import portalRouter from '@routes/Portal';
+import formRouter from '@routes/Forms';
+import userRouter from '@routes/User';
+import logger from '@logger';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
@@ -38,8 +43,13 @@ export default class App {
 	}
 
 	registerRoutes() {
-		this.app.use('/', indexRouter);
-		this.app.use('/auth', authRouter);
+		this.app.use('/api', indexRouter);
+		this.app.use('/api/auth', authRouter);
+		this.app.use('/api/account', accountRouter);
+		this.app.use('/api/website', websiteRouter);
+		this.app.use('/api/form', formRouter);
+		this.app.use('/api/portal', portalRouter);
+		this.app.use('/api/user', userRouter);
 		logger.info('API Routes registered sucessfully');
 		return this;
 	}

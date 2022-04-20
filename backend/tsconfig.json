@@ -23,6 +23,8 @@
 			"@config/*": ["config/*"],
 			"@config": ["config"],
 
+			"@type/*": ["types/*"],
+
 			"@logger": ["loaders/logger.ts"],
 			"@routes/*": ["api/routes/*"],
 			"@validation/*": ["validation/*"],
