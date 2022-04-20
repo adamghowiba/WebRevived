@@ -1,10 +1,9 @@
+import ApiError from '@errors/ApiError';
 import { DatabaseError } from '@errors/DatabaseError';
 import ICustomError from '@errors/ICustomError';
 import logger from '@logger';
 import { Request, Response, NextFunction } from 'express';
 import createError from 'http-errors';
-
-// TODO: Handle JOI errors
 
 /* 404 Error */
 export const notFoundError = (req: Request, res: Response, next: NextFunction) => {
@@ -19,8 +18,8 @@ export const apiError = (err: object, req: Request, res: Response) => {
 	}
 
 	if (err instanceof ICustomError && process.env.NODE_ENV === 'development') {
+		console.log('CUSTOM ERROR HAPPENED');
 		const { message, stack, isOperational, status } = err;
-
 		logger.error(`${err.status}: ${err.message}`);
 		return res.status(err.statusCode).json({ status, message, isOperational, stack });
 	}

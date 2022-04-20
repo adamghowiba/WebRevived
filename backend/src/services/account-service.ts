@@ -1,4 +1,5 @@
 import prisma from '@controllers/db-controller';
+import { Address } from 'shared/types/account';
 
 /* GET All Accounts */
 export const getAllAccounts = async (limit = 30) => {
@@ -13,10 +14,34 @@ export const getAllAccounts = async (limit = 30) => {
 };
 
 /* GET Specfic Account */
-export const getAccountByID = async () => {};
+export const getAccountByID = async (id: number) => {
+	const account = await prisma.account.findUnique({
+		where: {
+			id
+		}
+	});
+
+	return account;
+};
 
 /* POST New Account */
-export const createAccount = async () => {};
+export const createAccount = async (name: string, phone: string = undefined, industry: string = undefined, address: Address = undefined) => {
+
+	const accounteCreated = await prisma.account.create({
+		data: {
+			name,
+			phone,
+            industry,
+			street: address?.street,
+            city: address?.city,
+            state: address?.state,
+            code: address?.code,
+            country: address?.country,
+		}
+	});
+
+    return accounteCreated;
+};
 
 /* UPDATE Account */
 export const updateAccount = async () => {};

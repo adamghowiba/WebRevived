@@ -16,10 +16,6 @@ export const sendEmail = async (subject: string, toAddress: string[], htmlData: 
 					Charset: 'UTF-8',
 					Data: htmlData
 				}
-				// Text: {
-				// 	Charset: 'UTF-8',
-				// 	Data: 'This is the first email sent with SES'
-				// }
 			},
 			Subject: {
 				Charset: 'UTF-8',
@@ -37,9 +33,9 @@ export const sendEmail = async (subject: string, toAddress: string[], htmlData: 
 	}
 };
 
-export const sendFormEmail = async (toAddress: string[], data: { [key: string]: string }) => {
+export const sendFormEmail = async (title: string, toAddress: string[], data: { [key: string]: string }) => {
 	const parsedHTML = generateFormEmail(data);
-	const result = await sendEmail('New Form Submission from [Adam Ghowiba]', ['adamware99@hotmail.com'], parsedHTML);
+	const result = await sendEmail(title, toAddress, parsedHTML);
 
-	console.log(result);
+	return result;
 };
