@@ -23,8 +23,8 @@ phases:
     commands:
       - echo Pushing to ECR
       - docker push 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend:latest
-       - printf '[{"name":"ECS-webrevied-task","imageUri":"040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend:latest"}]' > imagedefinitions.json
-  
-  artifacts:
+      - printf '[{"name":"ECS-webrevied-task","imageUri":"040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend:latest"}]' > imagedefinitions.json
+
+artifacts:
     files:
     - imagedefinitions.json
