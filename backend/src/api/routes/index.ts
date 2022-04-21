@@ -5,7 +5,7 @@ const router = Router();
 /* GET home page. */
 router.get('/hello', (req: Request, res: Response) => {
 
-	res.json('Hello fucking world part 3');
+	res.json('Were live baby!');
 });
 
 export default router;
