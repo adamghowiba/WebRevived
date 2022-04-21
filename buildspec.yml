@@ -9,12 +9,12 @@ phases:
     commands:
       - echo Installing dependices
       - npm install
+      - cd backend
 
   build:
     commands:
       - echo Running build command
       - echo building and tagging docker image.
-      - cd /backend
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 040133161491.dkr.ecr.us-east-1.amazonaws.com
       - docker build -t webrevived-backend .
       - docker tag webrevived-backend:latest 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend:latest
