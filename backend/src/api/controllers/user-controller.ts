@@ -1,17 +1,11 @@
-import ApiError from '@errors/ApiError';
-import { User } from '@prisma/client';
 import { userService } from '@services';
-import { UserPostRequest } from '../../types/user-api';
 import { catchAsync } from '@utils/error-utils';
-import { userPostValidation } from '@validation/user-validation';
-import { Request, Response } from 'express';
 import { transformRoleString } from '@utils/role-utils';
-import { hash, genSalt } from 'bcrypt';
+import { genSalt, hash } from 'bcrypt';
+import { Response } from 'express';
+import { UserPostRequest } from '../../types/user-api';
 
 export const createUser = catchAsync(async (req: UserPostRequest, res: Response) => {
-	const { error } = userPostValidation.validate(req.body);
-	if (error) throw new ApiError(error.message);
-
 	const salt = await genSalt(10);
 	const hashedPassword = await hash(req.body.password, salt);
 

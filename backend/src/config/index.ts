@@ -18,6 +18,7 @@ export default {
 	isDevelopment: process.env.NODE_ENV === 'development',
 	databaseURL: process.env.DATABASE_URL,
 	shadowDatabseUrl: process.env.SHADOW_DATABASE_URL,
+	slack_token: process.env.SLACK_TOKEN,
 	logs: {
 		level: process.env.LOG_LEVEL || 'silly'
 	},

@@ -5,6 +5,7 @@ import accountRouter from '@routes/Account';
 import portalRouter from '@routes/Portal';
 import formRouter from '@routes/Forms';
 import userRouter from '@routes/User';
+import projectRouter from '@routes/Project';
 import logger from '@logger';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -50,6 +51,7 @@ export default class App {
 		this.app.use('/api/form', formRouter);
 		this.app.use('/api/portal', portalRouter);
 		this.app.use('/api/user', userRouter);
+		this.app.use('/api/project', projectRouter);
 		logger.info('API Routes registered sucessfully');
 		return this;
 	}

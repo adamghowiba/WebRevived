@@ -5,5 +5,6 @@ import * as portalService from '@services/portal-service';
 import * as contactService from '@services/contact-service';
 import * as tokenService from '@services/token-service';
 import * as userService from '@services/user-service';
+import * as projectService from '@services/project-service';
 
-export { accountService, websiteService, formService, portalService, contactService, tokenService, userService };
+export { accountService, websiteService, formService, portalService, contactService, tokenService, userService, projectService };

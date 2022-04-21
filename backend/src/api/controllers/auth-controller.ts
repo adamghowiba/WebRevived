@@ -1,15 +1,11 @@
-import { Request, Response } from 'express';
 import ApiError from '@errors/ApiError';
-import { catchAsync } from '@utils/error-utils';
-import { UserLoginRequest } from '../../types/user-api';
 import { userService } from '@services';
-import { userGetValidation } from '@validation/user-validation';
+import { catchAsync } from '@utils/error-utils';
 import { compare } from 'bcrypt';
+import { Response } from 'express';
+import { UserLoginRequest } from '../../types/user-api';
 
 export const login = catchAsync(async (req: UserLoginRequest, res: Response) => {
-	const { error } = userGetValidation.validate(req.body);
-	if (error) throw new ApiError(error.message);
-
 	const foundUser = await userService.findByEmail(req.body.email);
 	if (!foundUser) throw new ApiError(`Email ${req.body.email} does not exsist.`);
 

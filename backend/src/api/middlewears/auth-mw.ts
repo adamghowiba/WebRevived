@@ -2,14 +2,12 @@ import ApiError from '@errors/ApiError';
 import { UserRole } from '@prisma/client';
 import { getAboveRoles } from '@utils/role-utils';
 import { Request, Response, NextFunction } from 'express';
-import { equal } from 'joi';
 
 /**
  * Check if a user has a permission role for a request.
  *
  * @param role Role to be required
  * @param allowAbove Allow acess to roles above the specfied {role}
- * @returns
  */
 export const requireRole = (role: UserRole, allowAbove = false) => {
 	return (req: Request, res: Response, next: NextFunction) => {

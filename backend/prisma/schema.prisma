@@ -31,6 +31,7 @@ model User {
   zoho_uid    String?
   bio         String?
   website     Website[]
+  projects    Project[]
   group       Group?    @relation(references: [id], fields: [group_id])
   group_id    Int?
   role        UserRole  @default(GUEST)
@@ -46,15 +47,17 @@ model Group {
 }
 
 model Project {
-  id         Int       @id @default(autoincrement())
-  name       String    @unique
-  type       String
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  type        String
   description String?
-  contacts   Contact[]
-  account    Account?   @relation(references: [id], fields: [account_id])
-  account_id Int?
-  due_date   DateTime?
-  createdAt  DateTime  @default(now())
+  slack_channel String?
+  contacts    Contact[]
+  users       User[]
+  account     Account?  @relation(references: [id], fields: [account_id])
+  account_id  Int?
+  due_date    DateTime?
+  createdAt   DateTime  @default(now())
 }
 
 model Account {

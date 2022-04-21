@@ -1,14 +1,14 @@
-import { userController } from "@controllers";
-import { requireRole } from "@middlewear/auth-mw";
-import { UserRole } from "@prisma/client";
-import { Router } from "express";
-import { deprecate } from "util";
+import { userController } from '@controllers';
+import { requireRole } from '@middlewear/auth-mw';
+import { validate } from '@middlewear/validate';
+import userValidation from '@validation/user-validation';
+import { Router } from 'express';
 
 const router = Router();
 
 router.use(requireRole('ADMIN'));
 
 /* Create New User */
-router.post('/', userController.createUser);
+router.post('/', validate(userValidation.createUser), userController.createUser);
 
 export default router;

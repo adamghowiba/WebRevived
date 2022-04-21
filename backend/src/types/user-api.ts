@@ -1,8 +1,8 @@
-import { User } from "@prisma/client";
-import { Request } from "express";
+import { User } from '@prisma/client';
+import { BodyRequest } from './request';
 
-type UserPostBody = Pick<User, 'email' | 'first_name' | 'last_name' | 'password' | 'role'>
-export type UserPostRequest = Request<unknown, unknown, UserPostBody>;
+export type UserPostBody = Pick<User, 'email' | 'first_name' | 'last_name' | 'password' | 'role'>;
+export type UserPostRequest = BodyRequest<UserPostBody>;
 
-type UserLoginBody = Pick<User, 'email' | 'password'>
-export type UserLoginRequest = Request<unknown, unknown, UserLoginBody>;
+export type UserLoginBody = Pick<User, 'email' | 'password'>;
+export type UserLoginRequest = BodyRequest<UserPostBody>;

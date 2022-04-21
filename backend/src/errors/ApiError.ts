@@ -6,6 +6,6 @@ export default class ApiError extends ICustomError {
 	constructor(message: string, statusCode = 400) {
 		super(message, statusCode);
 
-		this.isOperational = true;
+		this.isOperational = statusCode < 500;
 	}
 }

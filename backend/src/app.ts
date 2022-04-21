@@ -7,7 +7,8 @@ import http from 'http';
 import ExpressInitialization from './loaders/express';
 import { DatabaseError } from '@errors/DatabaseError';
 import ICustomError from '@errors/ICustomError';
-import '@services/slack-service';
+// import '@services/slack-service';
+import './events/core';
 
 const app = express();
 const server = http.createServer(app);
@@ -32,13 +33,12 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 	}
 
 	if (err instanceof ICustomError && process.env.NODE_ENV === 'development') {
-		console.log('CUSTOM ERROR HAPPENED');
 		const { message, stack, isOperational, status } = err;
 		logger.error(`${err.status}: ${err.message}`);
 		return res.status(err.statusCode).json({ status, message, isOperational, stack });
 	}
 
-	return res.status(400).json({ ...err });
+	return res.status(400).json({ error: err?.message, is_unknown: true });
 });
 
 /* Lights, Camera, Action. */
