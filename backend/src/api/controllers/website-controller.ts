@@ -10,7 +10,10 @@ export const getAllWebsites = catchAsync(async (req: WebsiteGetAllRequest, res: 
 	const { error } = websiteQueryPValidation.validate(req.query);
 	if (error) throw new ApiError(error.message);
 
-	const transformQuery = Object.entries(req.query).reduce((acc, [key, value]) => (acc = { ...acc, [key]: parseInt(value) }), {});
+	const transformQuery = Object.entries(req.query).reduce(
+		(acc, [key, value]) => (acc = { ...acc, [key]: parseInt(value) }),
+		{}
+	);
 
 	const allWebsites = await websiteService.getAllWebsites(transformQuery);
 

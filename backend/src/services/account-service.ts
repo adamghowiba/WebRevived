@@ -1,5 +1,5 @@
 import prisma from '@controllers/db-controller';
-import { Address } from 'shared/types/account';
+import { Address } from '@type/account';
 
 /* GET All Accounts */
 export const getAllAccounts = async (limit = 30) => {
@@ -25,22 +25,26 @@ export const getAccountByID = async (id: number) => {
 };
 
 /* POST New Account */
-export const createAccount = async (name: string, phone: string = undefined, industry: string = undefined, address: Address = undefined) => {
-
+export const createAccount = async (
+	name: string,
+	phone: string = undefined,
+	industry: string = undefined,
+	address: Address = undefined
+) => {
 	const accounteCreated = await prisma.account.create({
 		data: {
 			name,
 			phone,
-            industry,
+			industry,
 			street: address?.street,
-            city: address?.city,
-            state: address?.state,
-            code: address?.code,
-            country: address?.country,
+			city: address?.city,
+			state: address?.state,
+			code: address?.code,
+			country: address?.country
 		}
 	});
 
-    return accounteCreated;
+	return accounteCreated;
 };
 
 /* UPDATE Account */

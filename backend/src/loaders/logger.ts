@@ -4,7 +4,8 @@ import config, { isProduction } from '@config';
 const { combine, timestamp, printf, simple, cli } = format;
 
 const productionLogOutput = printf(
-	({ level, message, time }: { level: string; message: string; time: string }) => `${time} - ${level.toUpperCase()}: ${message}`
+	({ level, message, time }: { level: string; message: string; time: string }) =>
+		`${time} - ${level.toUpperCase()}: ${message}`
 );
 
 const stageOptions = {

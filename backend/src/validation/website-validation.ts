@@ -4,7 +4,7 @@ import Joi from 'joi';
 
 export const websiteRequestBody = Joi.object<Website>({
 	account_id: Joi.string().required(),
-	url: Joi.string().required(),
+	url: Joi.string().required()
 });
 
 export const websiteQueryPValidation = Joi.object<WebsiteGetQueryParam>({

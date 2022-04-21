@@ -40,12 +40,12 @@ export const sendPortalRequest = catchAsync(async (req: Request, res: Response) 
 	res.json(portalRequest);
 });
 
-export const verifyPortalSignup = catchAsync(async (req: Request, res: Response) => { 
+export const verifyPortalSignup = catchAsync(async (req: Request, res: Response) => {
 	const token = req.body.token;
 	const today = new Date();
 
 	const portalToken = await tokenService.checkPortalToken(token);
 	if (!portalToken || portalToken.expiration_date < today) throw new ApiError('Invalid token', 400);
 
-	res.json({status: 'Sucess', message: "Token found sucssfully", ...portalToken})
+	res.json({ status: 'Sucess', message: 'Token found sucssfully', ...portalToken });
 });

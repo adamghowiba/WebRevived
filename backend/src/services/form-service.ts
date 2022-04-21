@@ -1,7 +1,6 @@
 import prisma from '@controllers/db-controller';
 import { DatabaseError } from '@errors/DatabaseError';
 import { Form, Prisma } from '@prisma/client';
-import { Address } from 'shared/types/account';
 
 /* GET All Forms */
 export const getAllForms = async (limit = 30) => {
@@ -72,7 +71,7 @@ export const createForm = async (name: string, websiteId: number, contactIds: nu
 
 		return formCreated;
 	} catch (error) {
-		throw new DatabaseError(error)
+		throw new DatabaseError(error);
 	}
 };
 

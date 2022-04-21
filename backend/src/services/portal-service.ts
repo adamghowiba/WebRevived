@@ -1,7 +1,5 @@
 import prisma from '@controllers/db-controller';
 import { generateToken } from '@utils/token-utils';
-import { Address } from 'shared/types/account';
-import { sendEmail } from './email-service';
 
 export const getAllPortals = async () => {};
 
@@ -67,5 +65,5 @@ export const sendPortalRequest = async (contactId: number) => {
 		}
 	});
 
-	return createdToken
+	return createdToken;
 };

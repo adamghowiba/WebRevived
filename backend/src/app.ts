@@ -1,12 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import express, { NextFunction, Request, Response } from 'express';
 import { connectDb } from '@controllers/db-controller';
 import { errorHandler } from '@middlewear';
-import logger from '@logger';
-import config from '@config';
-import http from 'http';
-import ExpressInitialization from './loaders/express';
 import { DatabaseError } from '@errors/DatabaseError';
+import logger from '@logger';
+import http from 'http';
+import config from '@config';
 import ICustomError from '@errors/ICustomError';
+import ExpressInitialization from './loaders/express';
 // import '@services/slack-service';
 import './events/core';
 
@@ -38,6 +39,7 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 		return res.status(err.statusCode).json({ status, message, isOperational, stack });
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 	return res.status(400).json({ error: err?.message, is_unknown: true });
 });
 

@@ -1,4 +1,3 @@
-// TODO Fix eslint disable
 /* eslint-disable vars-on-top */
 /* eslint-disable no-var */
 import config from '@config';

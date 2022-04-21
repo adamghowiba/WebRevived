@@ -20,7 +20,6 @@ const loginUser: ValidateScehma = {
 	})
 };
 
-
 export default {
 	loginUser,
 	createUser

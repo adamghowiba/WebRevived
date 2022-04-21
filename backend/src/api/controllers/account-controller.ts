@@ -21,7 +21,6 @@ export const getAccountByID = catchAsync(async (req: Request, res: Response) => 
 	res.json(account);
 });
 
-
 /* POST New Account */
 export const postAccount = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 	const { name, phone } = req.body;
