@@ -16,14 +16,14 @@ phases:
       - echo Running build command
       - echo building and tagging docker image.
       - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 040133161491.dkr.ecr.us-east-1.amazonaws.com
-      - docker build -t webrevived-backend .
+      - docker build -t webrevived-backend:latest .
       - docker tag webrevived-backend:latest 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend:latest
 
   post_build:
     commands:
       - echo Pushing to ECR
       - docker push 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend:latest
-      - printf '[{"name":"ECS-webrevied-task","imageUri":"040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend:latest"}]' > ../imagedefinitions.json
+      - printf '[{"name":"webrevived-backend","imageUri":"040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend:latest"}]' > ../imagedefinitions.json
 
 artifacts:
     files:
