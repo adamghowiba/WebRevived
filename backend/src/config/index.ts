@@ -3,10 +3,11 @@ import dotenv from 'dotenv';
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 /* Commeted out due to issues causing contianer to crash */
-// const envFound = dotenv.config();
+const envFound = dotenv.config();
 
 // if (envFound.error) {
-// 	throw new Error("⚠️  Couldn't find .env file  ⚠️");
+	// console.log('ENV not found');
+	// throw new Error("⚠️  Couldn't find .env file  ⚠️");
 // }
 
 export const isProduction = process.env.NODE_ENV === 'production';
