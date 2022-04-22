@@ -5,7 +5,7 @@ const router = Router();
 /* GET home page. */
 router.get('/hello', (req: Request, res: Response) => {
 
-	res.json('Wonder how many times it will take to learn.');
+	res.json('Latest change with first auto deploy');
 });
 
 
