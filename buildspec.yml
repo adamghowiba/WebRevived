@@ -23,7 +23,7 @@ phases:
     commands:
       - echo Pushing to ECR
       - docker push 040133161491.dkr.ecr.us-east-1.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
-      - printf '[{"name":"webrevived-backend-cluster","imageUri":"040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend"}]' > ../imagedefinitions.json
+      - printf '[{"name":"webrevived-backend","imageUri":"040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend"}]' > ../imagedefinitions.json
 
 artifacts:
     files:
