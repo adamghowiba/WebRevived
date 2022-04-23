@@ -44,8 +44,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 /* Lights, Camera, Action. */
-server.listen(config.port, () => {
-	logger.info(`Loaded app sucessfully on port ${config.port}`);
+server.listen(config?.port || 5000, () => {
+	logger.info(`Loaded app sucessfully on port ${config?.port || 500}`);
 });
 
 export default app;

@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  reverse_proxy:
+    container_name: webrevived-nginx
+    build:
+      context: ./nginx
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - /nginx/nginx.conf:/etc/nginx.conf
+    ports:
+      - 80:80
+
+  webrevived-frontend:
+    container_name: webrevived-frontend
+    build:
+      context: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - 3000:3000
+    restart: on-failure
+
+  webrevived-backend:
+    container_name: webrevived-backend
+    build:
+      context: ./backend
+    ports:
+      - 5000:5000
+    restart: always

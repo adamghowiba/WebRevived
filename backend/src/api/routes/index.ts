@@ -8,6 +8,10 @@ router.get('/hello', (req: Request, res: Response) => {
 	res.json('Latest change with first auto deploy');
 });
 
+router.get('/', (req: Request, res: Response) => {
+	res.status(200).json('Web Revived Core API v0.1.1 BETA')
+});
+
 
 export default router;
 

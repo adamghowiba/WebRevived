@@ -7,24 +7,41 @@ phases:
 
   pre_build:
     commands:
-      - echo Installing dependices
-      - npm install
-      - cd backend
+      # Auth AWS
+      - echo Authenticating into AWS ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 040133161491.dkr.ecr.us-east-1.amazonaws.com
 
   build:
     commands:
-      - echo Running build command
-      - echo building and tagging docker image.
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 040133161491.dkr.ecr.us-east-1.amazonaws.com
-      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
-      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG 040133161491.dkr.ecr.us-east-1.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      # Build Container Images
+      - echo Building NGINX Image
+      - docker build -t webrevived-nginx:latest .
+
+      - echo Building Backend Image
+      - docker build -t $webrevived-backend:latest .
+
+      - echo Building Frontend Image
+      - docker build -t webrevived-frontend:latest .
+
+      # Tag docker images
+      - echo Tagging [Ngix, Backend, Frontend] image...
+      - docker tag webrevived-nginx:latest 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-nginx:latest
+      - docker tag webrevived-backend:latest 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend:latest
+      - docker tag webrevived-frontend:latest 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-frontend:latest
 
   post_build:
     commands:
-      - echo Pushing to ECR
-      - docker push 040133161491.dkr.ecr.us-east-1.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
-      - printf '[{"name":"webrevived-backend","imageUri":"040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend"}]' > ../imagedefinitions.json
+      - echo Pushing Nginx image...
+      - docker push 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-nginx:latest
+
+      - echo Pushing Backend image...
+      - docker push 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend:latest
+
+      - echo Pushing Frontend image...
+      - docker push 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-frontend:latest
+
+      # - printf '[{"name":"webrevived-core-service","imageUri":"040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend"}, {"name":"webrevived-core-service","imageUri":"040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend"}, {"name":"webrevived-core-service","imageUri":"040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend"}]' > ../imagedefinitions.json
 
 artifacts:
-    files:
+  files:
     - imagedefinitions.json
