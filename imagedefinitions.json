@@ -4,11 +4,11 @@
         "imageUri": "040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-nginx:latest"
     },
     {
-        "name": "webrevived-backend:latest",
+        "name": "webrevived-backend",
         "imageUri": "040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend:latest"
     },
     {
-        "name": "webrevived-frontend:latest",
+        "name": "webrevived-frontend",
         "imageUri": "040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-frontend:latest"
     }
 ]
