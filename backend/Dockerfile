@@ -1,7 +1,7 @@
 FROM public.ecr.aws/docker/library/node:16-alpine
 EXPOSE 5000
 
-WORKDIR /usr/src/app
+WORKDIR /usr/src/backend
 
 COPY package*.json ./
 
