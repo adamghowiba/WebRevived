@@ -15,13 +15,13 @@ phases:
     commands:
       # Build Container Images
       - echo Building NGINX Image
-      - docker build . -t webrevived-nginx:latest -f nginx/Dockerfile
+      - docker build -t webrevived-nginx:latest -f nginx/Dockerfile ./nginx
 
       - echo Building Backend Image
-      - docker build . -t webrevived-backend:latest -f backend/Dockerfile
+      - docker build -t webrevived-backend:latest -f backend/Dockerfile ./backend
 
       - echo Building Frontend Image
-      - docker build . -t webrevived-frontend:latest -f frontend/Dockerfile
+      - docker build -t webrevived-frontend:latest -f frontend/Dockerfile ./frontend
 
       # Tag docker images
       - echo Tagging [Ngix, Backend, Frontend] image...
