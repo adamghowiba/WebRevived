@@ -1,8 +1,8 @@
 FROM node:16-alpine AS builder
 WORKDIR /app
-COPY package*.json .
+COPY package*.json ./
 RUN npm ci
-COPY . .
+COPY . ./
 RUN npm run build
 RUN npm prune --production
 
@@ -11,6 +11,6 @@ ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=builder /app/build build/
 COPY --from=builder /app/node_modules node_modules/
-COPY package.json .
+COPY package*.json ./
 EXPOSE 3000
 CMD [ "node", "build" ]
