@@ -27,7 +27,8 @@ services:
   webrevived-backend:
     container_name: webrevived-backend
     build:
-      context: ./backend
+      context: .
+      dockerfile: ./backend/Dockerfile
     ports:
       - 5000:5000
     restart: always

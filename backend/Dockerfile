@@ -23,13 +23,13 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 # Copy build packages.
-COPY --from=builder /app/backend/build ./backend/build
-COPY --from=builder /app/backend/package*.json ./backend
-COPY --from=builder /app/backend/tsconfig.json ./backend
-COPY --from=builder /app/backend/src ./backend/src
+COPY --from=builder /app/backend/build ./backend/build/
+COPY --from=builder /app/backend/package*.json ./backend/
+COPY --from=builder /app/backend/tsconfig.json ./backend/
+COPY --from=builder /app/backend/src ./backend/src/
 
 # For tsconfig paths
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/node_modules ./node_modules/
 COPY --from=builder /app/package*.json ./
 
 RUN npm prune --production
