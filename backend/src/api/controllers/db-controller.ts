@@ -7,7 +7,8 @@ declare global {
 	var prisma: PrismaClient;
 }
 
-const prisma = global.prisma || new PrismaClient({ errorFormat: 'minimal' });
+const databseURI = config.isProduction ? config.prodDatabaseURL : config.devDatabaseURL;
+const prisma = global.prisma || new PrismaClient({ errorFormat: 'minimal', datasources: { db: { url: databseURI } } });
 
 if (config.isDevelopment) global.prisma = prisma;
 

@@ -24,6 +24,8 @@ module.exports = {
 	plugins: ['@typescript-eslint', 'import'],
 	rules: {
 		'import/no-unresolved': 'off',
+		'arrow-body-style': ['error', 'as-needed'],
+		'lines-between-class-members': 'off',
 		'import/extensions': [
 			'error',
 			'ignorePackages',

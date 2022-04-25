@@ -21,7 +21,7 @@ phases:
       - docker build -t webrevived-backend:latest -f backend/Dockerfile ./backend
 
       - echo Building Frontend Image
-      - docker build -t webrevived-frontend:latest -f frontend/Dockerfile ./frontend
+      - docker build -t webrevived-frontend:latest -f frontend/Dockerfile .
 
       # Tag docker images
       - echo Tagging [Ngix, Backend, Frontend] image...

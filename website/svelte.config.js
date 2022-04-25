@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-node';
+import adapter from '@sveltejs/adapter-auto';
 import preprocess from 'svelte-preprocess';
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -9,10 +9,12 @@ const config = {
 
 	kit: {
 		adapter: adapter(),
-		// prerender: {
-		// 	default: true
-		// }
-	},
+		vite: {
+			server: {
+				port: 4000
+			}
+		}
+	}
 };
 
 export default config;

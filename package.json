@@ -1,0 +1,25 @@
+{
+  "name": "webrevived",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "workspaces": [
+    "backend",
+    "frontend",
+    "website",
+    "packages/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TechnoPvP/WebRevived.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TechnoPvP/WebRevived/issues"
+  },
+  "homepage": "https://github.com/TechnoPvP/WebRevived#readme"
+}

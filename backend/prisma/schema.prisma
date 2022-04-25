@@ -8,7 +8,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DEVELOPMENT_DATABASE_URL")
-
 }
 
 // * Ordering of the roles is very important. Starting from lowest-highest

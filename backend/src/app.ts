@@ -9,7 +9,6 @@ import config from '@config';
 import ICustomError from '@errors/ICustomError';
 import ExpressInitialization from './loaders/express';
 // import '@services/slack-service';
-import './events/core';
 
 const app = express();
 const server = http.createServer(app);
@@ -19,6 +18,7 @@ process.on('unhandledRejection', (reason: string) => {
 	throw reason;
 });
 
+
 /* Setup Database Connection */
 connectDb().then(logger.info).catch(logger.error);
 
@@ -27,7 +27,7 @@ new ExpressInitialization(app).registerCors().registerParsers().registerSessions
 
 /* Error Handleing */
 app.use(errorHandler.notFoundError);
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error | DatabaseError | ICustomError, req: Request, res: Response, next: NextFunction) => {
 	if (err instanceof DatabaseError) {
 		const { status, statusCode, message } = err;
 		return res.status(err.statusCode).json({ status, message, statusCode });
@@ -39,7 +39,6 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 		return res.status(err.statusCode).json({ status, message, isOperational, stack });
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 	return res.status(400).json({ error: err?.message, is_unknown: true });
 });
 

@@ -1,2 +1,0 @@
-// TODO Remove Token
-const apiToken = 'pk_12859267_0HZ4PUZXPSYYZ1SWRLNRFYW8GKRZZNV2';

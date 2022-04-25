@@ -1,7 +1,6 @@
 import ApiError from '@errors/ApiError';
 import { formService } from '@services';
 import { sendFormEmail } from '@services/email-service';
-import { BodyRequest } from '@type/request';
 import { catchAsync } from '@utils/error-utils';
 import { formPost } from '@validation/form-validation';
 import { Request, Response } from 'express';
@@ -15,11 +14,14 @@ export const getAllForms = catchAsync(async (req: Request, res: Response) => {
 });
 
 /* GET Specfic Form */
-export const getFormByID = catchAsync(async (req: Request, res: Response) => {});
+// eslint-disable-next-line @typescript-eslint/require-await
+export const getFormByID = catchAsync(async (req: Request, res: Response) => {
+	res.json('Unimplemented')
+});
 
 /* P0OST New Form */
 export const postForm = catchAsync(async (req: FormPostRequest, res: Response) => {
-	const websiteId = parseInt(req.params.websiteId);
+	const websiteId = parseInt(req.params.websiteId, 10);
 	if (!websiteId) throw new ApiError('Missing website id paramter');
 
 	const { error } = formPost.validate(req.body);
