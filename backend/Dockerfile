@@ -26,7 +26,11 @@ ENV NODE_ENV=production
 COPY --from=builder /app/backend/build ./backend/build/
 COPY --from=builder /app/backend/package*.json ./backend/
 COPY --from=builder /app/backend/tsconfig.json ./backend/
+# Possible replament
+# COPY --from=builder ["/app/backend/tsconfig.json", "/app/backend/package*.json", "./backend/"]
+
 COPY --from=builder /app/backend/src ./backend/src/
+
 
 # For tsconfig paths
 COPY --from=builder /app/node_modules ./node_modules/

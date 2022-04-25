@@ -1,24 +1,20 @@
-# FROM public.ecr.aws/bitnami/node:16 as builder
-FROM node:16 as builder
+FROM public.ecr.aws/bitnami/node:16 as builder
 
 WORKDIR /app
 
 COPY ./package*.json ./
-# COPY ./turbo.json ./
 
 # Copy packages being used
 COPY /packages/wds ./packages/wds
 
 # Something seems fishy here...
+# TODO Minimize container size
 COPY /frontend/package*.json ./frontend/
 COPY /frontend ./frontend/
 
-RUN npm set timeout=100000
-# Install turbo to run turbo build command
-
 # Install shared dpenedices & build.
 RUN npm install
-RUN npm run build -w=frontend
+RUN npm run build -w frontend
 
 EXPOSE 3000
 WORKDIR /app/frontend/build
