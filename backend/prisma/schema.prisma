@@ -61,7 +61,7 @@ model Project {
 
 model Account {
   id       Int       @id @default(autoincrement())
-  name     String
+  name     String @unique
   industry String?
   phone    String?
   street   String?
@@ -94,10 +94,10 @@ model Contact {
 model Website {
   id         Int     @id @default(autoincrement())
   account_id Int
-  url        String
+  url        String @unique
   forms      Form[]
   users      User[]
-  account    Account @relation(references: [id], fields: [account_id])
+  account    Account @relation(references: [id], fields: [account_id], onDelete: Cascade)
 }
 
 model PortalUser {
@@ -130,7 +130,7 @@ model Form {
   id               Int              @id @default(autoincrement())
   name             String
   website_id       Int
-  website          Website          @relation(references: [id], fields: [website_id])
+  website          Website          @relation(references: [id], fields: [website_id], onDelete: Cascade)
   contacts         Contact[]
   form_submissions FormSubmission[]
 }

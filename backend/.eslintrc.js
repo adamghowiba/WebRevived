@@ -25,6 +25,7 @@ module.exports = {
 	rules: {
 		'import/no-unresolved': 'off',
 		'arrow-body-style': ['error', 'as-needed'],
+		'no-console': 'off',
 		'lines-between-class-members': 'off',
 		'import/extensions': [
 			'error',
