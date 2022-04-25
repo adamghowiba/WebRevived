@@ -1,5 +1,4 @@
-# FROM public.ecr.aws/bitnami/node:16 as builder
-FROM node:16 as builder
+FROM public.ecr.aws/bitnami/node:16 as builder
 
 WORKDIR /app
 
@@ -10,20 +9,27 @@ COPY ./package*.json ./
 COPY /packages/wds ./packages/wds
 
 # Something seems fishy here...
-COPY /frontend/package*.json ./frontend/
-COPY /frontend ./frontend/
+COPY /website/package*.json ./website/
+COPY /website ./website/
 
 RUN npm set timeout=100000
 # Install turbo to run turbo build command
 
 # Install shared dpenedices & build.
 RUN npm install
-RUN npm run build -w=frontend
+RUN npm run build -w website
+COPY ./website ./website/build
 
-EXPOSE 3000
-WORKDIR /app/frontend/build
+# EXPOSE 3000
+# WORKDIR /app/website/build
 
-CMD ["node", "index.js"]
+
+FROM public.ecr.aws/bitnami/node:16
+ENV NODE_ENV=production
+WORKDIR /app
+
+COPY --from=builder /app/website/build build/
+EXPOSE 4000
 
 
 # FROM node:16-alpine AS builder

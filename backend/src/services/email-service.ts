@@ -1,4 +1,5 @@
 import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses';
+import ApiError from '@errors/ApiError';
 import { generateFormEmail } from '../templates/form-string';
 
 const sesClient = new SESClient({
@@ -27,9 +28,9 @@ export const sendEmail = async (subject: string, toAddress: string[], htmlData: 
 
 	try {
 		await sesClient.send(new SendEmailCommand(params));
-		return `Email sent sucessfully to ${toAddress}`;
+		return `Email sent sucessfully to ${toAddress.toString()}`;
 	} catch (error) {
-		return `Error sending email ${error}`;
+		throw new ApiError('Failed to send email')
 	}
 };
 

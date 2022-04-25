@@ -1,3 +1,4 @@
+/* eslint-disable arrow-body-style */
 import ApiError from '@errors/ApiError';
 import { UserRole } from '@prisma/client';
 import { getAboveRoles } from '@utils/role-utils';
@@ -11,6 +12,7 @@ import { Request, Response, NextFunction } from 'express';
  */
 export const requireRole = (role: UserRole, allowAbove = false) => {
 	return (req: Request, res: Response, next: NextFunction) => {
+		/* TODO Return before next; */
 		if (!req.session?.user || !req.session?.user?.role) next(new ApiError('Unauthrized, you must be logged.'));
 		const sessionRole = req.session.user.role;
 

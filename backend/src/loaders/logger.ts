@@ -11,7 +11,7 @@ const productionLogOutput = printf(
 const stageOptions = {
 	production: {
 		format: combine(timestamp({ format: 'MM/DD HH:mm' }), productionLogOutput),
-		transports: [new transports.Console({ level: 'warn' })]
+		transports: [new transports.Console({ level: config?.logs?.level || 'warn' })]
 	},
 	development: {
 		format: simple(),

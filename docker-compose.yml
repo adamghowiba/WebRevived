@@ -16,7 +16,8 @@ services:
   webrevived-frontend:
     container_name: webrevived-frontend
     build:
-      context: ./frontend
+      context: .
+      dockerfile: ./frontend/Dockerfile
     depends_on:
       - backend
     ports:

@@ -18,7 +18,7 @@ phases:
       - docker build -t webrevived-nginx:latest -f nginx/Dockerfile ./nginx
 
       - echo Building Backend Image
-      - docker build -t webrevived-backend:latest -f backend/Dockerfile ./backend
+      - docker build -t webrevived-backend:latest -f backend/Dockerfile .
 
       - echo Building Frontend Image
       - docker build -t webrevived-frontend:latest -f frontend/Dockerfile .

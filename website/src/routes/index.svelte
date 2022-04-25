@@ -1,12 +1,10 @@
 <script lang="ts">
-	import MainButton from '@webrevived/wds/MainButton.svelte';
+	import Header from 'wds/Header.svelte';
 </script>
 
 <h1>
-	Admin Panel
-
-	<MainButton size="large">Hey</MainButton>
-
+	<Header data={{ href: 'link' }} page="website" />
+	Website
 	<p>
 		Reasons why it's cool
 		<li>Small</li>
