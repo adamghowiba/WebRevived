@@ -31,7 +31,6 @@ COPY --from=builder /app/backend/tsconfig.json ./backend/
 
 COPY --from=builder /app/backend/src ./backend/src/
 
-
 # For tsconfig paths
 COPY --from=builder /app/node_modules ./node_modules/
 COPY --from=builder /app/package*.json ./
@@ -41,4 +40,4 @@ RUN npm prune --production
 EXPOSE 5000
 WORKDIR /app/backend
 
-# CMD ["npm", "start"]
+CMD ["npm", "start"]

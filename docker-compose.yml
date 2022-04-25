@@ -13,8 +13,9 @@ services:
     ports:
       - 80:80
 
-  webrevived-frontend:
+  frontend:
     container_name: webrevived-frontend
+    hostname: frontend
     build:
       context: .
       dockerfile: ./frontend/Dockerfile
@@ -24,8 +25,9 @@ services:
       - 3000:3000
     restart: on-failure
 
-  webrevived-backend:
+  backend:
     container_name: webrevived-backend
+    hostname: backend
     build:
       context: .
       dockerfile: ./backend/Dockerfile
