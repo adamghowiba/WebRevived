@@ -1,6 +1,5 @@
 import prisma from '@controllers/db-controller';
 import type { Contact, Prisma } from '@prisma/client';
-import { Address } from 'shared/types/account';
 
 /* GET All Contacts */
 export const getAllContacts = async (limit = 30) => {
@@ -19,7 +18,7 @@ export const getContactByID = async (id: number): Promise<Contact> => {
 	const contact = await prisma.contact.findUnique({
 		where: {
 			id
-		},
+		}
 	});
 
 	return contact;

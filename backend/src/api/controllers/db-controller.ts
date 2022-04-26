@@ -1,4 +1,3 @@
-// TODO Fix eslint disable
 /* eslint-disable vars-on-top */
 /* eslint-disable no-var */
 import config from '@config';
@@ -8,7 +7,10 @@ declare global {
 	var prisma: PrismaClient;
 }
 
-const prisma = global.prisma || new PrismaClient({ errorFormat: 'minimal' });
+const databseURI = config.isProduction ? config.prodDatabaseURL : config.devDatabaseURL;
+const prisma = new PrismaClient({ errorFormat: 'minimal', datasources: { db: { url: databseURI } } });
+
+console.log(config.isDevelopment, config.isProduction, process.env.NODE_ENV);
 
 if (config.isDevelopment) global.prisma = prisma;
 

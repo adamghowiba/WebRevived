@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+
 	onMount(() => {
 		const searchParams = new URLSearchParams(window.location.search);
 		const token = searchParams.get('token');

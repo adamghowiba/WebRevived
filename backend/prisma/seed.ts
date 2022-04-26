@@ -1,4 +1,4 @@
-import { Account, Contact, Prisma, PrismaClient, User } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -18,6 +18,7 @@ const CONTACT_DATA: Prisma.ContactCreateInput[] = [
 	{ first_name: 'Adam', last_name: 'Ware', phone: '4072126464', title: 'Manager', email: 'adamware99@hotmail.com' }
 ];
 
+// TODO Setup password through .env file.
 const USER_DATA: Prisma.UserCreateInput[] = [
 	{
 		email: 'adam@webrevived.com',
@@ -31,7 +32,7 @@ const USER_DATA: Prisma.UserCreateInput[] = [
 		clickup_uid: '12859267'
 	},
 	{
-		email: 'nathan@webrevived.com',
+		email: 'developer@webrevived.com',
 		first_name: 'Nathan',
 		last_name: 'Euwin',
 		password: 'lobbies',
@@ -40,7 +41,7 @@ const USER_DATA: Prisma.UserCreateInput[] = [
 		role: 'DEVELOPER'
 	},
 	{
-		email: 'nathan@webrevived.com',
+		email: 'designer@webrevived.com',
 		first_name: 'Zsolt',
 		last_name: 'Zelinskey',
 		password: 'design',
@@ -52,8 +53,11 @@ const USER_DATA: Prisma.UserCreateInput[] = [
 
 const createUsers = async () => {
 	const users = await prisma.user.createMany({
-		data: USER_DATA
+		data: USER_DATA,
+		skipDuplicates: true
 	});
+
+	return console.log(`Created ${users.count} users sucessfully`);
 };
 
 const createAccountAndContacts = async (): Promise<CreateAccount> => {
@@ -74,13 +78,13 @@ const createAccountAndContacts = async (): Promise<CreateAccount> => {
 		include: { contacts: true }
 	});
 
-	return { accountId: account.id, contacts: account.contacts.reduce((acc, { id }) => (acc = [...acc, { id }]), []) };
+	return { accountId: account.id, contacts: account.contacts.map(({ id }) => ({ id })) };
 };
 
 const createWebsiteAndForm = async (accountId: number, contactIds: { id: number }[]) => {
 	const website = await prisma.website.create({
 		data: {
-			url: 'www.webrevived.com',
+			url: 'webrevivedw.com',
 			account: {
 				connect: { id: accountId }
 			},
@@ -110,6 +114,7 @@ main()
 		console.error(error);
 		process.exit(1);
 	})
+	// eslint-disable-next-line @typescript-eslint/no-misused-promises
 	.finally(async () => {
 		await prisma.$disconnect();
 	});

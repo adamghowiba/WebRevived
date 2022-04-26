@@ -1,25 +1,12 @@
 <script lang="ts">
+	import Button from 'wds/Button.svelte';
+	import Header from 'wds/Header.svelte';
 	let responseText: string = '';
-
-	async function submitFormTest() {
-		const response = await fetch('http://localhost:5000/api/form/1', {
-			method: 'POST',
-			body: JSON.stringify({tags: ['adam', 'joe'], name: "Adam", amount: 10}),
-			headers: {
-				'Content-Type': "application/json"
-			}
-		});	
-
-		const result = await response.json();
-
-		responseText = JSON.stringify(result);
-		console.log(result)
-	}
 </script>
 
 <section>
-	<button on:click={submitFormTest}>Submit</button>
-	<div class="response">{responseText}</div>
+	<h2>Web Revived Home Page</h2>
+	<h4>You should be authed already.</h4>
 </section>
 
 <style lang="scss">
@@ -31,18 +18,5 @@
 		align-items: center;
 		width: 100%;
 		height: 100%;
-	}
-	.response {
-		max-width: 70ch;
-		text-align: left;
-	}
-	button {
-		appearance: none;
-		background-color: cornflowerblue;
-		font-size: 15px;
-		font-weight: 600;
-		padding: 16px;
-		border: none;
-		color: white;
 	}
 </style>

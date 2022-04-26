@@ -10,9 +10,7 @@ module.exports = {
 	},
 	settings: {
 		'import/resolver': {
-			typescript: {
-				alwaysTryTypes: true
-			}
+			typescript: {}
 		}
 	},
 	ignorePatterns: ['.eslintrc.js'],
@@ -26,6 +24,9 @@ module.exports = {
 	plugins: ['@typescript-eslint', 'import'],
 	rules: {
 		'import/no-unresolved': 'off',
+		'arrow-body-style': ['error', 'as-needed'],
+		'no-console': 'off',
+		'lines-between-class-members': 'off',
 		'import/extensions': [
 			'error',
 			'ignorePackages',

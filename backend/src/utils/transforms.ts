@@ -5,11 +5,7 @@ import { User } from '@prisma/client';
  *
  * @example [1, 2, 3] = [{id: 1}, {id: 2}, ..]
  */
-export const transformIdsArray = (ids: number[]) => {
-	return ids.map(id => {
-		return { id };
-	});
-};
+export const transformIdsArray = (ids: number[]) => ids.map(id => ({ id }));
 
 /**
  * Transforms a list of users into a comma seperated string
@@ -18,10 +14,10 @@ export const transformIdsArray = (ids: number[]) => {
  * @param users List of users to get slack ids from
  * @example [{name: adam, slack_uid: 1}, {name: mark, slack_uid: 2}] = 1,2
  */
-export const transformSlackIds = (users: User[]) => {
+export const transformSlackIds = (users: User[]): string[] => {
 	if (!users.length) return [];
 
-	return users.reduce((acc, user) => {
+	return users.reduce((acc: string[], user) => {
 		if (user.slack_uid) acc.push(user.slack_uid);
 		return acc;
 	}, []);

@@ -8,7 +8,6 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DEVELOPMENT_DATABASE_URL")
-
 }
 
 // * Ordering of the roles is very important. Starting from lowest-highest
@@ -47,22 +46,22 @@ model Group {
 }
 
 model Project {
-  id          Int       @id @default(autoincrement())
-  name        String    @unique
-  type        String
-  description String?
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
+  type          String
+  description   String?
   slack_channel String?
-  contacts    Contact[]
-  users       User[]
-  account     Account?  @relation(references: [id], fields: [account_id])
-  account_id  Int?
-  due_date    DateTime?
-  createdAt   DateTime  @default(now())
+  contacts      Contact[]
+  users         User[]
+  account       Account?  @relation(references: [id], fields: [account_id])
+  account_id    Int?
+  due_date      DateTime?
+  createdAt     DateTime  @default(now())
 }
 
 model Account {
   id       Int       @id @default(autoincrement())
-  name     String
+  name     String    @unique
   industry String?
   phone    String?
   street   String?
@@ -81,7 +80,7 @@ model Contact {
   first_name   String
   last_name    String
   title        String            @default("member")
-  email        String
+  email        String            @unique
   phone        String?
   portal_uid   Int?              @unique
   forms        Form[]
@@ -95,10 +94,10 @@ model Contact {
 model Website {
   id         Int     @id @default(autoincrement())
   account_id Int
-  url        String
+  url        String  @unique
   forms      Form[]
   users      User[]
-  account    Account @relation(references: [id], fields: [account_id])
+  account    Account @relation(references: [id], fields: [account_id], onDelete: Cascade)
 }
 
 model PortalUser {
@@ -131,7 +130,7 @@ model Form {
   id               Int              @id @default(autoincrement())
   name             String
   website_id       Int
-  website          Website          @relation(references: [id], fields: [website_id])
+  website          Website          @relation(references: [id], fields: [website_id], onDelete: Cascade)
   contacts         Contact[]
   form_submissions FormSubmission[]
 }

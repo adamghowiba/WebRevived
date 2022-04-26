@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import prisma from '@controllers/db-controller';
-import { DatabaseError } from '@errors/DatabaseError';
+import { DatabaseError, PrismaError } from '@errors/DatabaseError';
 import { Form, Prisma } from '@prisma/client';
-import { Address } from 'shared/types/account';
 
 /* GET All Forms */
 export const getAllForms = async (limit = 30) => {
@@ -72,7 +72,7 @@ export const createForm = async (name: string, websiteId: number, contactIds: nu
 
 		return formCreated;
 	} catch (error) {
-		throw new DatabaseError(error)
+		throw new DatabaseError(error);
 	}
 };
 
@@ -86,14 +86,20 @@ export const deleteForm = async () => {};
 
 /* POST New Form Submission */
 export const createFormSubmission = async (formId: number, formData: object) => {
-	const formSubmission = await prisma.formSubmission.create({
-		data: {
-			from_id: formId,
-			data: formData
-		}
-	});
+	try {
+		const formSubmission = await prisma.formSubmission.create({
+			data: {
+				form: {
+					connect: { id: formId }
+				},
+				data: formData
+			}
+		});
 
-	return formSubmission;
+		return formSubmission;
+	} catch (err) {
+		throw new DatabaseError(err);
+	}
 };
 
 /* GET Form Submissions */

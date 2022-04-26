@@ -1,24 +1,25 @@
 import dotenv from 'dotenv';
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+dotenv.config();
 
-const envFound = dotenv.config();
-
-if (envFound.error) {
-	throw new Error("⚠️  Couldn't find .env file  ⚠️");
-}
+// if (envFound.error) {
+// console.log('ENV not found');
+// throw new Error("⚠️  Couldn't find .env file  ⚠️");
+// }
 
 export const isProduction = process.env.NODE_ENV === 'production';
 export const isDevelopment = process.env.NODE_ENV === 'development';
 
 export default {
-	port: parseInt(process.env.PORT, 10),
-	nodeEnv: process.env.NODE_ENV,
+	port: parseInt(process.env.PORT, 10) || 5000,
+	nodeEnv: process.env.NODE_ENV || 'development',
 	isProduction: process.env.NODE_ENV === 'production',
 	isDevelopment: process.env.NODE_ENV === 'development',
-	databaseURL: process.env.DATABASE_URL,
+	prodDatabaseURL: process.env.DATABASE_URL,
+	devDatabaseURL: process.env.DEVELOPMENT_DATABASE_URL,
 	shadowDatabseUrl: process.env.SHADOW_DATABASE_URL,
 	slack_token: process.env.SLACK_TOKEN,
+	clickup_token: process.env.CLICKUP_TOKEN,
 	logs: {
 		level: process.env.LOG_LEVEL || 'silly'
 	},

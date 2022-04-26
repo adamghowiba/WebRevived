@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import express, { NextFunction, Request, Response } from 'express';
 import { connectDb } from '@controllers/db-controller';
 import { errorHandler } from '@middlewear';
-import logger from '@logger';
-import config from '@config';
-import http from 'http';
-import ExpressInitialization from './loaders/express';
 import { DatabaseError } from '@errors/DatabaseError';
+import logger from '@logger';
+import http from 'http';
+import config from '@config';
 import ICustomError from '@errors/ICustomError';
+import ExpressInitialization from './loaders/express';
 // import '@services/slack-service';
-import './events/core';
 
 const app = express();
 const server = http.createServer(app);
@@ -18,6 +18,7 @@ process.on('unhandledRejection', (reason: string) => {
 	throw reason;
 });
 
+
 /* Setup Database Connection */
 connectDb().then(logger.info).catch(logger.error);
 
@@ -26,7 +27,7 @@ new ExpressInitialization(app).registerCors().registerParsers().registerSessions
 
 /* Error Handleing */
 app.use(errorHandler.notFoundError);
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error | DatabaseError | ICustomError, req: Request, res: Response, next: NextFunction) => {
 	if (err instanceof DatabaseError) {
 		const { status, statusCode, message } = err;
 		return res.status(err.statusCode).json({ status, message, statusCode });
@@ -42,8 +43,8 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 /* Lights, Camera, Action. */
-server.listen(config.port, () => {
-	logger.info(`Loaded app sucessfully on port ${config.port}`);
+server.listen(config?.port || 5000, () => {
+	logger.info(`Loaded app sucessfully on port ${config?.port || 500}`);
 });
 
 export default app;

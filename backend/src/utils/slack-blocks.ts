@@ -23,4 +23,4 @@ const newProjectBlock = (title: string, data: string) => {
 	];
 };
 
-export default {newProjectBlock}
+export default { newProjectBlock };

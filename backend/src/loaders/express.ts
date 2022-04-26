@@ -1,3 +1,4 @@
+import express, { Application } from 'express';
 import indexRouter from '@routes/index';
 import authRouter from '@routes/Auth';
 import websiteRouter from '@routes/Website';
@@ -11,7 +12,6 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import session from './session';
-import express, { Application } from 'express';
 
 export default class App {
 	readonly app: Application;
@@ -44,7 +44,7 @@ export default class App {
 	}
 
 	registerRoutes() {
-		this.app.use('/api', indexRouter);
+		this.app.use('/', indexRouter);
 		this.app.use('/api/auth', authRouter);
 		this.app.use('/api/account', accountRouter);
 		this.app.use('/api/website', websiteRouter);

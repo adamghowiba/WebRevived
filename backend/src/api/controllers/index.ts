@@ -6,4 +6,12 @@ import * as portalController from './portal-controller';
 import * as userController from './user-controller';
 import * as projectController from './project-controller';
 
-export { authController, accountController, websiteController, formController, portalController, userController, projectController };
+export {
+	authController,
+	accountController,
+	websiteController,
+	formController,
+	portalController,
+	userController,
+	projectController
+};

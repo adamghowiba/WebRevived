@@ -1,9 +1,9 @@
-import { Request } from "express";
+import { Request } from 'express';
 
 export interface WebsiteGetQueryParam<T = string> {
-    account_id?: T;
-    limit?: T;
-    page?: T;
+	account_id?: T;
+	limit?: T;
+	page?: T;
 }
 
 export type WebsiteGetAllRequest = Request<any, any, any, WebsiteGetQueryParam>;

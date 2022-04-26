@@ -4,13 +4,14 @@ import config, { isProduction } from '@config';
 const { combine, timestamp, printf, simple, cli } = format;
 
 const productionLogOutput = printf(
-	({ level, message, time }: { level: string; message: string; time: string }) => `${time} - ${level.toUpperCase()}: ${message}`
+	({ level, message, time }: { level: string; message: string; time: string }) =>
+		`${time} - ${level.toUpperCase()}: ${message}`
 );
 
 const stageOptions = {
 	production: {
 		format: combine(timestamp({ format: 'MM/DD HH:mm' }), productionLogOutput),
-		transports: [new transports.Console({ level: 'warn' })]
+		transports: [new transports.Console({ level: config?.logs?.level || 'warn' })]
 	},
 	development: {
 		format: simple(),

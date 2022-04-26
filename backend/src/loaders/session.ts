@@ -4,7 +4,7 @@ import prisma from '@controllers/db-controller';
 import { UserRole } from '@prisma/client';
 
 const prismaStore = new PrismaSessionStore(prisma, {
-	checkPeriod: 2 * 60 * 1000,
+	checkPeriod: 2 * 60 * 1000
 });
 
 /* Instantiate session function */
@@ -20,6 +20,6 @@ export default session({
 
 declare module 'express-session' {
 	interface SessionData {
-		user?: { email: string; id: number, role: UserRole };
+		user?: { email: string; id: number; role: UserRole };
 	}
 }
