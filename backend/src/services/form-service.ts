@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import prisma from '@controllers/db-controller';
-import { DatabaseError } from '@errors/DatabaseError';
+import { DatabaseError, PrismaError } from '@errors/DatabaseError';
 import { Form, Prisma } from '@prisma/client';
 
 /* GET All Forms */
@@ -85,14 +86,20 @@ export const deleteForm = async () => {};
 
 /* POST New Form Submission */
 export const createFormSubmission = async (formId: number, formData: object) => {
-	const formSubmission = await prisma.formSubmission.create({
-		data: {
-			from_id: formId,
-			data: formData
-		}
-	});
+	try {
+		const formSubmission = await prisma.formSubmission.create({
+			data: {
+				form: {
+					connect: { id: formId }
+				},
+				data: formData
+			}
+		});
 
-	return formSubmission;
+		return formSubmission;
+	} catch (err) {
+		throw new DatabaseError(err);
+	}
 };
 
 /* GET Form Submissions */

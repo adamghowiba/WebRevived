@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 import { userService } from '@services';
 import { catchAsync } from '@utils/error-utils';
 import { transformRoleString } from '@utils/role-utils';

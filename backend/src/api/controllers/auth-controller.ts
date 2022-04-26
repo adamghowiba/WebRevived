@@ -1,8 +1,9 @@
+/* eslint-disable import/prefer-default-export */
 import ApiError from '@errors/ApiError';
 import { userService } from '@services';
 import { catchAsync } from '@utils/error-utils';
 import { compare } from 'bcrypt';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { UserLoginRequest } from '../../types/user-api';
 
 export const login = catchAsync(async (req: UserLoginRequest, res: Response) => {
@@ -15,3 +16,10 @@ export const login = catchAsync(async (req: UserLoginRequest, res: Response) => 
 	req.session.user = { email: foundUser.email, id: foundUser.id, role: foundUser.role };
 	res.status(200).send(foundUser);
 });
+
+export const me = (req: Request, res: Response) => {
+	const user = req.session?.user;
+	if (!user) return res.status(401).json('Unauthorized');
+
+	return res.json(user);
+};

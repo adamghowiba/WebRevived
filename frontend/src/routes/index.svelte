@@ -5,8 +5,8 @@
 </script>
 
 <section>
-	<Header page="Admin" data={{ href: '/admin' }} />
-	<Button name="wow">Hello</Button>
+	<h2>Web Revived Home Page</h2>
+	<h4>You should be authed already.</h4>
 </section>
 
 <style lang="scss">

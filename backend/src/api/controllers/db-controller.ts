@@ -8,8 +8,9 @@ declare global {
 }
 
 const databseURI = config.isProduction ? config.prodDatabaseURL : config.devDatabaseURL;
-// TODO Switch database type to prod needs to be migrated.
-const prisma = global.prisma || new PrismaClient({ errorFormat: 'minimal', datasources: { db: { url: config.devDatabaseURL } } });
+const prisma = new PrismaClient({ errorFormat: 'minimal', datasources: { db: { url: databseURI } } });
+
+console.log(config.isDevelopment, config.isProduction, process.env.NODE_ENV);
 
 if (config.isDevelopment) global.prisma = prisma;
 

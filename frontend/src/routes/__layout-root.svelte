@@ -2,7 +2,7 @@
 
 </script>
 
-<h1>Reached the login page boy.</h1>
+<slot />
 
 <style lang="scss">
     

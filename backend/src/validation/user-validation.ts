@@ -15,8 +15,8 @@ const createUser: ValidateScehma = {
 
 const loginUser: ValidateScehma = {
 	body: Joi.object<UserLoginBody>({
-		email: Joi.string().email(),
-		password: Joi.string()
+		email: Joi.string().email().required(),
+		password: Joi.string().required()
 	})
 };
 
