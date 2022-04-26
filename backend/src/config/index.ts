@@ -21,7 +21,7 @@ export default {
 	slack_token: process.env.SLACK_TOKEN,
 	clickup_token: process.env.CLICKUP_TOKEN,
 	logs: {
-		level: process.env.LOG_LEVEL || 'silly'
+		level: process.env.LOG_LEVEL || 'warn'
 	},
 	api: {
 		prefix: '/api'
