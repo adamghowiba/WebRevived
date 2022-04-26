@@ -2,7 +2,6 @@
 	import type { Load } from '@sveltejs/kit';
 
 	export const load: Load = async ({ session }) => {
-        console.log(session.user)
 		if (session?.user)
 			return {
 				redirect: '/',
