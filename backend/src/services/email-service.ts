@@ -1,9 +1,14 @@
 import { SendEmailCommand, SESClient } from '@aws-sdk/client-ses';
+import config from '@config';
 import ApiError from '@errors/ApiError';
 import { generateFormEmail } from '../templates/form-string';
 
 const sesClient = new SESClient({
-	region: 'us-east-1'
+	region: 'us-east-1',
+	credentials: {
+		accessKeyId: config.awsAccessKeyId,
+		secretAccessKey: config.awsSecretAccessKey
+	}
 });
 
 export const sendEmail = async (subject: string, toAddress: string[], htmlData: string): Promise<string> => {
@@ -30,7 +35,7 @@ export const sendEmail = async (subject: string, toAddress: string[], htmlData: 
 		await sesClient.send(new SendEmailCommand(params));
 		return `Email sent sucessfully to ${toAddress.toString()}`;
 	} catch (error) {
-		throw new ApiError('Failed to send email')
+		throw new ApiError('Failed to send email');
 	}
 };
 

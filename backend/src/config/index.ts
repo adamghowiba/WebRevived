@@ -20,6 +20,8 @@ export default {
 	shadowDatabseUrl: process.env.SHADOW_DATABASE_URL,
 	slack_token: process.env.SLACK_TOKEN,
 	clickup_token: process.env.CLICKUP_TOKEN,
+	awsAccessKeyId: process.env.AWS_ACCESS_KEY_ID,
+	awsSecretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 	logs: {
 		level: process.env.LOG_LEVEL || 'warn'
 	},
