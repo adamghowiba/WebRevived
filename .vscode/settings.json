@@ -1,0 +1,5 @@
+{
+    "cssvar.files": ["./frontend/static/root.css"],
+    "html-css-class-completion.excludeGlobPattern": "",
+    "html-css-class-completion.includeGlobPattern": "frontend/static/global.css"
+}

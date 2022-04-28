@@ -2,13 +2,18 @@ import authApi from '$lib/api/auth-api';
 import type { GetSession, Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	// const { response: userResponse, result } = await authApi.getUserInformation(
-	// 	event.request.headers.get('cookie')
-	// );
-	// if (userResponse.ok) event.locals.user = result;
+	try {
+		const { response: userResponse, result } = await authApi.getUserInformation(
+			event.request.headers.get('cookie')
+		);
+		if (userResponse.ok) event.locals.user = result;
 
-	const response = await resolve(event);
-	return response;
+		return await resolve(event);
+	} catch (error) {
+		console.error('Databse is offline.', error);
+		
+		return await resolve(event);
+	}
 };
 
 export const getSession: GetSession = (event) => {

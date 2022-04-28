@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import express, { NextFunction, Request, Response } from 'express';
-import { connectDb } from '@controllers/db-controller';
-import { errorHandler } from '@middlewear';
-import { DatabaseError } from '@errors/DatabaseError';
-import logger from '@logger';
-import http from 'http';
 import config from '@config';
+import { connectDb } from '@controllers/db-controller';
+import { DatabaseError } from '@errors/DatabaseError';
 import ICustomError from '@errors/ICustomError';
+import UnknownError from '@errors/UnknownError';
+import logger from '@logger';
+import { errorHandler } from '@middlewear';
+import express, { NextFunction, Request, Response } from 'express';
+import http from 'http';
 import ExpressInitialization from './loaders/express';
 // import '@services/slack-service';
 
@@ -33,10 +34,14 @@ app.use((err: Error | DatabaseError | ICustomError, req: Request, res: Response,
 		return res.status(err.statusCode).json({ status, message, statusCode });
 	}
 
-	if (err instanceof ICustomError && process.env.NODE_ENV === 'development') {
+	if (err instanceof ICustomError) {
 		const { message, stack, isOperational, status } = err;
 		logger.error(`${err.status}: ${err.message}`);
 		return res.status(err.statusCode).json({ status, message, isOperational, stack });
+	}
+
+	if (err instanceof UnknownError) {
+		return res.status(400).json({ ...err, is_unknown: true });
 	}
 
 	return res.status(400).json({ error: err?.message, is_unknown: true });

@@ -5,6 +5,7 @@ interface ApiResult<T = unknown> {
 	result: T;
 }
 
+
 async function login(email: string, password: string): Promise<ApiResult<any>> {
 	const response = await fetch(`${HOST}/auth/login`, {
 		method: 'POST',

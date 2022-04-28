@@ -1,0 +1,19 @@
+:root {
+	--color-tran-light: rgba(255, 255, 255, 0.151); 
+
+	--fs-h1: 2.488rem;
+	--fs-h2: 2.074rem;
+	--fs-h3: 1.728rem;
+	--fs-h4: 1.44rem;
+	--fs-h5: 1.2rem;
+	--fs-body: 1rem;
+
+	--fs-sm: 0.833rem;
+	--fs-xs: 0.694rem;
+
+	--fw-bold: 700;
+	--fw-md: 500;
+	--fw-normal: 400;
+
+	--bp-phone: 400px;
+}

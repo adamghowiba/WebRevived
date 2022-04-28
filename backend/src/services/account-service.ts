@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import prisma from '@controllers/db-controller';
+import { DatabaseError } from '@errors/DatabaseError';
 import { Address } from '@type/account';
 
 /* GET All Accounts */
@@ -31,20 +33,23 @@ export const createAccount = async (
 	industry: string = undefined,
 	address: Address = undefined
 ) => {
-	const accounteCreated = await prisma.account.create({
-		data: {
-			name,
-			phone,
-			industry,
-			street: address?.street,
-			city: address?.city,
-			state: address?.state,
-			code: address?.code,
-			country: address?.country
-		}
-	});
-
-	return accounteCreated;
+	try {
+		const accounteCreated = await prisma.account.create({
+			data: {
+				name,
+				phone,
+				industry,
+				street: address?.street,
+				city: address?.city,
+				state: address?.state,
+				code: address?.code,
+				country: address?.country
+			}
+		});
+		return accounteCreated;
+	} catch (error) {
+		throw new DatabaseError(error);
+	}
 };
 
 /* UPDATE Account */

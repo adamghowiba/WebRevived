@@ -3,7 +3,7 @@ import { formService } from '@services';
 import { sendFormEmail } from '@services/email-service';
 import { catchAsync } from '@utils/error-utils';
 import { formPost } from '@validation/form-validation';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { FormPostRequest } from '../../types/form-api';
 
 /* GET All Forms */
@@ -16,7 +16,7 @@ export const getAllForms = catchAsync(async (req: Request, res: Response) => {
 /* GET Specfic Form */
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getFormByID = catchAsync(async (req: Request, res: Response) => {
-	res.json('Unimplemented')
+	res.json('Unimplemented');
 });
 
 /* P0OST New Form */
@@ -26,7 +26,7 @@ export const postForm = catchAsync(async (req: FormPostRequest, res: Response) =
 
 	const { error } = formPost.validate(req.body);
 	if (error) return res.json(error.message);
-	
+
 	const createdForm = await formService.createForm(req.body.name, websiteId, req.body.contactIds);
 	return res.json(createdForm);
 });
