@@ -1,4 +1,4 @@
-FROM public.ecr.aws/bitnami/node:16 as builder
+FROM public.ecr.aws/docker/library/node:16-alpine as builder
 
 WORKDIR /app
 
@@ -9,15 +9,15 @@ COPY /packages/wds ./packages/wds
 
 # Something seems fishy here...
 # TODO Minimize container size
-COPY /frontend/package*.json ./frontend/
-COPY /frontend ./frontend/
+COPY /apps/frontend/package*.json ./apps/frontend/
+COPY /apps/frontend ./apps/frontend/
 
 # Install shared dpenedices & build.
 RUN npm install
-RUN npm run build -w frontend
+# RUN npm run build -w frontend
 
 EXPOSE 3000
-WORKDIR /app/frontend/build
+WORKDIR /app/apps/frontend/build
 
 CMD ["node", "index.js"]
 

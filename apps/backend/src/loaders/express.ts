@@ -25,7 +25,7 @@ export default class App {
 	}
 
 	registerCors() {
-		this.app.use(cors({ origin: "http://localhost:3000", credentials: true }));
+		this.app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 		return this;
 	}
 

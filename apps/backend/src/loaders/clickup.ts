@@ -15,8 +15,8 @@ const DATA = {
 	},
 	folder: {
 		pending: '85543288',
-        active: '39970705',
-        completed: '33698655'
+		active: '39970705',
+		completed: '33698655'
 	}
 };
 

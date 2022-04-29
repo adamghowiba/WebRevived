@@ -3,7 +3,7 @@ import UnknownError from '@errors/UnknownError';
 import { generateFormEmail } from '../templates/form-string';
 
 const sesClient = new SESClient({
-	region: 'us-east-1',
+	region: 'us-east-1'
 });
 
 export const sendEmail = async (subject: string, toAddress: string[], htmlData: string): Promise<string> => {

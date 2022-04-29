@@ -32,7 +32,7 @@ export const post = catchAsync(async (req: ProjectPostRequest, res: Response) =>
 		content: project.description
 	});
 
-	logger.info(`Created slack channel ${list.name}`)
+	logger.info(`Created slack channel ${list.name}`);
 
 	return res.json(project);
 });

@@ -7,10 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "workspaces": [
-    "backend",
-    "frontend",
-    "website",
-    "packages/*"
+    "packages/*",
+    "apps/*"
   ],
   "repository": {
     "type": "git",

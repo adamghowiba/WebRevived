@@ -19,7 +19,6 @@ process.on('unhandledRejection', (reason: string) => {
 	throw reason;
 });
 
-
 /* Setup Database Connection */
 connectDb().then(logger.info).catch(logger.error);
 

@@ -5,4 +5,3 @@ export const accountRequestBody = Joi.object({
 	phone: Joi.string().optional(),
 	industry: Joi.string().optional()
 });
-

@@ -1,10 +1,10 @@
 version: '3'
 
 services:
-  reverse_proxy:
+  nginx:
     container_name: webrevived-nginx
     build:
-      context: ./nginx
+      context: ./apps/nginx
     depends_on:
       - frontend
       - backend
@@ -18,7 +18,7 @@ services:
     hostname: frontend
     build:
       context: .
-      dockerfile: ./frontend/Dockerfile
+      dockerfile: ./apps/frontend/Dockerfile
     depends_on:
       - backend
     ports:
@@ -28,10 +28,10 @@ services:
   backend:
     container_name: webrevived-backend
     hostname: backend
-    env_file: backend/.env
+    env_file: apps/backend/.env
     build:
       context: .
-      dockerfile: ./backend/Dockerfile
+      dockerfile: ./apps/backend/Dockerfile
     ports:
       - 5000:5000
     restart: always

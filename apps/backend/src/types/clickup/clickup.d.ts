@@ -23,7 +23,7 @@ export namespace Clickup {
 		override_statuses: boolean;
 	}
 
-    /* SPACE */
+	/* SPACE */
 	export interface SpaceStatus {
 		status: string;
 		type: 'open' | 'closed';
@@ -44,8 +44,7 @@ export namespace Clickup {
 		spaces: Space[];
 	}
 
-
-    /* FOLDER */
+	/* FOLDER */
 	export interface Folder {
 		id: string;
 		name: string;

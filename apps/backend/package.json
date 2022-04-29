@@ -59,7 +59,9 @@
 		"transpile": "tsc",
 		"lint": "prettier --ignore-path .gitignore --check --plugin-search-dir=. . & eslint --ext .js,.ts --ignore-path .gitignore .",
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
-		"generate": "prisma generate"
+		"generate": "prisma generate",
+		"docker:run": "docker-run.cmd",
+		"docker:build": "docker-build.cmd"
 	},
 	"author": "",
 	"license": "ISC"
