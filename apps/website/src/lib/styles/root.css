@@ -1,0 +1,107 @@
+:root {
+	/* COLORS */
+	--color-primary: #7ee3b2;
+	--color-blue: #2a62ff;
+	--color-red: #f44336;
+	--color-yellow: #ffe607;
+	--color-off-white: #f7f7f7;
+	--color-white: #ffffff;
+	--color-black: #141313;
+
+	/* SHADE */
+	--color-gray-100: #bebebe;
+
+	/*  TYPOGRAPHY */
+	--font-family: 'Gilroy', sans-serif;
+	--text-title: 66px;
+	--text-h1: 55px;
+	--text-h2: 40px;
+	--text-h3: 31px;
+	--text-h4: 23px;
+	--text-h5: 18px;
+	--text-h6: 16px;
+	--text-base: 14px;
+
+	--text-base-color: var(--color-gray-100);
+	--text-heading-color: var(--color-white);
+	--text-button: var(--text-base);
+
+	--fw-medium: 500;
+	--fw-bold: 700;
+	--fw-semi-bold: 600;
+	--fw-extra-bold: 800;
+	--fw-black: 900;
+
+	/* Line height */
+	--line-sm: 1.2;
+	--line-base: 1.5;
+	--line-md: 1.65;
+	--line-lg: 2;
+	--line-xl: 2.5;
+
+	/* SPACING */
+	--space-3xs: 4px;
+	--space-2xs: 8px;
+	--space-xs: 16px;
+	--space-sm: 24px;
+	--space-md: 32px;
+	--space-lg: 40px;
+	--space-xl: 56px;
+	--space-2xl: 64px;
+	--space-3xl: 72px;
+	--space-4xl: 80px;
+	--space-5xl: 88px;
+	--space-6xl: 160px;
+	--space-7xl: 216px;
+
+	--space-section-sm: 64px;
+	--space-section-base: 120px;
+	--space-section-md: 216px;
+	--space-section-lg: 304px;
+	--space-section-xl: 520px;
+}
+
+/* LAPTOP */
+@media screen and (max-width: 1024) {
+}
+
+/* LAPTOP */
+@media screen and (max-width: 768px) {
+	:root {
+		--text-title: 50px;
+		--space-section-base: 100px;
+		--space-section-sm: 46px;
+		--text-h1: 50px;
+	}
+}
+
+@media screen and (max-width: 597px) {
+	:root {
+		--text-title: 45px;
+		--space-section-base: 90px;
+		--text-h1: 45px;
+		--text-h3: 28px;
+		--text-h2: 35px;
+	}
+}
+
+@media screen and (max-width: 425px) {
+	:root {
+		--text-h1: 30px;
+		--text-title: 35px;
+
+		/* SPACING */
+		--space-sm: 16px;
+		--space-md: 24px;
+		--space-lg: 32px;
+		--space-xl: 56px;
+		--space-2xl: 56px;
+		--space-3xl: 64px;
+		--text-h3: 25px;
+		--text-h2: 28px;
+		/* --space-4xl: 80px;
+		--space-5xl: 88px;
+		--space-6xl: 160px;
+		--space-7xl: 216px; */
+	}
+}

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import authApi from '$lib/api/auth-api';
-	import Button from '../../../../packages/wds/Button.svelte';
+	import Button from 'wds/Button.svelte';
 	import Create from '../portal/create.svelte';
 
 	interface FormState<M = string> {
@@ -70,9 +70,9 @@
 	.error {
 		color: rgb(235, 69, 69);
 	}
-    .sucess {
-        color: rgb(79, 233, 118);
-    }
+	.sucess {
+		color: rgb(79, 233, 118);
+	}
 
 	p {
 		color: rgba(255, 255, 255, 0.603);

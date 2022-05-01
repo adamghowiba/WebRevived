@@ -15,7 +15,6 @@ module.exports = {
 	},
 	ignorePatterns: ['.eslintrc.js'],
 	extends: [
-		'airbnb-base',
 		'prettier',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:@typescript-eslint/recommended-requiring-type-checking'
