@@ -9,8 +9,8 @@
 	let firstGroupElement: HTMLElement;
 	let groupsElement: HTMLElement;
 
-	function pinHeader() {
-		ScrollTrigger.create({
+	function pinHeader(scrollTrigger: typeof ScrollTrigger) {
+		scrollTrigger.create({
 			trigger: '.groups',
 			start: 'top top',
 			end: 'bottom top+=20%',
@@ -56,11 +56,11 @@
 		});
 	}
 
-	function changeHeaderText() {
+	function changeHeaderText(scrollTrigger: typeof ScrollTrigger) {
 		const groups = groupsElement.querySelectorAll('.group');
 
 		groups.forEach((group, i) => {
-			ScrollTrigger.create({
+			scrollTrigger.create({
 				trigger: group,
 				start: 'top center',
 				end: 'bottom center',
@@ -77,10 +77,10 @@
 		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
 		gsap.registerPlugin(ScrollTrigger);
 
-		pinHeader();
+		pinHeader(ScrollTrigger);
 		changeBackgroundImage();
 		moveImagesSlightly();
-		changeHeaderText();
+		changeHeaderText(ScrollTrigger);
 	});
 </script>
 
