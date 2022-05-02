@@ -1,6 +1,7 @@
 <script lang="ts">
+	import { browser } from '$app/env';
 	import { gsap } from 'gsap';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	interface Service {
 		name: string;
@@ -16,9 +17,10 @@
 
 	let hoverdServiceIndex: number = 1;
 	let circleElement: HTMLElement;
+	let circleScrollTimeline: gsap.core.Timeline | null;
 
 	function setupCircleScrollTrigger(node: HTMLElement) {
-		let timeline = gsap.timeline({
+		circleScrollTimeline = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#white-section',
 				start: 'top+=5% center',
@@ -28,23 +30,32 @@
 			defaults: {}
 		});
 
-		timeline.to(node, { width: '100%', height: '100%', borderRadius: 0 });
-		timeline.to(node, { width: '50%', height: '50%', borderRadius: 100 }, '+=0.5');
+		circleScrollTimeline.to(node, { width: '100%', height: '100%', borderRadius: 0 });
+		circleScrollTimeline.to(node, { width: '50%', height: '50%', borderRadius: 100 }, '+=0.5');
 
-		return () => {
-			timeline.invalidate();
-			timeline.kill();
+		circleScrollTimeline.scrollTrigger?.refresh();
+	}
+	async function registerAnimations() {
+		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+		gsap.registerPlugin(ScrollTrigger);
+		setupCircleScrollTrigger(circleElement);
+	}
+	function destoryAnimations() {
+		if (circleScrollTimeline?.scrollTrigger) {
+			circleScrollTimeline.kill();
+			circleScrollTimeline?.scrollTrigger?.disable();
+			circleScrollTimeline = null;
+			console.log('Destorying circle scroll timeline.');
 		}
 	}
 
-	onMount(async () => {
-		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-		gsap.registerPlugin(ScrollTrigger);
-
-		let destory = setupCircleScrollTrigger(circleElement);
-
-		return () => destory();
+	onMount(() => {
+		registerAnimations();
 	});
+
+	onDestroy(() => {
+		destoryAnimations();
+	})
 </script>
 
 <section class="section" id="white-section">

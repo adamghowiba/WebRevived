@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { gsap } from 'gsap';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	let GROUPS_HEADING = ['Apps', 'Websites', 'UI/UX'];
 	let currentGroupIndex = 0;
@@ -9,22 +9,45 @@
 	let firstGroupElement: HTMLElement;
 	let groupsElement: HTMLElement;
 
+	let backgroundTimeline: gsap.core.Timeline;
+
+	function refreshScrollTrigger(scrollTrigger: typeof ScrollTrigger) {
+		const images = groupsElement.querySelectorAll('img');
+		let loadedImages = 0;
+
+		images.forEach((image: HTMLImageElement, i) => {
+			image.addEventListener(
+				'load',
+				() => {
+					loadedImages++;
+					if (loadedImages === images.length) {
+						scrollTrigger.refresh();
+						return;
+					}
+				},
+				{ once: true }
+			);
+		});
+	}
+
 	function pinHeader(scrollTrigger: typeof ScrollTrigger) {
 		if (!headingElement) return;
 		let headingSize = headingElement.clientHeight + 20;
 
 		scrollTrigger.create({
-			trigger: '.groups',
+			trigger: groupsElement,
 			start: () => `top bottom-=${headingSize}`,
-			end: `bottom bottom`,
+			end: () => `bottom bottom`,
 			pinnedContainer: groupsElement,
+			markers: true,
 			pin: headingElement,
+			pinSpacing: false,
 			invalidateOnRefresh: true
 		});
 	}
 
 	function changeBackgroundImage() {
-		let timeline = gsap.timeline({
+		backgroundTimeline = gsap.timeline({
 			scrollTrigger: {
 				trigger: firstGroupElement,
 				start: 'top center',
@@ -37,7 +60,7 @@
 			}
 		});
 
-		timeline.to(groupsElement, {
+		backgroundTimeline.to(groupsElement, {
 			backgroundColor: '#141313'
 		});
 	}
@@ -79,7 +102,7 @@
 		});
 	}
 
-	onMount(async () => {
+	async function registerAnimations() {
 		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
 		gsap.registerPlugin(ScrollTrigger);
 
@@ -87,6 +110,19 @@
 		changeBackgroundImage();
 		moveImagesSlightly(groupsElement);
 		changeHeaderText(ScrollTrigger);
+		refreshScrollTrigger(ScrollTrigger);
+	}
+
+	onMount(() => {
+		if (backgroundTimeline) backgroundTimeline.scrollTrigger?.refresh();
+		registerAnimations();
+	});
+
+	onDestroy(() => {
+		if (backgroundTimeline) {
+			backgroundTimeline.kill();
+			backgroundTimeline.scrollTrigger?.kill();
+		}
 	});
 </script>
 
