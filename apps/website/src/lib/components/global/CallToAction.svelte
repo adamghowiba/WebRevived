@@ -10,20 +10,20 @@
 </section>
 
 <style lang="scss">
-    .cta {
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-md);
-        justify-content: center;
-        align-items: center;
-        background-color: var(--color-primary);
-        color: var(--color-black);
-        padding: var(--space-2xl) var(--space-xs);
+	.cta {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-md);
+		justify-content: center;
+		align-items: center;
+		background-color: var(--color-primary);
+		color: var(--color-black);
+		padding: var(--space-2xl) var(--space-xs);
 
-        h1 {
-            max-width: 20ch;
-            text-align: center;
-            font-weight: var(--fw-bold);
-        }
-}
+		h1 {
+			max-width: 20ch;
+			text-align: center;
+			font-weight: var(--fw-bold);
+		}
+	}
 </style>

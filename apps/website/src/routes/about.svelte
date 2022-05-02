@@ -2,6 +2,7 @@
 	import ShineAreas from '$lib/components/about/ShineAreas.svelte';
 	import SlideInText from '$lib/components/about/SlideInText.svelte';
 	import ArticleContent from '$lib/components/global/ArticleContent.svelte';
+	import ContactSection from '$lib/components/global/ContactSection.svelte';
 	import Faq from '$lib/components/global/FAQ.svelte';
 	import HeaderImage from '$lib/components/global/HeaderImage.svelte';
 	import PageHeader from '$lib/components/global/PageHeader.svelte';
@@ -51,6 +52,8 @@
 
 <Faq />
 
+<ContactSection />
+
 <style lang="scss">
 	.description {
 		display: flex;
@@ -61,6 +64,14 @@
 			color: var(--color-white);
 			font-weight: var(--fw-medium);
 			font-size: var(--text-h4);
+		}
+	}
+
+	@media screen and (max-width: 425px) {
+		.description {
+			p {
+				font-size: var(--text-h5);
+			}
 		}
 	}
 </style>

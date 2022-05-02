@@ -3,21 +3,11 @@
 	export let number: 1 | 2 | 3 | 4;
 	export let title: string;
 	export let content: string;
-
-	let isHovering: boolean = false;
-
-	function handleMouseEnter() {
-		isHovering = true;
-	}
-
-	function handleMouseLeave() {
-		isHovering = false;
-	}
 </script>
 
-<div class="block" on:mouseleave={handleMouseLeave} on:mouseenter={handleMouseEnter}>
+<div class="block">
 	<div class="overline"><div class="overline__inner-line" /></div>
-	<LocalIcon icon="number-{number}" width="60px" fill={isHovering ? 'white' : 'transparent'} />
+	<LocalIcon icon="number-{number}" width="60px" fill={'inherit'} />
 
 	<div class="content">
 		<h4>{title}</h4>
@@ -36,10 +26,16 @@
 			width: 100%;
 		}
 
-		span {
-			font-size: 100px;
-			color: var(--color-off-white);
-			font-weight: var(--fw-extra-bold);
+		&:hover {
+			fill: white;
+		}
+
+		&:global(.isHovering) {
+			fill: white;
+		}
+
+		&:global(.isHovering .overline__inner-line) {
+			width: 100%;
 		}
 
 		.content {

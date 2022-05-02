@@ -19,6 +19,8 @@
 	export let textStyle: TextStyle = 'uppercase';
 	export let icon: string | undefined = undefined;
 	export let iconStyle: IconStyle = {};
+	export let width: string = 'auto';
+	export let maxWidth: string = 'none';
 
 	const DEFAULT_ICON: IconStyle = {
 		color: 'var(--color-white)',
@@ -36,7 +38,11 @@
 	let styleString = `style--${style} size--${size} color--${color}`;
 </script>
 
-<div class="button-wrap" style:text-transform={textStyle}>
+<div
+	class="button-wrap"
+	style:text-transform={textStyle}
+	style="--width: {width}; --maxWidth: {maxWidth};"
+>
 	{#if href}
 		<a {href} class={styleString}>
 			<span><slot /></span>
@@ -59,6 +65,7 @@
 		display: inline-flex;
 		height: auto;
 		width: auto;
+		width: var(--width, auto);
 	}
 	button {
 		appearance: none;
@@ -76,9 +83,12 @@
 		display: flex;
 		align-items: center;
 		gap: var(--space-2xs);
+		justify-content: center;
+		width: var(--width, auto);
+		max-width: var(--maxWidth, none);
 
 		span {
-			color: var(--color-white);
+			color: inherit;
 		}
 	}
 

@@ -1,30 +1,40 @@
 <script lang="ts">
 	import { browser } from '$app/env';
-	import { gsap } from 'gsap';
+	import { gsap, Linear } from 'gsap';
 	import { onMount } from 'svelte';
 
 	export let imgSrc: string;
+	let imageElement: HTMLElement;
 
 	function expandImage(node: HTMLElement) {
-		gsap.from(node, {
+		let tween = gsap.from(node, {
 			borderRadius: '50px',
 			width: '80%',
-			duration: 0.6,
+			ease: Linear.easeOut,
+			duration: 0.35,
 			scrollTrigger: {
 				trigger: node,
 				start: 'top center',
 				toggleActions: 'play none play reverse'
 			}
 		});
+
+		return () => {
+			tween.kill()
+		}
 	}
 
 	onMount(async () => {
 		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
 		gsap.registerPlugin(ScrollTrigger);
+
+		let destory = expandImage(imageElement);
+
+		return () => destory();
 	});
 </script>
 
-<img use:expandImage class="header-image" src={imgSrc} alt="Multiple website UI's" />
+<img class="header-image" src={imgSrc} alt="Multiple website UI's" bind:this={imageElement} />
 
 <style lang="scss">
 	.header-image {

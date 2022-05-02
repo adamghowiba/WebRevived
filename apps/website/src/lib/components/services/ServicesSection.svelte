@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { gsap } from 'gsap';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	import Button from '../buttons/Button.svelte';
 
 	let sectionWrapper: HTMLElement;
 	let sectionSize = '90vh';
+
+	let imageTimeline: gsap.core.Timeline;
 
 	const SERVICES = [
 		{
@@ -27,11 +29,15 @@
 	];
 
 	const pinImageElement = (scrollTrigger: typeof ScrollTrigger) => {
-		scrollTrigger.create({
-			trigger: sectionWrapper,
-			start: 'top top+=5%',
-			end: 'bottom bottom',
-			pin: '.services__images'
+		scrollTrigger.matchMedia({
+			'(min-width: 1024px)': function () {
+				scrollTrigger.create({
+					trigger: sectionWrapper,
+					start: 'top top+=5%',
+					end: 'bottom bottom',
+					pin: '.services__images'
+				});
+			}
 		});
 	};
 
@@ -43,30 +49,50 @@
 		serviceBlocks.shift();
 		images.shift();
 
+		imageTimeline = gsap.timeline();
+
 		serviceBlocks.forEach((block, i) => {
-			gsap.to(images[i], {
+			imageTimeline.to(images[i], {
 				height: '100%',
 				scrollTrigger: {
 					trigger: block,
 					start: 'top bottom-=10%',
 					end: 'bottom bottom',
-					scrub: 0.7,
-					snap: {
-						snapTo: 1,
-						delay: 1,
-						duration: 1
-					}
+					scrub: 0.7
+					// TODO: BUG snapping gets applied to other pages on navigation, caused by async onMount
+					// snap: {
+					// 	snapTo: 1,
+					// 	delay: 1,
+					// 	duration: 1
+					// }
 				}
 			});
 		});
 	};
 
-	onMount(async () => {
+	function mqResize(event: MediaQueryListEvent) {
+		if (!imageTimeline) return;
+		imageTimeline.scrollTrigger?.kill(true, false);
+		imageTimeline.kill;
+		console.log('Resized 10024px');
+	}
+
+	async function registerAnimations() {
 		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
 		gsap.registerPlugin(ScrollTrigger);
 
 		pinImageElement(ScrollTrigger);
-		setupImageSlideout();
+		let timeline = setupImageSlideout();
+	}
+	onMount(() => {
+		registerAnimations();
+
+		const mediaQuery = window.matchMedia('(max-width: 1024px)');
+		mediaQuery.addEventListener('change', mqResize);
+
+		return () => {
+			mediaQuery.removeEventListener('change', mqResize);
+		};
 	});
 </script>
 
@@ -74,6 +100,10 @@
 	<div class="services">
 		{#each SERVICES as service}
 			<div class="services__content">
+				<div class="services__mobile-images">
+					<img src="/images/services/{service.image}" alt="" />
+				</div>
+
 				<h3>{service.title}</h3>
 				<p class="body--lg">{service.desc}</p>
 				<Button icon="mdi:arrow-right" style="link" href={service.link}>See Service</Button>
@@ -119,7 +149,12 @@
 			justify-content: center;
 			height: var(--sectionSize, 90vh);
 		}
+
+		&__mobile-images {
+			display: none;
+		}
 	}
+
 	.service-image--hidden {
 		position: absolute;
 		bottom: 0;
@@ -132,5 +167,42 @@
 		width: 100%;
 		object-fit: cover;
 		object-position: 50%;
+	}
+
+	@media screen and (max-width: 1024px) {
+		.services {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin: 0 auto;
+			gap: var(--space-6xl);
+
+			&__content {
+				height: auto;
+			}
+
+			&__mobile-images {
+				height: 350px;
+				display: block;
+			}
+
+			&__images {
+				display: none;
+			}
+		}
+	}
+
+	/* Mobile */
+	@media screen and (max-width: 425px) {
+		.services {
+			&__mobile-images {
+				height: 250px;
+				display: block;
+			}
+		}
+
+		section {
+			margin: var(--space-section-sm) auto;
+		}
 	}
 </style>

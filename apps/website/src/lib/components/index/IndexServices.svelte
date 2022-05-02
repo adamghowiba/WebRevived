@@ -31,31 +31,23 @@
 		timeline.to(node, { width: '100%', height: '100%', borderRadius: 0 });
 		timeline.to(node, { width: '50%', height: '50%', borderRadius: 100 }, '+=0.5');
 
-		return {
-			destroy() {
-				timeline.kill();
-			}
-		};
+		return () => {
+			timeline.invalidate();
+			timeline.kill();
+		}
 	}
 
 	onMount(async () => {
 		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
 		gsap.registerPlugin(ScrollTrigger);
 
-		setupCircleScrollTrigger(circleElement);
+		let destory = setupCircleScrollTrigger(circleElement);
+
+		return () => destory();
 	});
 </script>
 
 <section class="section" id="white-section">
-	<!-- <div
-		class="circle"
-		use:setupCircleScrollTrigger
-		style:background-image="url({SERVICES[hoverdServiceIndex].imgSrc})"
-	/> -->
-	<!-- {#each SERVICES as service, i}
-		<img class:active={hoverdServiceIndex === i} src={service.imgSrc} alt={service.name} />
-	{/each} -->
-
 	<div class="services container">
 		{#each SERVICES as service, i}
 			<a href="/" on:mouseenter={() => (hoverdServiceIndex = i)}>

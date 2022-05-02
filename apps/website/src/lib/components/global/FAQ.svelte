@@ -1,4 +1,10 @@
 <script lang="ts">
+	import Icon from '@iconify/svelte';
+	import { slide, fade } from 'svelte/transition';
+	import PlusButton from '../buttons/PlusButton.svelte';
+
+	let openQuestions: number[] = [];
+
 	const QUESTIONS = [
 		{
 			question: "What's included with WebRevived services",
@@ -18,14 +24,11 @@
 		}
 	];
 
-	function handleQuestionClick(event: MouseEvent) {
-		const currentTarget = event.currentTarget as HTMLElement;
-		const target = event.target as HTMLElement;
-		if (target?.tagName === 'P') return;
-
-		const answerElement = currentTarget.querySelector('p');
-
-		answerElement?.classList.toggle('visible');
+	function handleQuestionClick(index: number) {
+		if (openQuestions.includes(index)) {
+			return (openQuestions = openQuestions.filter((questionIndex) => questionIndex !== index));
+		}
+		openQuestions = [...openQuestions, index];
 	}
 </script>
 
@@ -34,12 +37,20 @@
 		<h1>Frequently Asked Questions</h1>
 
 		<div class="questions-wrap">
-			{#each QUESTIONS as { question, answer }}
-				<div class="question" on:click={handleQuestionClick}>
-					<div class="question__head">
+			{#each QUESTIONS as { question, answer }, i}
+				{@const isOpen = openQuestions.includes(i)}
+				<div class="question">
+					<div class="question__head" on:click={() => handleQuestionClick(i)}>
 						<h4>{question}</h4>
+						<PlusButton open={isOpen} />
 					</div>
-					<p>{answer}</p>
+					{#if isOpen}
+						<p transition:slide={{ duration: 250 }}>
+							<span transition:fade={{ duration: 150 }}>
+								{answer}
+							</span>
+						</p>
+					{/if}
 				</div>
 			{/each}
 		</div>
@@ -50,6 +61,7 @@
 	section {
 		background-color: var(--color-primary);
 		color: var(--color-black);
+		margin-top: var(--space-section-base);
 	}
 
 	.questions-wrap {
@@ -59,21 +71,26 @@
 	}
 
 	.question {
-		padding-bottom: var(--space-xs);
+		// padding-bottom: var(--space-xs);
 		border-bottom: 4px solid var(--color-black);
 
-		// &__head {
-		// }
+		&__head {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding-bottom: var(--space-xs);
+			gap: var(--space-md);
+		}
+
+		&__head:hover {
+			cursor: pointer;
+		}
 
 		p {
 			position: relative;
 			z-index: 10;
-			display: none;
-            padding-top: var(--space-xs);
-		}
-
-		:global(p.visible) {
-			display: block !important;
+			padding-bottom: var(--space-xs);
+			transition: opacity 2s ease-out;
 		}
 	}
 
@@ -83,7 +100,8 @@
 		margin-bottom: var(--space-lg);
 	}
 
-	p {
+	p,
+	span {
 		color: #615e5e;
 	}
 </style>

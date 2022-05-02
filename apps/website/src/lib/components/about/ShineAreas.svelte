@@ -10,11 +10,16 @@
 	let groupsElement: HTMLElement;
 
 	function pinHeader(scrollTrigger: typeof ScrollTrigger) {
+		if (!headingElement) return;
+		let headingSize = headingElement.clientHeight + 20;
+
 		scrollTrigger.create({
 			trigger: '.groups',
-			start: 'top top',
-			end: 'bottom top+=20%',
-			pin: headingElement
+			start: () => `top bottom-=${headingSize}`,
+			end: `bottom bottom`,
+			pinnedContainer: groupsElement,
+			pin: headingElement,
+			invalidateOnRefresh: true
 		});
 	}
 
@@ -23,7 +28,7 @@
 			scrollTrigger: {
 				trigger: firstGroupElement,
 				start: 'top center',
-				end: 'bottom center-=20%',
+				end: 'bottom center',
 				onLeave: (self) => {
 					self.animation?.reverse();
 				},
@@ -37,8 +42,9 @@
 		});
 	}
 
-	function moveImagesSlightly() {
-		const imagesFirst = groupsElement.querySelectorAll('img');
+	function moveImagesSlightly(groupNode: HTMLElement) {
+		const imagesFirst = groupNode.querySelectorAll('img');
+		if (!imagesFirst?.length) return;
 
 		imagesFirst.forEach((image) => {
 			gsap.to(image, {
@@ -46,7 +52,6 @@
 					trigger: image.parentElement,
 					start: 'top bottom',
 					end: 'bottom top',
-					preventOverlaps: true,
 					scrub: gsap.utils.random(0.5, 2, 0.3)
 					// TODO: Use set values
 					//   scrub:"random([0, 100, 200, 500])"
@@ -64,6 +69,7 @@
 				trigger: group,
 				start: 'top center',
 				end: 'bottom center',
+				invalidateOnRefresh: true,
 				onEnter: () => {
 					currentGroupIndex = i;
 				},
@@ -79,7 +85,7 @@
 
 		pinHeader(ScrollTrigger);
 		changeBackgroundImage();
-		moveImagesSlightly();
+		moveImagesSlightly(groupsElement);
 		changeHeaderText(ScrollTrigger);
 	});
 </script>
@@ -115,9 +121,6 @@
 		position: relative;
 		background-color: white;
 		padding-bottom: var(--space-section-sm);
-	}
-	.heading {
-		height: auto;
 	}
 	.group {
 		width: 100%;
@@ -174,7 +177,6 @@
 		font-weight: var(--fw-bold);
 		letter-spacing: -10px;
 		mix-blend-mode: difference;
-		height: 100px;
 	}
 
 	@media screen and (max-width: 1024px) {

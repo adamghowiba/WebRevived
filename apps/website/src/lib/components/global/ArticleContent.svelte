@@ -24,4 +24,12 @@
 			font-weight: 400;
 		}
 	}
+
+	@media screen and (max-width: 597px) {
+		article {
+			:global(p) {
+				font-size: var(--text-h5);
+			}
+		}
+	}
 </style>

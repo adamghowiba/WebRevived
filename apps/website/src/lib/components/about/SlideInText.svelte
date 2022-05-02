@@ -58,6 +58,7 @@
 		flex-direction: column;
 		gap: var(--space-md);
 		height: 80vh;
+		overflow: hidden;
 	}
 
 	h1 {

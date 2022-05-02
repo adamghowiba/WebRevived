@@ -158,4 +158,10 @@ a {
 }
 
 @media screen and (max-width: 425px) {
+	.body--xl {
+		font-size: var(--text-h5);
+	}
+	h2 {
+		line-height: normal;
+	}
 }

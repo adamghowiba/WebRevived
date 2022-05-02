@@ -14,16 +14,27 @@
 </section>
 
 <style lang="scss">
-    section {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+	section {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
 
-    .content {
-        display: flex;
-        gap: var(--space-xs);
-        flex-direction: column;
-        max-width: 50ch;
-    }
+	.content {
+		display: flex;
+		gap: var(--space-xs);
+		flex-direction: column;
+		max-width: 50ch;
+	}
+
+	@media screen and (max-width: 768px) {
+		section {
+			flex-direction: column;
+            text-align: center;
+            gap: var(--space-md);
+		}
+        p {
+            display: none;
+        }
+	}
 </style>

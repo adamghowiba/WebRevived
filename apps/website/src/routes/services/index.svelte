@@ -37,7 +37,7 @@
 <ContactSection />
 
 <style lang="scss">
-	article {
+	.description {
 		display: grid;
 		grid-template-columns: 1fr 1.5fr;
 		align-items: center;
@@ -45,6 +45,16 @@
 
 		p {
 			color: var(--color-off-white);
+		}
+	}
+
+	/* TABLET */
+	@media screen and (max-width: 768px) {
+		.description {
+			display: flex;
+			flex-direction: column;
+			text-align: center;
+
 		}
 	}
 </style>

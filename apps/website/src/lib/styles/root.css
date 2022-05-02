@@ -79,6 +79,7 @@
 	:root {
 		--text-title: 45px;
 		--space-section-base: 90px;
+		--space-section-md: 120px;
 		--text-h1: 45px;
 		--text-h3: 28px;
 		--text-h2: 35px;
@@ -87,21 +88,25 @@
 
 @media screen and (max-width: 425px) {
 	:root {
-		--text-h1: 30px;
+		/* OLD VALUES */
+		/* --text-h1: 30px;
+		--text-h2: 28px;
+		--text-h3: 25px;
+		--text-title: 35px; */
+
+		/* OLD VALUES */
+		--text-h1: 35px;
+		--text-h2: 25px;
+		--text-h3: 20px;
 		--text-title: 35px;
 
 		/* SPACING */
 		--space-sm: 16px;
 		--space-md: 24px;
 		--space-lg: 32px;
-		--space-xl: 56px;
+
+		--space-xl: 40px;
 		--space-2xl: 56px;
 		--space-3xl: 64px;
-		--text-h3: 25px;
-		--text-h2: 28px;
-		/* --space-4xl: 80px;
-		--space-5xl: 88px;
-		--space-6xl: 160px;
-		--space-7xl: 216px; */
 	}
 }

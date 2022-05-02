@@ -16,7 +16,7 @@
 	export let content: InfoBlock;
 </script>
 
-<section class="container section content--{contentLocation}">
+<section class="container section--md content--{contentLocation}">
 	<InfoBlock {...content} />
 	{#if icon}
 		<div class="icon">
