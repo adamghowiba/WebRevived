@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { gsap } from 'gsap';
 	import { onDestroy, onMount } from 'svelte';
 	import Button from '../buttons/Button.svelte';
+	import { gsap, ScrollTrigger } from '$lib/gsap';
+	import { destoryTweens } from '$lib/gsap-utils';
 
 	let sectionWrapper: HTMLElement;
 	let sectionSize = '90vh';
-
-	let imageTimeline: gsap.core.Timeline;
 
 	const SERVICES = [
 		{
@@ -28,10 +27,12 @@
 		}
 	];
 
-	const pinImageElement = (scrollTrigger: typeof ScrollTrigger) => {
-		scrollTrigger.matchMedia({
+	const pinImageElement = () => {
+		let trigger: ScrollTrigger;
+
+		ScrollTrigger.matchMedia({
 			'(min-width: 1024px)': function () {
-				scrollTrigger.create({
+				trigger = ScrollTrigger.create({
 					trigger: sectionWrapper,
 					start: 'top top+=5%',
 					end: 'bottom bottom',
@@ -39,59 +40,60 @@
 				});
 			}
 		});
+
+		return () => {
+			trigger.kill();
+		};
 	};
 
 	const setupImageSlideout = () => {
 		const serviceBlocks: HTMLElement[] = gsap.utils.toArray('.services__content');
 		const images: HTMLElement[] = gsap.utils.toArray('#service-image');
+		let tweens: gsap.core.Tween[] = [];
 
 		/* Don't animate first block or image. */
 		serviceBlocks.shift();
 		images.shift();
 
-		imageTimeline = gsap.timeline();
-
 		serviceBlocks.forEach((block, i) => {
-			imageTimeline.to(images[i], {
+			let tween = gsap.to(images[i], {
 				height: '100%',
 				scrollTrigger: {
 					trigger: block,
 					start: 'top bottom-=10%',
 					end: 'bottom bottom',
-					scrub: 0.7
-					// TODO: BUG snapping gets applied to other pages on navigation, caused by async onMount
-					// snap: {
-					// 	snapTo: 1,
-					// 	delay: 1,
-					// 	duration: 1
-					// }
+					scrub: 0.7,
+					snap: {
+						snapTo: 1,
+						delay: 1,
+						duration: 1
+					}
 				}
 			});
+
+			tweens.push(tween);
 		});
-	};
-
-	function mqResize(event: MediaQueryListEvent) {
-		if (!imageTimeline) return;
-		imageTimeline.scrollTrigger?.kill(true, false);
-		imageTimeline.kill;
-		console.log('Resized 10024px');
-	}
-
-	async function registerAnimations() {
-		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-		gsap.registerPlugin(ScrollTrigger);
-
-		pinImageElement(ScrollTrigger);
-		let timeline = setupImageSlideout();
-	}
-	onMount(() => {
-		registerAnimations();
-
-		const mediaQuery = window.matchMedia('(max-width: 1024px)');
-		mediaQuery.addEventListener('change', mqResize);
 
 		return () => {
-			mediaQuery.removeEventListener('change', mqResize);
+			destoryTweens(tweens, true);
+		};
+	};
+
+	function resizeHandler() {
+		ScrollTrigger.refresh();
+	}
+
+	onMount(() => {
+		let destoryPinImage = pinImageElement();
+		let destoryImageSlideout = setupImageSlideout();
+
+		const mediaQuery = window.matchMedia('(max-width: 1024px)');
+		mediaQuery.addEventListener('change', resizeHandler);
+
+		return () => {
+			destoryPinImage();
+			destoryImageSlideout();
+			mediaQuery.removeEventListener('change', resizeHandler);
 		};
 	});
 </script>

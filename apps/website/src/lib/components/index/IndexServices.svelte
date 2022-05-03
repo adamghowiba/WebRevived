@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/env';
+	import Icon from '@iconify/svelte';
 	import { gsap } from 'gsap';
 	import { onDestroy, onMount } from 'svelte';
 
@@ -23,15 +24,15 @@
 		circleScrollTimeline = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#white-section',
-				start: 'top+=5% center',
-				end: 'bottom+=20% center-=20%',
+				start: 'top+=5% bottom-=10%',
+				end: 'bottom-=25% bottom-=10%',
 				scrub: 1.2
 			},
 			defaults: {}
 		});
 
 		circleScrollTimeline.to(node, { width: '100%', height: '100%', borderRadius: 0 });
-		circleScrollTimeline.to(node, { width: '50%', height: '50%', borderRadius: 100 }, '+=0.5');
+		// circleScrollTimeline.to(node, { width: '50%', height: '50%', borderRadius: 100 }, '+=0.5');
 
 		circleScrollTimeline.scrollTrigger?.refresh();
 	}
@@ -45,7 +46,6 @@
 			circleScrollTimeline.kill();
 			circleScrollTimeline?.scrollTrigger?.disable();
 			circleScrollTimeline = null;
-			console.log('Destorying circle scroll timeline.');
 		}
 	}
 
@@ -55,7 +55,7 @@
 
 	onDestroy(() => {
 		destoryAnimations();
-	})
+	});
 </script>
 
 <section class="section" id="white-section">
@@ -64,6 +64,9 @@
 			<a href="/" on:mouseenter={() => (hoverdServiceIndex = i)}>
 				<!-- on:mouseleave={() => (hoverdServiceIndex = 0)} -->
 				{service.name}
+				<div class="icon">
+					<Icon icon="bytesize:arrow-right" width={33} height={33} />
+				</div>
 			</a>
 		{/each}
 	</div>
@@ -133,6 +136,8 @@
 	}
 
 	a {
+		display: flex;
+		gap: var(--space-sm);
 		transition: transform 0.28s ease-out;
 		font-size: var(--text-h2);
 		color: var(--color-black);
@@ -140,6 +145,17 @@
 
 		&:hover {
 			transform: translateX(25px);
+		}
+
+		&:hover .icon {
+			opacity: 1;
+		}
+
+		.icon {
+			top: 2px;
+			position: relative;
+			opacity: 0;
+			transition: opacity 0.2s ease-out;
 		}
 	}
 </style>

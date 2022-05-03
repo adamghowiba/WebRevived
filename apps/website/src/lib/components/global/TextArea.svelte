@@ -2,8 +2,6 @@
 	export let name = 'text';
 	export let placeholder = 'A message to us';
 	export let value: string;
-
-	$: console.log(value);
 </script>
 
 <div class="textarea-wrap">

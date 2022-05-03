@@ -17,7 +17,6 @@
 					mobileHoverTimeline.to(block, {
 						scrollTrigger: {
 							trigger: block,
-							markers: true,
 							start: 'top center',
 							end: 'bottom center',
 							invalidateOnRefresh: true,

@@ -19,7 +19,7 @@
 />
 
 <div class="container section--sm">
-	<h3 class="floating-text">Old ways won't open new doors. Let's re-think the future..</h3>
+	<h2 class="floating-text">Old ways won't open new doors. Let's re-think the future..</h2>
 </div>
 
 <div class="blackout">

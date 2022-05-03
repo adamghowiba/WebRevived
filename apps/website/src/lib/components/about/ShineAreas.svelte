@@ -1,128 +1,135 @@
 <script lang="ts">
-	import { gsap } from 'gsap';
 	import { onDestroy, onMount } from 'svelte';
+	import { gsap, ScrollTrigger } from '$lib/gsap';
+	import { destoryTimelines, destoryTweens } from '$lib/gsap-utils';
 
-	let GROUPS_HEADING = ['Apps', 'Websites', 'UI/UX'];
+	let GROUPS_HEADING = ['Apps', 'Websites', 'UI/UX', 'Design'];
 	let currentGroupIndex = 0;
 
 	let headingElement: HTMLElement;
-	let firstGroupElement: HTMLElement;
 	let groupsElement: HTMLElement;
+	let blackGroupElement: HTMLElement;
+	let blackGroupElementTwo: HTMLElement;
 
-	let backgroundTimeline: gsap.core.Timeline;
-
-	function refreshScrollTrigger(scrollTrigger: typeof ScrollTrigger) {
+	function refreshScrollTrigger() {
 		const images = groupsElement.querySelectorAll('img');
 		let loadedImages = 0;
 
+		const loadEventHandler = () => {
+			loadedImages++;
+			if (loadedImages === images.length) {
+				ScrollTrigger.refresh();
+				return;
+			}
+		};
+
 		images.forEach((image: HTMLImageElement, i) => {
-			image.addEventListener(
-				'load',
-				() => {
-					loadedImages++;
-					if (loadedImages === images.length) {
-						scrollTrigger.refresh();
-						return;
-					}
-				},
-				{ once: true }
-			);
+			image.addEventListener('load', loadEventHandler, { once: true });
 		});
 	}
 
-	function pinHeader(scrollTrigger: typeof ScrollTrigger) {
-		if (!headingElement) return;
-		let headingSize = headingElement.clientHeight + 20;
+	function pinHeader(element: HTMLElement) {
+		if (!element) return;
+		let headingSize = element.clientHeight + 20;
 
-		scrollTrigger.create({
+		let trigger = ScrollTrigger.create({
 			trigger: groupsElement,
 			start: () => `top bottom-=${headingSize}`,
 			end: () => `bottom bottom`,
 			pinnedContainer: groupsElement,
-			markers: true,
-			pin: headingElement,
+			pin: element,
 			pinSpacing: false,
 			invalidateOnRefresh: true
 		});
+
+		return trigger;
 	}
 
-	function changeBackgroundImage() {
-		backgroundTimeline = gsap.timeline({
-			scrollTrigger: {
-				trigger: firstGroupElement,
-				start: 'top center',
-				end: 'bottom center',
-				onLeave: (self) => {
-					self.animation?.reverse();
-				},
-				onEnterBack: (self) => self.animation?.play(),
-				onLeaveBack: (self) => self.animation?.reverse()
-			}
+	function changeBackgroundColor() {
+		let blackGroups: HTMLElement[] = gsap.utils.toArray([blackGroupElement, blackGroupElementTwo]);
+		let timelines: gsap.core.Timeline[] = [];
+
+		blackGroups.forEach((blackGroup, i) => {
+			let timeline = gsap.timeline({
+				scrollTrigger: {
+					trigger: blackGroup,
+					start: 'top bottom',
+					end: 'bottom bottom',
+					onLeave: (self) => {
+						if (i == blackGroups.length - 1) return;
+						self.animation?.reverse();
+					},
+					onEnterBack: (self) => self.animation?.play(),
+					onLeaveBack: (self) => self.animation?.reverse()
+				}
+			});
+
+			timeline.to(groupsElement, {
+				backgroundColor: '#141313'
+			});
+			timeline.to(headingElement, { color: 'white' }, '<');
+
+			timelines.push(timeline);
 		});
 
-		backgroundTimeline.to(groupsElement, {
-			backgroundColor: '#141313'
-		});
+		return () => {
+			destoryTimelines(timelines, true);
+		};
 	}
 
 	function moveImagesSlightly(groupNode: HTMLElement) {
 		const imagesFirst = groupNode.querySelectorAll('img');
 		if (!imagesFirst?.length) return;
 
+		let tweens: gsap.core.Tween[] = [];
+
 		imagesFirst.forEach((image) => {
-			gsap.to(image, {
+			let tween = gsap.to(image, {
 				scrollTrigger: {
 					trigger: image.parentElement,
 					start: 'top bottom',
 					end: 'bottom top',
-					scrub: gsap.utils.random(0.5, 2, 0.3)
-					// TODO: Use set values
-					//   scrub:"random([0, 100, 200, 500])"
+					scrub: gsap.utils.random([0.7, 2, 1.5, 3])
 				},
-				y: `-${gsap.utils.random(40, 70, 7)}%`
+				y: `-${gsap.utils.random([40, 80, 50, 70, 90])}%`
 			});
+
+			tweens.push(tween);
 		});
+
+		return () => {
+			destoryTweens(tweens, true);
+		};
 	}
 
-	function changeHeaderText(scrollTrigger: typeof ScrollTrigger) {
+	function changeHeaderText() {
 		const groups = groupsElement.querySelectorAll('.group');
 
 		groups.forEach((group, i) => {
-			scrollTrigger.create({
+			ScrollTrigger.create({
 				trigger: group,
-				start: 'top center',
-				end: 'bottom center',
+				start: 'top bottom',
+				end: 'bottom bottom',
 				invalidateOnRefresh: true,
-				onEnter: () => {
-					currentGroupIndex = i;
-				},
+				onEnter: () => (currentGroupIndex = i),
 				onEnterBack: () => (currentGroupIndex = i),
 				onLeaveBack: () => (currentGroupIndex = i)
 			});
 		});
 	}
 
-	async function registerAnimations() {
-		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-		gsap.registerPlugin(ScrollTrigger);
-
-		pinHeader(ScrollTrigger);
-		changeBackgroundImage();
-		moveImagesSlightly(groupsElement);
-		changeHeaderText(ScrollTrigger);
-		refreshScrollTrigger(ScrollTrigger);
-	}
-
 	onMount(() => {
-		if (backgroundTimeline) backgroundTimeline.scrollTrigger?.refresh();
-		registerAnimations();
-	});
+		let pinScrollTrigger = pinHeader(headingElement);
+		let destoryBackgroundTrigger = changeBackgroundColor();
+		let destoryImageTrigger = moveImagesSlightly(groupsElement);
+		changeHeaderText();
+		refreshScrollTrigger();
 
-	onDestroy(() => {
-		if (backgroundTimeline) {
-			backgroundTimeline.kill();
-			backgroundTimeline.scrollTrigger?.kill();
-		}
+		return () => {
+			if (destoryImageTrigger) destoryImageTrigger();
+			pinScrollTrigger?.kill();
+			destoryBackgroundTrigger();
+		};
 	});
 </script>
 
@@ -134,7 +141,7 @@
 		<img src="/images/about/branding_3.png" alt="" />
 	</div>
 
-	<div class="group group--second" bind:this={firstGroupElement}>
+	<div class="group group--second" bind:this={blackGroupElement}>
 		<img src="/images/about/branding_3.png" alt="" />
 		<img src="/images/about/branding_2.png" alt="" />
 		<img src="/images/about/branding_4.png" alt="" />
@@ -142,6 +149,13 @@
 	</div>
 
 	<div class="group group--third">
+		<img src="/images/about/branding_3.png" alt="" />
+		<img src="/images/about/branding_4.png" alt="" />
+		<img src="/images/about/branding_3.png" alt="" />
+		<img src="/images/about/branding_2.png" alt="" />
+	</div>
+
+	<div class="group group--second" bind:this={blackGroupElementTwo}>
 		<img src="/images/about/branding_3.png" alt="" />
 		<img src="/images/about/branding_4.png" alt="" />
 		<img src="/images/about/branding_3.png" alt="" />
@@ -208,11 +222,20 @@
 		top: 0;
 		left: 0;
 		position: absolute;
-		color: white;
 		font-size: 15rem;
 		font-weight: var(--fw-bold);
 		letter-spacing: -10px;
-		mix-blend-mode: difference;
+		// color: white;
+		// mix-blend-mode: difference;
+		color: var(--color-black);
+		z-index: 5;
+	}
+
+	img:nth-child(even) {
+		z-index: 10;
+	}
+	img:nth-child(odd) {
+		z-index: 0;
 	}
 
 	@media screen and (max-width: 1024px) {
