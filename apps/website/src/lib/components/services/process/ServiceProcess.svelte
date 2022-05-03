@@ -1,20 +1,20 @@
 <script lang="ts">
-	import { onDestroy, onMount } from 'svelte';
+	import { gsap,ScrollTrigger } from '$lib/gsap';
+	import { destoryTweens } from '$lib/gsap-utils';
+	import { onMount } from 'svelte';
 	import ProcessBlock from './ProcessBlock.svelte';
-	import { gsap } from 'gsap';
 
 	let blocksWrapper: HTMLElement;
 	let mobileHoverTimeline: gsap.core.Timeline;
 
-	function setupMobileHover(scrollTrigger: typeof ScrollTrigger) {
-		mobileHoverTimeline = gsap.timeline();
-
+	function setupMobileHover() {
 		let blocks: HTMLElement[] = gsap.utils.toArray('.block');
+		let tweens: gsap.core.Tween[] = [];
 
-		scrollTrigger.matchMedia({
+		ScrollTrigger.matchMedia({
 			'(max-width: 597px)': () => {
 				blocks.forEach((block) => {
-					mobileHoverTimeline.to(block, {
+					let tween = gsap.to(block, {
 						scrollTrigger: {
 							trigger: block,
 							start: 'top center',
@@ -24,29 +24,23 @@
 						},
 						fill: 'white'
 					});
+
+					tweens.push(tween);
 				});
 			}
 		});
-	}
 
-	async function registerAnimations() {
-		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-		gsap.registerPlugin(ScrollTrigger);
-
-		setupMobileHover(ScrollTrigger);
+		return () => {
+			destoryTweens(tweens, true);
+		};
 	}
 
 	onMount(() => {
-		if (mobileHoverTimeline) {
-			mobileHoverTimeline?.scrollTrigger?.refresh();
-		}
-		registerAnimations();
-	});
-
-	onDestroy(() => {
-		if (!mobileHoverTimeline?.scrollTrigger) return;
-		mobileHoverTimeline.kill();
-		mobileHoverTimeline.scrollTrigger.kill(true);
+		let desotry = setupMobileHover();
+		
+		return () => {
+			desotry();
+		};
 	});
 </script>
 

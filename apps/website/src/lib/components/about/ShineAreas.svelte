@@ -7,7 +7,7 @@
 		changeHeaderText,
 		moveImagesSlightly,
 		pinHeader
-	} from '$lib/components/about/_shine-animations';
+	} from '$lib/components/about/shine-animations';
 
 	let GROUPS_HEADING = ['Apps', 'Websites', 'UI/UX', 'Design'];
 	let currentGroupIndex = 0;

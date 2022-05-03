@@ -1,55 +1,71 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { gsap, ScrollTrigger } from '$lib/gsap';
+	import { gsap, ScrollTrigger, Power4, Power2 } from '$lib/gsap';
 	import Button from '../buttons/Button.svelte';
 
 	export let desc: string;
 	export let button: { text: string; href: string };
+	export let headings: string[] = [];
 
-	export let headings: string[] = ['No Fluff.', 'High Impact', 'No penny wasted'];
+	let headingsContainer: HTMLElement;
+	let descriptionElement: HTMLElement;
+	let buttonWrapElement: HTMLElement;
 
-	let headingElement: HTMLElement;
-	let headingWrapper: HTMLElement;
-
-	function textRevealAnimation(node: HTMLElement) {
-		if (!headingWrapper) return;
-		let headings = headingWrapper.querySelectorAll('h1');
-
-		headings.forEach((heading) => {
-			gsap.from(heading, {
-				yPercent: 130,
-				duration: 1.2,
-				ease: 'Power3.easeOut',
-				scrollTrigger: {
-					trigger: headingWrapper,
-					markers: true,
-					start: 'top bottom-=20%',
-					end: 'bottom bottom-=20%'
-				}
-			});
+	function textRevealAnimation(container: HTMLElement) {
+		if (!container) return;
+		let headings = container.querySelectorAll('h1');
+		let timeline = gsap.timeline({
+			scrollTrigger: {
+				trigger: headingsContainer,
+				start: 'top bottom-=20%',
+				end: 'bottom top+=15%',
+			},
 		});
-	}
 
-	async function registerAnimations() {
-		textRevealAnimation(headingElement);
+		timeline.from(gsap.utils.toArray(headings), {
+			yPercent: 100,
+			duration: 1,
+			ease: Power4.easeInOut,
+		});
+
+		timeline.from(
+			[descriptionElement, buttonWrapElement],
+			{
+				opacity: 0,
+				duration: 0.5,
+				ease: Power2.easeOut
+			},
+			'<'
+		);
+
+		return () => {
+			timeline.scrollTrigger?.kill();
+			timeline.kill();
+		};
 	}
 
 	onMount(() => {
-		registerAnimations();
+		let destory = textRevealAnimation(headingsContainer);
+
+		return () => {
+			if (destory) destory();
+		};
 	});
 </script>
 
-<article>
+<article bind:this={headingsContainer}>
 	<!-- <h1 bind:this={headingElement}>Hello</h1> -->
-	<div class="headings" bind:this={headingWrapper}>
+	<div class="headings">
 		{#each headings as heading}
 			<div class="heading-wrap">
 				<h1>{heading}</h1>
 			</div>
 		{/each}
 	</div>
-	<p>{desc}</p>
-	<Button style="link" href={button.href} icon="mdi:arrow-right">{button.text}</Button>
+	<p bind:this={descriptionElement}>{desc}</p>
+	<div class="button-wrap" bind:this={buttonWrapElement}>
+		<Button style="link" href={button.href} icon="mdi:arrow-right">{button.text}</Button>
+	</div>
 </article>
 
 <style lang="scss">
@@ -67,7 +83,6 @@
 	.headings {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-2xs);
 	}
 	.heading-wrap {
 		overflow: hidden;

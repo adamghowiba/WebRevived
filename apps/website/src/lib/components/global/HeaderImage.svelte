@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { gsap } from '$lib/gsap';
+	import { gsap, ScrollTrigger, Linear } from '$lib/gsap';
 
 	export let imgSrc: string;
 	let imageElement: HTMLElement;
@@ -9,7 +9,7 @@
 		let tween = gsap.from(node, {
 			borderRadius: '50px',
 			width: '80%',
-			// ease: 'linear.easeOut',
+			ease: Linear.easeOut,
 			duration: 0.35,
 			scrollTrigger: {
 				trigger: node,
@@ -19,6 +19,7 @@
 		});
 
 		return () => {
+			tween.scrollTrigger?.kill();
 			tween.kill();
 		};
 	}

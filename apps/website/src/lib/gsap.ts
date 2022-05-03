@@ -1,6 +1,5 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger.js';
-// import { SplitText } from 'gsap/dist/SplitText.js';
 import type { ScrollTrigger as ScrollTriggerType } from 'gsap/all';
 
 if (typeof window !== 'undefined') {
@@ -9,5 +8,5 @@ if (typeof window !== 'undefined') {
 
 const ScrollTriggerExport: typeof ScrollTriggerType = ScrollTrigger;
 
-export { gsap } from 'gsap';
+export * from 'gsap';
 export { ScrollTriggerExport as ScrollTrigger };
