@@ -76,7 +76,7 @@ function moveImagesSlightly(parentGroup: HTMLElement) {
 	};
 }
 
-function changeHeaderText(parentGroup: HTMLElement, groupIndex: number) {
+function changeHeaderText(parentGroup: HTMLElement, callback: (index: number) => void) {
 	const groups = parentGroup.querySelectorAll('.group');
 
 	groups.forEach((group, i) => {
@@ -85,9 +85,11 @@ function changeHeaderText(parentGroup: HTMLElement, groupIndex: number) {
 			start: 'top bottom',
 			end: 'bottom bottom',
 			invalidateOnRefresh: true,
-			onEnter: () => (groupIndex = i),
-			onEnterBack: () => (groupIndex = i),
-			onLeaveBack: () => (groupIndex = i)
+			onEnter: () => callback(i),
+			onEnterBack: () => callback(i),
+			onLeaveBack: () => callback(i)
 		});
 	});
 }
+
+export { changeBackgroundColor, changeHeaderText, moveImagesSlightly, pinHeader };

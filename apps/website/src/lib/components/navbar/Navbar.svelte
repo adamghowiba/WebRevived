@@ -4,13 +4,15 @@
 </script>
 
 <nav class="nav container">
-	<img class="nav__logo" src="/images/logo.png" alt="WebRevived logo" />
+	<a href="/">
+		<img class="nav__logo" src="/images/logo_white.png" alt="WebRevived logo" />
+	</a>
 
 	<div class="links">
-		<a href="/">Home</a>
 		<a href="/about">About</a>
 		<a href="/services">Services</a>
 		<a href="/contact">Contact</a>
+		<a href="/contact">Login</a>
 		<Button>Talk To Us</Button>
 	</div>
 
@@ -25,9 +27,12 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+
 		&__logo {
+			position: relative;
+			top: 3px;
 			width: 100%;
-			max-width: 40px;
+			max-width: 55px;
 		}
 	}
 	.links {

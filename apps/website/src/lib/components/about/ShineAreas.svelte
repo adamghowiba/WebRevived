@@ -2,6 +2,12 @@
 	import { onDestroy, onMount } from 'svelte';
 	import { gsap, ScrollTrigger } from '$lib/gsap';
 	import { destoryTimelines, destoryTweens } from '$lib/gsap-utils';
+	import {
+		changeBackgroundColor,
+		changeHeaderText,
+		moveImagesSlightly,
+		pinHeader
+	} from '$lib/components/about/_shine-animations';
 
 	let GROUPS_HEADING = ['Apps', 'Websites', 'UI/UX', 'Design'];
 	let currentGroupIndex = 0;
@@ -28,101 +34,15 @@
 		});
 	}
 
-	function pinHeader(element: HTMLElement) {
-		if (!element) return;
-		let headingSize = element.clientHeight + 20;
-
-		let trigger = ScrollTrigger.create({
-			trigger: groupsElement,
-			start: () => `top bottom-=${headingSize}`,
-			end: () => `bottom bottom`,
-			pinnedContainer: groupsElement,
-			pin: element,
-			pinSpacing: false,
-			invalidateOnRefresh: true
-		});
-
-		return trigger;
-	}
-
-	function changeBackgroundColor() {
-		let blackGroups: HTMLElement[] = gsap.utils.toArray([blackGroupElement, blackGroupElementTwo]);
-		let timelines: gsap.core.Timeline[] = [];
-
-		blackGroups.forEach((blackGroup, i) => {
-			let timeline = gsap.timeline({
-				scrollTrigger: {
-					trigger: blackGroup,
-					start: 'top bottom',
-					end: 'bottom bottom',
-					onLeave: (self) => {
-						if (i == blackGroups.length - 1) return;
-						self.animation?.reverse();
-					},
-					onEnterBack: (self) => self.animation?.play(),
-					onLeaveBack: (self) => self.animation?.reverse()
-				}
-			});
-
-			timeline.to(groupsElement, {
-				backgroundColor: '#141313'
-			});
-			timeline.to(headingElement, { color: 'white' }, '<');
-
-			timelines.push(timeline);
-		});
-
-		return () => {
-			destoryTimelines(timelines, true);
-		};
-	}
-
-	function moveImagesSlightly(groupNode: HTMLElement) {
-		const imagesFirst = groupNode.querySelectorAll('img');
-		if (!imagesFirst?.length) return;
-
-		let tweens: gsap.core.Tween[] = [];
-
-		imagesFirst.forEach((image) => {
-			let tween = gsap.to(image, {
-				scrollTrigger: {
-					trigger: image.parentElement,
-					start: 'top bottom',
-					end: 'bottom top',
-					scrub: gsap.utils.random([0.7, 2, 1.5, 3])
-				},
-				y: `-${gsap.utils.random([40, 80, 50, 70, 90])}%`
-			});
-
-			tweens.push(tween);
-		});
-
-		return () => {
-			destoryTweens(tweens, true);
-		};
-	}
-
-	function changeHeaderText() {
-		const groups = groupsElement.querySelectorAll('.group');
-
-		groups.forEach((group, i) => {
-			ScrollTrigger.create({
-				trigger: group,
-				start: 'top bottom',
-				end: 'bottom bottom',
-				invalidateOnRefresh: true,
-				onEnter: () => (currentGroupIndex = i),
-				onEnterBack: () => (currentGroupIndex = i),
-				onLeaveBack: () => (currentGroupIndex = i)
-			});
-		});
-	}
-
 	onMount(() => {
-		let pinScrollTrigger = pinHeader(headingElement);
-		let destoryBackgroundTrigger = changeBackgroundColor();
+		let pinScrollTrigger = pinHeader(headingElement, groupsElement);
+		let destoryBackgroundTrigger = changeBackgroundColor(
+			[blackGroupElement, blackGroupElementTwo],
+			headingElement,
+			groupsElement
+		);
 		let destoryImageTrigger = moveImagesSlightly(groupsElement);
-		changeHeaderText();
+		changeHeaderText(groupsElement, (index) => (currentGroupIndex = index));
 		refreshScrollTrigger();
 
 		return () => {

@@ -1,10 +1,8 @@
+<!-- TODO: unimplemented -->
+
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { gsap, ScrollTrigger } from '$lib/gsap';
-	import Button from '../buttons/Button.svelte';
-
-	export let desc: string;
-	export let button: { text: string; href: string };
 
 	export let headings: string[] = ['No Fluff.', 'High Impact', 'No penny wasted'];
 
@@ -39,31 +37,15 @@
 	});
 </script>
 
-<article>
-	<!-- <h1 bind:this={headingElement}>Hello</h1> -->
-	<div class="headings" bind:this={headingWrapper}>
-		{#each headings as heading}
-			<div class="heading-wrap">
-				<h1>{heading}</h1>
-			</div>
-		{/each}
-	</div>
-	<p>{desc}</p>
-	<Button style="link" href={button.href} icon="mdi:arrow-right">{button.text}</Button>
-</article>
+<div class="headings" bind:this={headingWrapper}>
+	{#each headings as heading}
+		<div class="heading-wrap">
+			<h1>{heading}</h1>
+		</div>
+	{/each}
+</div>
 
 <style lang="scss">
-	article {
-		max-width: 50ch;
-		display: flex;
-		gap: var(--space-lg);
-		flex-direction: column;
-
-		p {
-			line-height: var(--line-md);
-		}
-	}
-
 	.headings {
 		display: flex;
 		flex-direction: column;
@@ -72,12 +54,5 @@
 	.heading-wrap {
 		overflow: hidden;
 		padding-bottom: 4px;
-	}
-
-	/* Laptop */
-	@media screen and (max-width: 1024px) {
-		article {
-			max-width: 65ch;
-		}
 	}
 </style>

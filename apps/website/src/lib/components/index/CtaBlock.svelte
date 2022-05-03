@@ -7,7 +7,7 @@
 	type ContentLocation = 'left' | 'right';
 
 	interface InfoBlock {
-		title: string;
+		headings: string[];
 		desc: string;
 		button: { text: string; href: string };
 	}
