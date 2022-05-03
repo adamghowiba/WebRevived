@@ -1,5 +1,5 @@
 import { gsap } from 'gsap';
-import { ScrollTrigge } from 'gsap/dist/ScrollTrigger.js';
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger.js';
 // import { SplitText } from 'gsap/dist/SplitText.js';
 import type { ScrollTrigger as ScrollTriggerType } from 'gsap/all';
 
