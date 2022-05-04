@@ -14,7 +14,7 @@
 		{
 			name: 'Website Development',
 			imgSrc: '/images/services/service_branding.png',
-			href: '/serivces'
+			href: '/services'
 		},
 		{ name: 'UI/UX Design', imgSrc: '/images/services/service_ui.png', href: '/services' },
 		{
