@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { slide } from 'svelte/transition';
+	import Icon from '@iconify/svelte';
+import { slide } from 'svelte/transition';
+	import PlusButton from '../buttons/PlusButton.svelte';
 
 	let openBlockIndex: number | null;
 
@@ -75,15 +77,21 @@
 
 		<nav>
 			{#each FOOTER_BLOCKS as block, i}
-				<div class="nav-block" on:click={() => handleMobileClick(i)}>
-					<h5>{block.group}</h5>
-					<!-- {#if i === openBlockIndex} -->
-					<div class="links links--mobile" transition:slide={{ duration: 270 }}>
+				<div class="nav-block">
+					<div class="mobile-header" on:click={() => handleMobileClick(i)}>
+						<h5>{block.group}</h5>
+
+						<Icon icon=""/>
+					</div>
+					<div
+						class="links links--mobile"
+						class:active={openBlockIndex === i}
+						transition:slide={{ duration: 270 }}
+					>
 						{#each block.links as link}
 							<a href={link.href}>{link.name}</a>
 						{/each}
 					</div>
-					<!-- {/if} -->
 				</div>
 			{/each}
 		</nav>
@@ -156,6 +164,12 @@
 		}
 	}
 
+	.mobile-header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
 	hr {
 		border: none;
 		border-top: 4px solid white;
@@ -183,14 +197,28 @@
 			flex-direction: column;
 			gap: var(--space-md);
 
-			// a {
-			// 	display: none;
-			// }
+			a {
+			}
 
+			.links {
+				max-height: 0px;
+				opacity: 0;
+				padding-top: 0;
+				transition: max-height 0.25s ease-in, opacity 0.25s ease-in, padding 0.25s ease-in;
+				// display: none;
+			}
+			
 			.nav-block {
 				padding: var(--space-xs) 0;
 				border-bottom: 4px solid var(--color-white);
 			}
+		}
+		
+		.active.links {
+			padding-top: var(--space-2xs);
+			max-height: 300px;
+			opacity: 1;
+			// display: flex;
 		}
 	}
 </style>
