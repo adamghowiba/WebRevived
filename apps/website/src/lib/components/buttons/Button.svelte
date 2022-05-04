@@ -86,9 +86,11 @@
 		justify-content: center;
 		width: var(--width, auto);
 		max-width: var(--maxWidth, none);
+		font-family: inherit;
 
 		span {
 			color: inherit;
+			line-height: normal;
 		}
 	}
 

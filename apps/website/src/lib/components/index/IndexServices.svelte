@@ -7,13 +7,26 @@
 	interface Service {
 		name: string;
 		imgSrc: string;
+		href: string;
 	}
 
 	const SERVICES: Service[] = [
-		{ name: 'Website Development', imgSrc: '/images/services/service_branding.png' },
-		{ name: 'UI/UX Design', imgSrc: '/images/services/service_ui.png' },
-		{ name: 'Backend Development', imgSrc: '/images/services/service_marketing.png' },
-		{ name: 'Branding & Marketing', imgSrc: '/images/services/service_website.png' }
+		{
+			name: 'Website Development',
+			imgSrc: '/images/services/service_branding.png',
+			href: '/serivces'
+		},
+		{ name: 'UI/UX Design', imgSrc: '/images/services/service_ui.png', href: '/services' },
+		{
+			name: 'Backend Development',
+			imgSrc: '/images/services/service_marketing.png',
+			href: '/services'
+		},
+		{
+			name: 'Branding & Marketing',
+			imgSrc: '/images/services/service_website.png',
+			href: '/services'
+		}
 	];
 
 	let hoverdServiceIndex: number = 1;
@@ -61,7 +74,7 @@
 <section class="section" id="white-section">
 	<div class="services container">
 		{#each SERVICES as service, i}
-			<a href="/" on:mouseenter={() => (hoverdServiceIndex = i)}>
+			<a href={service.href} on:mouseenter={() => (hoverdServiceIndex = i)}>
 				<!-- on:mouseleave={() => (hoverdServiceIndex = 0)} -->
 				{service.name}
 				<div class="icon">

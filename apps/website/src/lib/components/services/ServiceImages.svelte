@@ -12,9 +12,7 @@
 		let clamp = gsap.utils.clamp(-15, 15); // don't let the skew go beyond 20 degrees.
 
 		let trigger = ScrollTrigger.create({
-			start: 'top bottom',
-			end: 'bottom bottom-=50%',
-			trigger: sectionElement,
+			markers: true,
 			onUpdate: (self) => {
 				let skew = clamp(self.getVelocity() / -300);
 
@@ -40,8 +38,8 @@
 	}
 
 	onMount(() => {
-		ScrollTrigger.refresh();
 		let destory = scrollSkewAnimation();
+		// ScrollTrigger.refresh();
 
 		return () => destory();
 	});

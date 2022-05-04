@@ -26,6 +26,7 @@
 	--text-heading-color: var(--color-white);
 	--text-button: var(--text-base);
 
+	--fw-regular: 400;
 	--fw-medium: 500;
 	--fw-bold: 700;
 	--fw-semi-bold: 600;
@@ -97,7 +98,7 @@
 		/* OLD VALUES */
 		--text-h1: 35px;
 		--text-h2: 25px;
-		--text-h3: 20px;
+		--text-h3: 22px;
 		--text-title: 35px;
 
 		/* SPACING */

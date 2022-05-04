@@ -57,6 +57,7 @@
 		}
 		.icon {
 			max-width: 330px;
+			margin-bottom: var(--space-lg);
 		}
 	}
 

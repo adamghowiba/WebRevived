@@ -1,15 +1,64 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import Button from '../buttons/Button.svelte';
 	import LocalIcon from '../global/LocalIcon.svelte';
+	import TextBreak from '../global/TextBreak.svelte';
+	import { gsap, Power2, Power3 } from '$lib/gsap';
+
+	const animationSvg = () => {
+		const icon = document.querySelector('.wheel__icon');
+		if (!icon) return;
+
+		let rect = icon.querySelector('rect');
+		let wheelCircle = icon.querySelectorAll('#wheel-circle');
+		let wheelBlackCircle = icon.querySelectorAll('#wheel-black-circle');
+
+		let timeline = gsap.timeline();
+
+		timeline.from(rect, {
+			width: 0,
+			duration: 2.4,
+			ease: Power3.easeInOut
+		});
+
+		timeline.from(wheelBlackCircle, {
+			opacity: 0,
+			stagger: {
+				ease: Power2.easeInOut,
+				amount: 0.4
+			},
+			ease: Power3.easeInOut
+		});
+
+		timeline.from(wheelCircle, {
+			opacity: 0,
+			stagger: {
+				ease: Power2.easeInOut,
+				amount: 0.4
+			}
+		}, '<');
+
+		return timeline;
+	};
+
+	onMount(() => {
+		let tween = animationSvg();
+
+		return () => {
+			if (tween) tween.kill();
+		};
+	});
 </script>
 
 <section class="section--sm">
 	<div class="container">
 		<header>
-			<h1 class="title">We Help Impactful Brands Build Scalable Copunding Growth.</h1>
+			<h1 class="title">
+				We Help Impactful Brands Build <TextBreak /> <br /> Copunding Growth.
+			</h1>
 			<p class="body--lg">
 				Business marketing used to be about "fitting in" with everyone else. Today, it's about
-				standing out. It's about being bold, showing and proving how you're different.
+				standing out.
 			</p>
 			<Button
 				style="none"
@@ -33,10 +82,10 @@
 		height: calc(100vh - 260px);
 	}
 	.wheel {
-		// position: absolute;
 		position: absolute;
 		bottom: 0;
 		width: 100%;
+		// position: absolute;
 		// margin-top: var(--space-4xl);
 
 		&__icon {
@@ -47,7 +96,7 @@
 		}
 	}
 	header {
-		max-width: 75ch;
+		max-width: 80ch;
 		display: flex;
 		gap: var(--space-2xs);
 		flex-direction: column;
@@ -60,6 +109,10 @@
 	@media screen and (max-width: 425px) {
 		.wheel {
 			margin-top: -3rem;
+
+			&__icon {
+				transform: translateY(-70%);
+			}
 		}
 	}
 </style>

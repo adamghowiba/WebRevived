@@ -23,7 +23,7 @@
 		h1 {
 			max-width: 20ch;
 			text-align: center;
-			font-weight: var(--fw-bold);
+			font-weight: var(--fw-extra-bold);
 		}
 	}
 </style>

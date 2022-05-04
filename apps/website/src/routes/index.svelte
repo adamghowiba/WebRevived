@@ -13,9 +13,9 @@
 <CtaBlock
 	content={{
 		// title: 'We operate at the intersection of science and style.',
-		headings: ['We operate at', 'the intersection', 'of science and', 'style.'],
+		headings: ['We operate at', 'the intersection', 'of science and style'],
 		desc: 'We help you unlock your unique growth loops and put them into action with frameworks and strategies that drive rapid growth and maximize revenue potential.',
-		button: { text: 'See our approach', href: '/' }
+		button: { text: 'Read about us', href: '/about' }
 	}}
 	icon="funnel"
 />
@@ -30,7 +30,7 @@
 			// title: 'The missing piece of your marketing puzzle.',
 			headings: ['The missing', 'peice of your', 'marketing pizzle'],
 			desc: "Armed with diverse perspectives and experiences, our high-energy teams unite to develop world-class digital experiences that grow companies. From brand strategy to web development to digital marketing, beautiful design isn't just what we do; it's our life’s work.",
-			button: { text: 'See our approach', href: '/' }
+			button: { text: "Let's talk", href: '/contact' }
 		}}
 		icon="puzzle"
 	/>
@@ -40,7 +40,7 @@
 			// title: 'No Fluff. High impact. No penny wasted.',
 			headings: ['No Fluff. High', 'Impact. No penny wasted'],
 			desc: 'We are hyper-focused on increasing your revenue. We leverage learnings from past projects & experiments with successful brands and startups to refine the growth playbook we create for your business.',
-			button: { text: 'See our services', href: '/' }
+			button: { text: 'See our services', href: '/services' }
 		}}
 		icon="barChart"
 		contentLocation="right"

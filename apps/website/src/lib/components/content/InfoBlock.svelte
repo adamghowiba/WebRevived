@@ -14,18 +14,19 @@
 	function textRevealAnimation(container: HTMLElement) {
 		if (!container) return;
 		let headings = container.querySelectorAll('h1');
+
 		let timeline = gsap.timeline({
 			scrollTrigger: {
 				trigger: headingsContainer,
 				start: 'top bottom-=20%',
-				end: 'bottom top+=15%',
-			},
+				end: 'bottom top+=15%'
+			}
 		});
 
 		timeline.from(gsap.utils.toArray(headings), {
-			yPercent: 100,
+			yPercent: 102,
 			duration: 1,
-			ease: Power4.easeInOut,
+			ease: Power4.easeInOut
 		});
 
 		timeline.from(
@@ -76,7 +77,7 @@
 		flex-direction: column;
 
 		p {
-			line-height: var(--line-md);
+			line-height: var(--line-lg);
 		}
 	}
 

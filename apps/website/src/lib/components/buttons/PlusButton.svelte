@@ -3,19 +3,21 @@
 	export let open = false;
 </script>
 
-<div class="button" class:open />
+<div class="button" class:open style="--color: {color}" />
 
 <style lang="scss">
 	.button {
 		position: relative;
 		min-width: 22px;
 		min-height: 22px;
+		max-width: 22px;
+		max-height: 22px;
 
 		&:before,
 		&:after {
 			content: '';
 			position: absolute;
-			background-color: var(--color-black);
+			background-color: var(--color);
 			transition: transform 0.25s ease-out;
 		}
 
