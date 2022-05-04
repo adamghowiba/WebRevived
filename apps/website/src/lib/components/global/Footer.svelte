@@ -77,15 +77,17 @@ import { slide } from 'svelte/transition';
 
 		<nav>
 			{#each FOOTER_BLOCKS as block, i}
+				{@const isOpen = openBlockIndex === i}
+
 				<div class="nav-block">
 					<div class="mobile-header" on:click={() => handleMobileClick(i)}>
 						<h5>{block.group}</h5>
 
-						<Icon icon=""/>
+						<Icon icon="bx:chevron-right" width={24} height={24} rotate="{isOpen ? 1 : 0}" />
 					</div>
 					<div
 						class="links links--mobile"
-						class:active={openBlockIndex === i}
+						class:active={isOpen}
 						transition:slide={{ duration: 270 }}
 					>
 						{#each block.links as link}
@@ -201,11 +203,12 @@ import { slide } from 'svelte/transition';
 			}
 
 			.links {
-				max-height: 0px;
 				opacity: 0;
 				padding-top: 0;
-				transition: max-height 0.25s ease-in, opacity 0.25s ease-in, padding 0.25s ease-in;
-				// display: none;
+				display: none;
+			}
+			.links--mobile {
+				pointer-events: none;
 			}
 			
 			.nav-block {
@@ -216,9 +219,12 @@ import { slide } from 'svelte/transition';
 		
 		.active.links {
 			padding-top: var(--space-2xs);
-			max-height: 300px;
+			max-height: 500px;
 			opacity: 1;
-			// display: flex;
+			display: flex;
+		}
+		.active.links--mobile {
+			pointer-events: all;
 		}
 	}
 </style>
