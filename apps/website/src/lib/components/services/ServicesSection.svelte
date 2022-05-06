@@ -48,7 +48,8 @@
 
 	let loadedImages: number = 0;
 	const handleImageLoad = () => {
-		if (++loadedImages === SERVICES.length) {
+		loadedImages++;
+		if (loadedImages === SERVICES.length) {
 			ScrollTrigger.refresh();
 		}
 	}

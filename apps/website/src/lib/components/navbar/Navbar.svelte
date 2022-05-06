@@ -62,7 +62,7 @@
 	</a>
 
 	<div class="links">
-		<!-- {#each LINKS as link}
+		{#each LINKS as link}
 			<a
 				class="hover"
 				href={link.href}
@@ -77,10 +77,10 @@
 					</span>
 				{/each}
 			</a>
-		{/each} -->
-		<a href="/about">About</a>
+		{/each}
+		<!-- <a href="/about">About</a>
 		<a href="/services">Services</a>
-		<a href="/contact">Login</a>
+		<a href="/contact">Login</a> -->
 		<Button href="/contact">Talk To Us</Button>
 	</div>
 
