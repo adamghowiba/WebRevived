@@ -40,7 +40,7 @@
 	</p>
 </div>
 
-<!-- <ServiceImages images={serviceData.images}/> -->
+<ServiceImages images={serviceData.images}/>
 
 <ArticleContent title="Approach">
 	<p>

@@ -30,16 +30,25 @@
 			ease: Power3.easeInOut
 		});
 
-		timeline.from(wheelCircle, {
-			opacity: 0,
-			stagger: {
-				ease: Power2.easeInOut,
-				amount: 0.4
-			}
-		}, '<');
+		timeline.from(
+			wheelCircle,
+			{
+				opacity: 0,
+				stagger: {
+					ease: Power2.easeInOut,
+					amount: 0.4
+				}
+			},
+			'<'
+		);
 
 		return timeline;
 	};
+
+	function handleScrollDown() {
+		window.scrollTo({ top: 800, behavior: 'smooth' });
+		console.log('Scroll');
+	}
 
 	onMount(() => {
 		let tween = animationSvg();
@@ -63,6 +72,7 @@
 			<Button
 				style="none"
 				icon="mdi:arrow-right-drop-circle-outline"
+				on:click={handleScrollDown}
 				iconStyle={{ rotation: '90deg' }}
 			>
 				Explore
@@ -96,7 +106,7 @@
 		}
 	}
 	header {
-		max-width: 80ch;
+		max-width: 85ch;
 		display: flex;
 		gap: var(--space-2xs);
 		flex-direction: column;

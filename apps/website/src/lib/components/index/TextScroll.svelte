@@ -14,12 +14,12 @@
 		height: 80vh;
 		display: flex;
 		align-items: center;
-        justify-content: center;
+		justify-content: center;
 	}
 	h3 {
 		line-height: var(--line-lg);
-        max-width: 50ch;
-        text-align: center;
+		max-width: 50ch;
+		text-align: center;
 	}
 
 	@media screen and (max-width: 768px) {

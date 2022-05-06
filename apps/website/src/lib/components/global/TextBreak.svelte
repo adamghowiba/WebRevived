@@ -136,7 +136,7 @@
 </script>
 
 <span class="word-wrapper">
-	<div class="fake-word">Scaleable</div>
+	<div class="fake-word">Predictable</div>
 	{#each WORDS as word}
 		<h1 class="word title">
 			<span class="word__split--1">{word.word.substring(0, word.split)}</span>

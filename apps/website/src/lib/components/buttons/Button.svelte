@@ -44,14 +44,14 @@
 	style="--width: {width}; --maxWidth: {maxWidth};"
 >
 	{#if href}
-		<a {href} class={styleString}>
+		<a {href} class={styleString} on:click>
 			<span><slot /></span>
 			{#if icon}
 				<Icon {...ICON_STYLE} />
 			{/if}
 		</a>
 	{:else}
-		<button class={styleString}>
+		<button class={styleString} on:click>
 			<span><slot /></span>
 			{#if icon}
 				<Icon {...ICON_STYLE} />
@@ -87,6 +87,10 @@
 		width: var(--width, auto);
 		max-width: var(--maxWidth, none);
 		font-family: inherit;
+
+		&:hover {
+			cursor: pointer;
+		}
 
 		span {
 			color: inherit;

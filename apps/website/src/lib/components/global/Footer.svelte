@@ -1,9 +1,12 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-import { slide } from 'svelte/transition';
-	import PlusButton from '../buttons/PlusButton.svelte';
+	import { slide } from 'svelte/transition';
+	import { gsap, ScrollTrigger } from '$lib/gsap';
+	import { onMount } from 'svelte';
+	import ContactSection from './ContactSection.svelte';
 
 	let openBlockIndex: number | null;
+	let sectionElement: HTMLElement;
 
 	function handleMobileClick(index: number) {
 		if (openBlockIndex === index) return (openBlockIndex = null);
@@ -18,6 +21,25 @@ import { slide } from 'svelte/transition';
 		group: string;
 		links: FooterLink[];
 	}
+
+	const parlaxFooterAnimation = () => {
+		let timeline = gsap.timeline({
+			scrollTrigger: {
+				start: 'top bottom',
+				end: 'bottom bottom',
+				markers: true,
+				trigger: sectionElement,
+				scrub: 0.7
+			}
+		});
+
+		timeline.from(sectionElement, { yPercent: -40 });
+
+		return () => {
+			timeline.scrollTrigger?.kill();
+			timeline.kill();
+		};
+	};
 
 	const FOOTER_BLOCKS: FooterBlocks[] = [
 		{
@@ -54,12 +76,22 @@ import { slide } from 'svelte/transition';
 			]
 		}
 	];
+
+	onMount(() => {
+		// let destory = parlaxFooterAnimation();
+
+		return () => {
+			// destory();
+		};
+	});
 </script>
 
-<div class="container section">
-	<hr />
+<section class="section" bind:this={sectionElement}>
+	<!-- <ContactSection /> -->
 
-	<footer>
+	<hr class="container" />
+
+	<footer class="container">
 		<div class="info">
 			<img class="nav__logo" src="/images/logo.png" alt="WebRevived logo" />
 			<p>
@@ -83,7 +115,9 @@ import { slide } from 'svelte/transition';
 					<div class="mobile-header" on:click={() => handleMobileClick(i)}>
 						<h5>{block.group}</h5>
 
-						<Icon icon="bx:chevron-right" width={24} height={24} rotate="{isOpen ? 1 : 0}" />
+						<div class="mobile-icon">
+							<Icon icon="bx:chevron-right" width={24} height={24} rotate={isOpen ? 1 : 0} />
+						</div>
 					</div>
 					<div
 						class="links links--mobile"
@@ -98,10 +132,18 @@ import { slide } from 'svelte/transition';
 			{/each}
 		</nav>
 	</footer>
-</div>
+</section>
 
 <style lang="scss">
+	section {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		overflow: hidden;
+		background-color: var(--color-black);
+	}
 	footer {
+		background-color: var(--color-black);
 		display: flex;
 		justify-content: space-between;
 		gap: var(--space-md);
@@ -170,12 +212,20 @@ import { slide } from 'svelte/transition';
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+
+		&:hover {
+			cursor: pointer;
+		}
+	}
+	.mobile-icon {
+		display: none;
 	}
 
 	hr {
 		border: none;
 		border-top: 4px solid white;
 		margin-bottom: var(--space-2xl);
+		// margin-top: var(--space-section-base);
 	}
 
 	@media screen and (max-width: 1024px) {
@@ -195,12 +245,13 @@ import { slide } from 'svelte/transition';
 			}
 		}
 
+		.mobile-icon {
+			display: block;
+		}
+
 		nav {
 			flex-direction: column;
 			gap: var(--space-md);
-
-			a {
-			}
 
 			.links {
 				opacity: 0;
@@ -210,13 +261,13 @@ import { slide } from 'svelte/transition';
 			.links--mobile {
 				pointer-events: none;
 			}
-			
+
 			.nav-block {
 				padding: var(--space-xs) 0;
 				border-bottom: 4px solid var(--color-white);
 			}
 		}
-		
+
 		.active.links {
 			padding-top: var(--space-2xs);
 			max-height: 500px;

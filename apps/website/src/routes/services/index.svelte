@@ -4,13 +4,6 @@
 	import PageHeader from '$lib/components/global/PageHeader.svelte';
 	import ServiceProcess from '$lib/components/services/process/ServiceProcess.svelte';
 	import ServicesSection from '$lib/components/services/ServicesSection.svelte';
-	import { gsap } from 'gsap';
-	import { onMount } from 'svelte';
-
-	onMount(async () => {
-		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-		gsap.registerPlugin(ScrollTrigger);
-	});
 </script>
 
 <PageHeader
@@ -54,7 +47,6 @@
 			display: flex;
 			flex-direction: column;
 			text-align: center;
-
 		}
 	}
 </style>

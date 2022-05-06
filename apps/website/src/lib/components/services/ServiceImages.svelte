@@ -12,7 +12,6 @@
 		let clamp = gsap.utils.clamp(-15, 15); // don't let the skew go beyond 20 degrees.
 
 		let trigger = ScrollTrigger.create({
-			markers: true,
 			onUpdate: (self) => {
 				let skew = clamp(self.getVelocity() / -300);
 
@@ -33,6 +32,7 @@
 		});
 
 		return () => {
+			trigger.refresh();
 			trigger.kill();
 		};
 	}
@@ -59,6 +59,7 @@
 	figure {
 		display: flex;
 		flex-wrap: wrap;
+		justify-content: center;
 		gap: var(--space-lg);
 		row-gap: var(--space-6xl);
 		margin-bottom: var(--space-5xl);
@@ -66,6 +67,11 @@
 		img:nth-child(even) {
 			position: relative;
 			transform: translateY(var(--space-5xl));
+		}
+
+		img {
+			display: block;
+			max-width: 100%;
 		}
 
 		img:hover {
