@@ -46,6 +46,13 @@
 		};
 	};
 
+	let loadedImages: number = 0;
+	const handleImageLoad = () => {
+		if (++loadedImages === SERVICES.length) {
+			ScrollTrigger.refresh();
+		}
+	}
+
 	const setupImageSlideout = () => {
 		const serviceBlocks: HTMLElement[] = gsap.utils.toArray('.services__content');
 		const images: HTMLElement[] = gsap.utils.toArray('#service-image');
@@ -120,6 +127,7 @@
 				class:service-image--hidden={i !== 0}
 				src="/images/services/{service.image}"
 				alt=""
+				on:load={handleImageLoad}
 			/>
 		{/each}
 	</div>
