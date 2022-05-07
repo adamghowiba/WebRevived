@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { browser } from '$app/env';
 	import Icon from '@iconify/svelte';
-	import { gsap } from 'gsap';
-	import { onDestroy, onMount } from 'svelte';
+	import { onMount } from 'svelte';
+	import { gsap, ScrollTrigger } from '$lib/gsap';
 
 	interface Service {
 		name: string;
@@ -31,10 +30,9 @@
 
 	let hoverdServiceIndex: number = 1;
 	let circleElement: HTMLElement;
-	let circleScrollTimeline: gsap.core.Timeline | null;
 
 	function setupCircleScrollTrigger(node: HTMLElement) {
-		circleScrollTimeline = gsap.timeline({
+		let timeline = gsap.timeline({
 			scrollTrigger: {
 				trigger: '#white-section',
 				start: 'top+=5% bottom-=10%',
@@ -44,30 +42,21 @@
 			defaults: {}
 		});
 
-		circleScrollTimeline.to(node, { width: '100%', height: '100%', borderRadius: 0 });
+		timeline.to(node, { width: '100%', height: '100%', borderRadius: 0 });
 		// circleScrollTimeline.to(node, { width: '50%', height: '50%', borderRadius: 100 }, '+=0.5');
 
-		circleScrollTimeline.scrollTrigger?.refresh();
-	}
-	async function registerAnimations() {
-		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-		gsap.registerPlugin(ScrollTrigger);
-		setupCircleScrollTrigger(circleElement);
-	}
-	function destoryAnimations() {
-		if (circleScrollTimeline?.scrollTrigger) {
-			circleScrollTimeline.kill();
-			circleScrollTimeline?.scrollTrigger?.disable();
-			circleScrollTimeline = null;
-		}
+		return () => {
+			timeline.scrollTrigger?.kill();
+			timeline.kill();
+		};
 	}
 
 	onMount(() => {
-		registerAnimations();
-	});
+		const destory = setupCircleScrollTrigger(circleElement);
 
-	onDestroy(() => {
-		destoryAnimations();
+		return () => {
+			destory();
+		};
 	});
 </script>
 

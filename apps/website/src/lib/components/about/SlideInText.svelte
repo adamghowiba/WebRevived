@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import Button from '../buttons/Button.svelte';
-	import { gsap } from 'gsap';
+	import { gsap } from '$lib/gsap';
 
 	let textBlocks = ['We drive', 'experiences', 'for brands with', 'purpose'];
 	let textWrapper: HTMLElement;
@@ -33,13 +33,20 @@
 				x: `${textRight ? '-150%' : '150%'}`
 			});
 		});
+
+		return () => {
+			timeline.scrollTrigger?.kill();
+			timeline.kill();
+			tween.kill();
+		};
 	}
 
 	onMount(async () => {
-		const { ScrollTrigger } = await import('gsap/ScrollTrigger');
-		gsap.registerPlugin(ScrollTrigger);
-
-		setupTextAnimation();
+		const destory = setupTextAnimation();
+	
+		return () => {
+			destory();
+		}
 	});
 </script>
 

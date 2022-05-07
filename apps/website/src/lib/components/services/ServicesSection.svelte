@@ -42,7 +42,7 @@
 		});
 
 		return () => {
-			trigger.kill();
+			if (trigger) trigger.kill();
 		};
 	};
 
@@ -52,7 +52,7 @@
 		if (loadedImages === SERVICES.length) {
 			ScrollTrigger.refresh();
 		}
-	}
+	};
 
 	const setupImageSlideout = () => {
 		const serviceBlocks: HTMLElement[] = gsap.utils.toArray('.services__content');
