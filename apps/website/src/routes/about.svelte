@@ -21,7 +21,10 @@
 
 	<p>
 		With over 12+ years of experience in the marketing and design field, we came together to build a
-		team of designers, writers, strategists, developers, analysts, and doers.
+		team of <span class="italic">designers</span>, <span class="italic">writers</span>,
+		<span class="italic">strategists</span>,
+		<span class="italic">developers</span>, <span class="italic">analysts</span>, and
+		<b style="font-weight: 700; color: var(--color-primary)"> doers </b>.
 	</p>
 
 	<p>
@@ -37,16 +40,15 @@
 
 <ArticleContent title="Simply put, we do what others don't">
 	<p>
-		We make things, and we're awesome at it . We Connected is a tight-knit team of experts who are
-		ready to tackle the most intricate puzzles when it comes to websites and mobile apps
-		development. We love what we do and we bet on the success of each and every project we
-		undertake.
+		When you work with AB Digital Marketing, you are getting a team of experts to ensure that your
+		business reaches new heights. Because it's not just work, it's passion. It's not just clients,
+		it's people. Every project we take on is important to us.
 	</p>
 
 	<p>
-		Mainstream? No, thanks. Because it's not just work, it's passion. It's not just clients, it's
-		people. Every project we take on is important to us, and every client is a big deal. We take
-		care of your projects, your deadlines, and your nerves no matter what, and that’s a promise.
+		We love what we do and we bet on the success of each and every project we undertake. As a
+		dedicated digital marketing agency based in Florida, we have worked with clients of all sizes in
+		a range of industries to achieve their business goals.
 	</p>
 </ArticleContent>
 
@@ -55,6 +57,10 @@
 <ContactSection />
 
 <style lang="scss">
+	.italic {
+		font-style: italic;
+		color: var(--color-white);
+	}
 	.description {
 		display: flex;
 		flex-direction: column;

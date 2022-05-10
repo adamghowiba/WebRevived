@@ -1,7 +1,7 @@
 <script lang="ts">
-	export let title: string = 'Keep up with the latest and greatest in growth marketing 📖';
+	export let title: string = 'Keep up with the latest and greatest in digital marketing 📖';
 	export let subtitle: string =
-		'Sign up for our newsletter, a biweekly digest from our growth experts.';
+		'Sign up for our newsletter, a biweekly digest from our digital experts.';
 </script>
 
 <section class="section container">

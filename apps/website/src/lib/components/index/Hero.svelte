@@ -81,7 +81,7 @@
 	</div>
 	<div class="wheel">
 		<div class="wheel__icon">
-			<LocalIcon icon="wheel" />
+			<LocalIcon icon="wheel" fill="var(--color-primary)" />
 		</div>
 	</div>
 </section>

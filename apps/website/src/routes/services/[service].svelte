@@ -22,6 +22,7 @@
 	import PageHeader from '$lib/components/global/PageHeader.svelte';
 	import Capabilities from '$lib/components/services/Capabilities.svelte';
 	import ServiceImages from '../../lib/components/services/ServiceImages.svelte';
+	import FloatingText from '$lib/components/global/FloatingText.svelte';
 
 	export let serviceData: Service;
 </script>
@@ -34,27 +35,26 @@
 
 <img src={serviceData.header.imgSrc} alt="Webdesign laptop" />
 
-<div class="container section">
+<!-- <div class="container section">
 	<p class="description body--xl">
 		{serviceData.description}
 	</p>
-</div>
+</div> -->
+<FloatingText>
+	{serviceData.description}
+</FloatingText>
 
-<ServiceImages images={serviceData.images}/>
+<ServiceImages images={serviceData.images} />
 
 <ArticleContent title="Approach">
 	<p>
-		This approach helps our clients in standing out in their respective industries. Our web
-		developers are well versed in providing exciting customer experience and uniqueness for
-		e-commerce websites. For Wordpress-related websites, our developers create websites that engages
-		users or drives sales.
+		{serviceData.approach}
 	</p>
 </ArticleContent>
 
 <Capabilities title="Capabilities" listItems={serviceData.capabilities.listItems}>
 	<p>
-		We bring vision to life by providing frictionless services of branding. We are not just
-		identifying your brand, In fact we create seamless interaction between peoples & your
+		{serviceData.capabilities.description}
 	</p>
 </Capabilities>
 
@@ -64,8 +64,8 @@
 		object-fit: cover;
 		display: block;
 		margin: 0 auto;
-        margin-bottom: var(--space-section-base);
-    }
+		margin-bottom: var(--space-section-base);
+	}
 	.description {
 		color: var(--color-white);
 	}

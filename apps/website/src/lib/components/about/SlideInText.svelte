@@ -10,7 +10,7 @@
 		const textElements = textWrapper.querySelectorAll('h1');
 
 		let tween = gsap.to(textElements[textElements.length - 1], {
-			color: '#7EE3B2',
+			color: '#01BEF0',
 			paused: true,
 			fontStyle: 'italic'
 		});
@@ -54,7 +54,7 @@
 	{#each textBlocks as block}
 		<h1>{block}</h1>
 	{/each}
-	<Button textStyle="uppercase">Lets Talk</Button>
+	<Button textStyle="uppercase">Get started</Button>
 </section>
 
 <style lang="scss">

@@ -20,7 +20,7 @@
 	<InfoBlock {...content} />
 	{#if icon}
 		<div class="icon">
-			<LocalIcon {icon} width="100%" height="100%" />
+			<LocalIcon {icon} width="100%" height="100%" fill="var(--color-primary)" />
 		</div>
 	{/if}
 </section>

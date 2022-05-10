@@ -10,20 +10,21 @@
 	const SERVICES = [
 		{
 			title: 'Website Design',
-			desc: 'Armed with diverse perspectives and experiences, our high-energy teams unite to develop world-class digital experiences that grow companies.',
+			desc: 'We develop human-centric websites that deliver results',
 			image: 'service_1.png',
 			link: '/services/web-design'
 		},
 		{
 			title: 'Social Mangement',
-			desc: 'Armed with diverse perspectives and experiences, our high-energy teams unite to develop world-class digital experiences that grow companies.',
+			desc: 'We craft campaigns that build communities',
 			image: 'service_2.png',
 			link: '/services/social'
 		},
 		{
 			title: 'Branding & Idenity',
-			desc: 'Armed with diverse perspectives and experiences, our high-energy teams unite to develop world-class digital experiences that grow companies.',
-			image: 'service_3.png'
+			desc: 'We build brands that connect with customers',
+			image: 'service_3.png',
+			link: "/services/branding"
 		}
 	];
 

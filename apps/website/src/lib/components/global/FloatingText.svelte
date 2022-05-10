@@ -3,8 +3,7 @@
 
 <section class="container">
 	<h3>
-		We make things, and we're awesome at it. AB Digital is a tight-knit team of experts who are
-		ready to tackle the most intricate puzzles when it comes to digital marketing.
+		<slot />
 	</h3>
 </section>
 
@@ -14,12 +13,11 @@
 		height: 80vh;
 		display: flex;
 		align-items: center;
-		justify-content: center;
 	}
 	h3 {
 		line-height: var(--line-lg);
 		max-width: 50ch;
-		text-align: center;
+		text-align: left;
 	}
 
 	@media screen and (max-width: 768px) {

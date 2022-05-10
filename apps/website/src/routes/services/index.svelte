@@ -8,8 +8,8 @@
 
 <PageHeader
 	pageName="Services"
-	title="Our extensive experience fuels our future."
-	subtitle="We are a team of people who believe in what they do."
+	title="Boundries are so 20th century, that's why we don't use them."
+	subtitle="We transform ideas into digital outcomes"
 />
 
 <HeaderImage imgSrc="/images/services/tile_frames.png" />
@@ -17,9 +17,8 @@
 <article class="section--md container description">
 	<h4>What We Do</h4>
 	<p class="body--xl">
-		A strategic and tactical approach is essential for long-term goals, but what's even more
-		important is keeping deadlines and promises. Our work gets results and we never hide behind
-		paperwork.
+		AB Digital is a digital brand agency that lives where design, technology,and experience collide.
+		We are obsessed with creativity — challenging what is, while defining what comes next.
 	</p>
 </article>
 
