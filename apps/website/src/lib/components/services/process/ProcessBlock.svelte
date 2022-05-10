@@ -21,6 +21,7 @@
 		flex-direction: column;
 		gap: var(--space-sm);
 		padding: var(--space-md) 0;
+		fill: var(--color-black);
 
 		&:hover .overline__inner-line {
 			width: 100%;
