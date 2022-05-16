@@ -1,0 +1,26 @@
+version: 0.1
+
+env:
+    variables:
+        CACHE_CONTROL: "86400"
+        BUILD_FOLDER: "build"
+
+phases:
+  install:
+    commands:
+      - echo installing nodejs...
+      - curl -sL https://deb.nodesource.com/setup_12.x | bash -
+      - apt-get install -y nodejs  #aws code build use ubuntu environement
+  pre_build:
+    commands:
+      - echo installing dependencies...
+      - npm ci
+  build:
+    commands:
+      - echo building...
+      - npm run build
+artifacts:
+  files:
+    - "**/*"
+  discard-paths: no
+  base-directory: build
