@@ -12,7 +12,7 @@ phases:
   pre_build:
     commands:
       - echo installing dependencies...
-      - npm install -w website
+      - npm ci -w website
   build:
     commands:
       - echo building...

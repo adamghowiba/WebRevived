@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/TechnoPvP/WebRevived/issues"
   },
-  "homepage": "https://github.com/TechnoPvP/WebRevived#readme"
+  "homepage": "https://github.com/TechnoPvP/WebRevived#readme",
+  "dependencies": {
+    "website": "^0.1.1"
+  }
 }
