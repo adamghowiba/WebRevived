@@ -14,13 +14,14 @@ phases:
   pre_build:
     commands:
       - echo installing dependencies...
-      - npm ci
+      - npm install -w website
   build:
     commands:
       - echo building...
-      - npm run build
+      - npm run build -w website
+
 artifacts:
   files:
     - "**/*"
   discard-paths: no
-  base-directory: build
+  base-directory: apps/website/build
