@@ -14,8 +14,8 @@ phases:
   build:
     commands:
       # Build Container Images
-      - echo Building NGINX Image
-      - docker build -t webrevived-nginx:latest -f apps/nginx/Dockerfile .
+      # - echo Building NGINX Image
+      # - docker build -t webrevived-nginx:latest -f apps/nginx/Dockerfile .
 
       - echo Building Backend Image
       - docker build -t webrevived-backend:latest -f apps/backend/Dockerfile .
@@ -24,15 +24,15 @@ phases:
       - docker build -t webrevived-frontend:latest -f apps/frontend/Dockerfile .
 
       # Tag docker images
-      - echo Tagging [Ngix, Backend, Frontend] image...
-      - docker tag webrevived-nginx:latest 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-nginx:latest
+      - echo Tagging [Backend, Frontend] image...
+      # - docker tag webrevived-nginx:latest 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-nginx:latest
       - docker tag webrevived-backend:latest 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend:latest
       - docker tag webrevived-frontend:latest 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-frontend:latest
 
   post_build:
     commands:
-      - echo Pushing Nginx image...
-      - docker push 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-nginx:latest
+      # - echo Pushing Nginx image...
+      # - docker push 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-nginx:latest
 
       - echo Pushing Backend image...
       - docker push 040133161491.dkr.ecr.us-east-1.amazonaws.com/webrevived-backend:latest
