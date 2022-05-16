@@ -7,9 +7,8 @@ env:
 
 phases:
   install:
-    commands:
-      runtime-versions:
-        nodejs: 14
+    runtime-versions:
+      nodejs: 14
   pre_build:
     commands:
       - echo installing dependencies...
