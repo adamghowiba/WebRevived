@@ -9,10 +9,12 @@ phases:
   install:
     runtime-versions:
       nodejs: 14
+    commands:
+      - n 16
   pre_build:
     commands:
       - echo installing dependencies...
-      - npm install --force -w website
+      - npm install
   build:
     commands:
       - echo building...
