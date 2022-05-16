@@ -2,7 +2,6 @@ import { gsap, ScrollTrigger } from '$lib/gsap';
 import { destoryTimelines, destoryTweens } from '$lib/gsap-utils';
 
 function pinHeader(heading: HTMLElement, container: HTMLElement) {
-	if (!heading) return;
 	const headingSize = heading.clientHeight + 20;
 
 	const trigger = ScrollTrigger.create({
@@ -15,33 +14,25 @@ function pinHeader(heading: HTMLElement, container: HTMLElement) {
 		invalidateOnRefresh: true
 	});
 
-	return trigger;
+	return () => trigger.kill();
 }
 
-// prettier-ignore
-function changeBackgroundColor(groups: HTMLElement[], heading: HTMLElement, parentGroup: HTMLElement) {
-	const blackGroups: HTMLElement[] = gsap.utils.toArray(groups);
+const groupScrollTrigger = (groupsWrapper: HTMLElement, headingElement: HTMLElement) => {
+	const evenGroups = groupsWrapper.querySelectorAll<HTMLElement>('.group:nth-child(even)');
 	const timelines: gsap.core.Timeline[] = [];
 
-	blackGroups.forEach((blackGroup, i) => {
+	evenGroups.forEach((group,  i) => {
 		const timeline = gsap.timeline({
 			scrollTrigger: {
-				trigger: blackGroup,
-				start: 'top bottom',
-				end: 'bottom bottom',
-				onLeave: (self) => {
-					if (i == blackGroups.length - 1) return;
-					self.animation?.reverse();
-				},
-				onEnterBack: (self) => self.animation?.play(),
-				onLeaveBack: (self) => self.animation?.reverse()
+				trigger: group,
+				start: 'top bottom-=20%',
+				end: 'bottom bottom-=20%',
+				toggleActions: 'play reverse play reverse'
 			}
 		});
 
-		timeline.to(parentGroup, {
-			backgroundColor: '#141313'
-		});
-		timeline.to(heading, { color: 'white' }, '<');
+		timeline.to(groupsWrapper, { backgroundColor: '#141313' });
+		timeline.to(headingElement, { color: 'white' }, '<');
 
 		timelines.push(timeline);
 	});
@@ -49,7 +40,7 @@ function changeBackgroundColor(groups: HTMLElement[], heading: HTMLElement, pare
 	return () => {
 		destoryTimelines(timelines, true);
 	};
-}
+};
 
 function moveImagesSlightly(parentGroup: HTMLElement) {
 	const imagesFirst = parentGroup.querySelectorAll('img');
@@ -63,9 +54,9 @@ function moveImagesSlightly(parentGroup: HTMLElement) {
 				trigger: image.parentElement,
 				start: 'top bottom',
 				end: 'bottom top',
-				scrub: gsap.utils.random([0.7, 2, 1.5, 3])
+				scrub: gsap.utils.random([0.7, 2, 1.5, 2.5])
 			},
-			y: `-${gsap.utils.random([40, 80, 50, 70, 90])}%`
+			y: `-${gsap.utils.random([80, 70, 90])}%`
 		});
 
 		tweens.push(tween);
@@ -78,18 +69,25 @@ function moveImagesSlightly(parentGroup: HTMLElement) {
 
 function changeHeaderText(parentGroup: HTMLElement, callback: (index: number) => void) {
 	const groups = parentGroup.querySelectorAll('.group');
+	const triggers: ScrollTrigger[] = [];
 
 	groups.forEach((group, i) => {
-		ScrollTrigger.create({
+		const trigger = ScrollTrigger.create({
 			trigger: group,
-			start: 'top bottom',
-			end: 'bottom bottom',
+			start: 'top bottom-=20%',
+			end: 'bottom bottom-=20%',
 			invalidateOnRefresh: true,
 			onEnter: () => callback(i),
 			onEnterBack: () => callback(i),
 			onLeaveBack: () => callback(i)
 		});
+
+		triggers.push(trigger);
 	});
+
+	return () => {
+		triggers.forEach((trigger) => trigger.kill());
+	};
 }
 
-export { changeBackgroundColor, changeHeaderText, moveImagesSlightly, pinHeader };
+export { changeHeaderText, moveImagesSlightly, pinHeader, groupScrollTrigger };

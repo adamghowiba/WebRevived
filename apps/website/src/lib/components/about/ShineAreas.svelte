@@ -1,24 +1,19 @@
 <script lang="ts">
-	import { onDestroy, onMount } from 'svelte';
-	import { gsap, ScrollTrigger } from '$lib/gsap';
-	import { destoryTimelines, destoryTweens } from '$lib/gsap-utils';
 	import {
-		changeBackgroundColor,
-		changeHeaderText,
-		moveImagesSlightly,
-		pinHeader
+	changeHeaderText,
+	groupScrollTrigger,moveImagesSlightly,pinHeader
 	} from '$lib/components/about/shine-animations';
+	import { ScrollTrigger } from '$lib/gsap';
+	import { onMount } from 'svelte';
 
 	let GROUPS_HEADING = ['Apps', 'Websites', 'UI/UX', 'Design'];
 	let currentGroupIndex = 0;
 
 	let headingElement: HTMLElement;
-	let groupsElement: HTMLElement;
-	let blackGroupElement: HTMLElement;
-	let blackGroupElementTwo: HTMLElement;
+	let groupsWrapper: HTMLElement;
 
 	function refreshScrollTrigger() {
-		const images = groupsElement.querySelectorAll('img');
+		const images = groupsWrapper.querySelectorAll('img');
 		let loadedImages = 0;
 
 		const loadEventHandler = () => {
@@ -35,25 +30,23 @@
 	}
 
 	onMount(() => {
-		let pinScrollTrigger = pinHeader(headingElement, groupsElement);
-		let destoryBackgroundTrigger = changeBackgroundColor(
-			[blackGroupElement, blackGroupElementTwo],
-			headingElement,
-			groupsElement
-		);
-		let destoryImageTrigger = moveImagesSlightly(groupsElement);
-		changeHeaderText(groupsElement, (index) => (currentGroupIndex = index));
+		let destoryPinTrigger = pinHeader(headingElement, groupsWrapper);
+		let destoryAnimation = groupScrollTrigger(groupsWrapper, headingElement);
+		let destoryHeaderTrigger = changeHeaderText(groupsWrapper, (index) => (currentGroupIndex = index));
+		let destoryImageTrigger = moveImagesSlightly(groupsWrapper);
+		
 		refreshScrollTrigger();
 
 		return () => {
 			if (destoryImageTrigger) destoryImageTrigger();
-			pinScrollTrigger?.kill();
-			destoryBackgroundTrigger();
+			destoryPinTrigger();
+			destoryAnimation();
+			destoryHeaderTrigger();
 		};
 	});
 </script>
 
-<div class="groups section--md" bind:this={groupsElement}>
+<div class="groups section--md" bind:this={groupsWrapper}>
 	<div class="group group--first">
 		<img src="/images/about/branding_4.png" alt="" />
 		<img src="/images/about/branding_2.png" alt="" />
@@ -61,7 +54,7 @@
 		<img src="/images/about/branding_3.png" alt="" />
 	</div>
 
-	<div class="group group--second" bind:this={blackGroupElement}>
+	<div class="group group--second">
 		<img src="/images/about/branding_3.png" alt="" />
 		<img src="/images/about/branding_2.png" alt="" />
 		<img src="/images/about/branding_4.png" alt="" />
@@ -75,7 +68,7 @@
 		<img src="/images/about/branding_2.png" alt="" />
 	</div>
 
-	<div class="group group--second" bind:this={blackGroupElementTwo}>
+	<div class="group group--second">
 		<img src="/images/about/branding_3.png" alt="" />
 		<img src="/images/about/branding_4.png" alt="" />
 		<img src="/images/about/branding_3.png" alt="" />
@@ -98,21 +91,26 @@
 		display: grid;
 		grid-template-columns: 1.7fr 1.2fr 1fr 1.8fr;
 		gap: var(--space-md);
-		margin-top: 10rem;
+		// margin-top: 10rem;
+		height: 70vh;
 
-		&--second {
-			grid-template-columns: 1.2fr 1.7fr 1fr 1.8fr;
-			height: 70vh;
+		&:nth-child(1) {
 			margin-top: 10rem;
 		}
 
-		&--third {
-			margin-top: 10rem;
-			grid-template-columns: 1.5fr 1fr 1fr 1.4fr;
-		}
-		&--first {
-			margin-top: 20rem;
-		}
+		// &--second {
+		// 	grid-template-columns: 1.2fr 1.7fr 1fr 1.8fr;
+		// 	height: 70vh;
+		// 	margin-top: 10rem;
+		// }
+
+		// &--third {
+		// 	margin-top: 10rem;
+		// 	grid-template-columns: 1.5fr 1fr 1fr 1.4fr;
+		// }
+		// &--first {
+		// 	margin-top: 20rem;
+		// }
 
 		img {
 			display: block;

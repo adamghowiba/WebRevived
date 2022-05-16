@@ -11,7 +11,7 @@ export const SERVICES: Service[] = [
 		},
 		description:
 			'We listen to the needs of our clients regarding website development. Afterwards, our web developers formulate a strategy and provide our clients with custom web design services along with modular, high end and world class styling.',
-		images: ['/images/services/webdesign_fortnite.png', '/images/services/webdesign_cart.png'],
+		images: ['/images/services/webdesign_showcase_1.png', '/images/services/webdesign_showcase_2.png'],
 		approach:
 			'Our approach helps our clients in standing out in their respective industries. Our web developers are well versed in providing exciting customer experience and uniqueness for e-commerce websites. For Wordpress-related websites, our developers create websites that engages users or drives sales.',
 		capabilities: {
@@ -40,7 +40,7 @@ export const SERVICES: Service[] = [
 		},
 		description:
 			"It's essential for businesses today to have a presence on social media. Millions of people are looking at their phones each day, and it is important that they find your business, organization, or product whenever possible.",
-		images: ['/images/services/webdesign_fortnite.png', '/images/services/webdesign_cart.png'],
+		images: ['/images/services/webdesign_showcase_1.png', '/images/services/webdesign_showcase_2.png'],
 		approach:
 			"We work collaboratively to define an ecosystem of values and beliefs, outlining your objectives, exploring your markets, and  translating this into authentic activations and guidelines that differentiate - not just for today but tomorrow as well.",
 		capabilities: {
@@ -69,7 +69,7 @@ export const SERVICES: Service[] = [
 		},
 		description:
 			"Properly executed branding today is more than just logos, typography, colors, and imagery. It's a cohesive system that equips your business with the fundamental building blocks for a successful, sustainable, and recognizable brand.",
-		images: ['/images/services/webdesign_fortnite.png', '/images/services/webdesign_cart.png'],
+		images: ['/images/services/webdesign_showcase_1.png', '/images/services/webdesign_showcase_2.png'],
 		approach:
 			"Our branding process begins with a deep analysis of the essence of your brand, your market, and what makes you unique. After establishing your brand’s purpose and proposition, we dive into the visual communication of your brand.",
 		capabilities: {

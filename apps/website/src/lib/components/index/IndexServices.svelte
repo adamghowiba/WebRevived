@@ -62,6 +62,8 @@
 
 <section class="section" id="white-section">
 	<div class="services container">
+		<h5 class="header">Where we shine</h5>
+
 		{#each SERVICES as service, i}
 			<a href={service.href} on:mouseenter={() => (hoverdServiceIndex = i)}>
 				<!-- on:mouseleave={() => (hoverdServiceIndex = 0)} -->
@@ -74,11 +76,13 @@
 	</div>
 
 	<div class="circle-wrap">
-		<div
-			class="circle"
-			bind:this={circleElement}
-			style:background-image="url({SERVICES[hoverdServiceIndex]?.imgSrc})"
-		/>
+		<div class="circle" bind:this={circleElement}>
+			{#each SERVICES as services, i}
+				<img src={services.imgSrc} alt={services.name} class:active={hoverdServiceIndex === i} />
+				<!-- <div class="image"></div> -->
+			{/each}
+		</div>
+		<!-- style:background-image="url({SERVICES[hoverdServiceIndex]?.imgSrc})" -->
 	</div>
 </section>
 
@@ -92,10 +96,10 @@
 		position: absolute;
 		top: 0;
 		left: 0;
-		// width: 100%;
-		// height: 100%;
-		object-fit: cover;
+		width: 100%;
+		height: 100%;
 		opacity: 0;
+		object-fit: cover;
 		z-index: 0;
 		width: 100%;
 		height: 100%;
@@ -120,12 +124,13 @@
 		position: absolute;
 		top: 0;
 		overflow: hidden;
-		z-index: -1;
+		// z-index: -1;
 		background-position: 50%;
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-attachment: fixed;
+
 	}
 
 	.services {
@@ -135,6 +140,11 @@
 		z-index: 20;
 		color: var(--color-black);
 		margin-top: -2rem;
+
+		.header {
+			color: var(--color-black);
+			font-weight: var(--fw-medium);
+		}
 	}
 
 	a {

@@ -6,6 +6,7 @@
 	import Faq from '$lib/components/global/FAQ.svelte';
 	import HeaderImage from '$lib/components/global/HeaderImage.svelte';
 	import PageHeader from '$lib/components/global/PageHeader.svelte';
+import { IMAGE_URL } from '$lib/constants/config';
 </script>
 
 <PageHeader
@@ -14,7 +15,7 @@
 	subtitle="We are a team of people who believe in what they do."
 />
 
-<HeaderImage imgSrc="/images/about/ui_screen.png" />
+<HeaderImage imgSrc="{IMAGE_URL}/about/ui_screen.png" />
 
 <article class="section--md container description">
 	<p>We are a remote-first company. The digital has been our ecosystem since the beginning.</p>
