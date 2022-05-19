@@ -6,10 +6,10 @@ import { Router } from 'express';
 
 const router = Router();
 
-router.use(requireRole('ADMIN'));
+// router.use(requireRole('ADMIN'));
 
 /* Get All Projects */
-router.get('/', validate(projectValidation.createProject), projectController.getAll);
+router.get('/', validate(projectValidation.getProjects), projectController.getAll);
 
 /* Get Project By ID */
 router.get('/:project_id', projectController.getByID);

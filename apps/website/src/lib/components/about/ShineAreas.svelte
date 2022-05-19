@@ -1,12 +1,14 @@
 <script lang="ts">
 	import {
-	changeHeaderText,
-	groupScrollTrigger,moveImagesSlightly,pinHeader
+		changeHeaderText,
+		groupScrollTrigger,
+		moveImagesSlightly,
+		pinHeader
 	} from '$lib/components/about/shine-animations';
 	import { ScrollTrigger } from '$lib/gsap';
 	import { onMount } from 'svelte';
 
-	let GROUPS_HEADING = ['Apps', 'Websites', 'UI/UX', 'Design'];
+	let GROUPS_HEADING = ['Branding', 'Social', 'Web', 'UI/UX'];
 	let currentGroupIndex = 0;
 
 	let headingElement: HTMLElement;
@@ -32,9 +34,12 @@
 	onMount(() => {
 		let destoryPinTrigger = pinHeader(headingElement, groupsWrapper);
 		let destoryAnimation = groupScrollTrigger(groupsWrapper, headingElement);
-		let destoryHeaderTrigger = changeHeaderText(groupsWrapper, (index) => (currentGroupIndex = index));
+		let destoryHeaderTrigger = changeHeaderText(
+			groupsWrapper,
+			(index) => (currentGroupIndex = index)
+		);
 		let destoryImageTrigger = moveImagesSlightly(groupsWrapper);
-		
+
 		refreshScrollTrigger();
 
 		return () => {
@@ -49,23 +54,23 @@
 <div class="groups section--md" bind:this={groupsWrapper}>
 	<div class="group group--first">
 		<img src="/images/about/branding_4.png" alt="" />
-		<img src="/images/about/branding_2.png" alt="" />
-		<img src="/images/about/branding_3.png" alt="" />
+		<img src="/images/services/service_branding.png" alt="" />
+		<img src="/images/services/service_2.png" alt="" />
 		<img src="/images/about/branding_3.png" alt="" />
 	</div>
-
+	
 	<div class="group group--second">
-		<img src="/images/about/branding_3.png" alt="" />
+		<img src="/images/services/service_1.png" alt="" />
 		<img src="/images/about/branding_2.png" alt="" />
-		<img src="/images/about/branding_4.png" alt="" />
 		<img src="/images/about/branding_3.png" alt="" />
+		<img src="/images/services/service_3.png" alt="" />
 	</div>
 
 	<div class="group group--third">
-		<img src="/images/about/branding_3.png" alt="" />
-		<img src="/images/about/branding_4.png" alt="" />
-		<img src="/images/about/branding_3.png" alt="" />
-		<img src="/images/about/branding_2.png" alt="" />
+		<img src="/images/services/service_marketing.png" alt="" />
+		<img src="/images/services/service_ui.png" alt="" />
+		<img src="/images/services/tile_frames.png" alt="" />
+		<img src="/images/services/webdesign_showcase_1.png" alt="" />
 	</div>
 
 	<div class="group group--second">
@@ -91,26 +96,11 @@
 		display: grid;
 		grid-template-columns: 1.7fr 1.2fr 1fr 1.8fr;
 		gap: var(--space-md);
-		// margin-top: 10rem;
-		height: 70vh;
+		min-height: 70vh;
 
 		&:nth-child(1) {
 			margin-top: 10rem;
 		}
-
-		// &--second {
-		// 	grid-template-columns: 1.2fr 1.7fr 1fr 1.8fr;
-		// 	height: 70vh;
-		// 	margin-top: 10rem;
-		// }
-
-		// &--third {
-		// 	margin-top: 10rem;
-		// 	grid-template-columns: 1.5fr 1fr 1fr 1.4fr;
-		// }
-		// &--first {
-		// 	margin-top: 20rem;
-		// }
 
 		img {
 			display: block;
@@ -119,6 +109,7 @@
 			object-fit: cover;
 			position: relative;
 			z-index: 1;
+			min-height: 220px;
 		}
 		img:nth-child(1) {
 			top: -130px;
@@ -142,7 +133,7 @@
 		position: absolute;
 		font-size: 15rem;
 		font-weight: var(--fw-bold);
-		letter-spacing: -10px;
+		letter-spacing: -7px;
 		// color: white;
 		// mix-blend-mode: difference;
 		color: var(--color-black);
@@ -156,15 +147,24 @@
 		z-index: 0;
 	}
 
+	// Laptop
 	@media screen and (max-width: 1024px) {
 		h1 {
-			font-size: 15rem;
+			font-size: 12rem;
 		}
 	}
 
-	@media screen and (max-width: 425px) {
+	// Tablet
+	@media screen and (max-width: 768px) {
 		h1 {
-			font-size: 6rem;
+			font-size: 10rem;
+		}
+	}
+
+	// Phone LG
+	@media screen and (max-width: 597px) {
+		h1 {
+			font-size: 8rem;
 		}
 		.groups {
 			padding: var(--space-5xl) 0;
@@ -174,6 +174,11 @@
 			grid-template-rows: 1fr 1fr;
 			gap: 3rem;
 			row-gap: 8rem;
+			
+			img:nth-child(even) {
+				margin: var(--space-5xl) 0;
+				border: 1px solid red;
+			}
 
 			&--second {
 				grid-template-columns: 1.2fr 1.4fr;
@@ -185,6 +190,19 @@
 			}
 			&--first {
 				margin-top: 10rem;
+			}
+		}
+	}
+
+	@media screen and (max-width: 425px) {
+		h1 {
+			font-size: 7rem;
+		}
+
+		// Phone SM
+		@media screen and (max-width: 375px) {
+			h1 {
+				font-size: 5.3rem;
 			}
 		}
 	}

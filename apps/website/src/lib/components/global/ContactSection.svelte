@@ -15,9 +15,6 @@
 	section {
 		max-width: 75ch;
 		text-align: center;
-		padding-bottom: 0;
-		// padding: 0;
-		padding-top: var(--space-section-base);
 	}
 	header {
         display: flex;

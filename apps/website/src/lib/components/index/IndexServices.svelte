@@ -11,21 +11,16 @@
 
 	const SERVICES: Service[] = [
 		{
-			name: 'Website Development',
+			name: 'Branding & Identity',
 			imgSrc: '/images/services/service_branding.png',
 			href: '/services'
 		},
-		{ name: 'UI/UX Design', imgSrc: '/images/services/service_ui.png', href: '/services' },
+		{ name: 'Social Mangement', imgSrc: '/images/services/service_ui.png', href: '/services' },
 		{
-			name: 'Backend Development',
+			name: 'Web Development',
 			imgSrc: '/images/services/service_marketing.png',
 			href: '/services'
 		},
-		{
-			name: 'Branding & Marketing',
-			imgSrc: '/images/services/service_website.png',
-			href: '/services'
-		}
 	];
 
 	let hoverdServiceIndex: number = 1;
@@ -130,7 +125,6 @@
 		background-repeat: no-repeat;
 		background-size: cover;
 		background-attachment: fixed;
-
 	}
 
 	.services {

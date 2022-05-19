@@ -14,7 +14,7 @@ COPY /apps/frontend ./apps/frontend/
 
 # Install shared dpenedices & build.
 RUN npm install
-# RUN npm run build -w frontend
+RUN npm run build -w frontend
 
 EXPOSE 3000
 WORKDIR /app/apps/frontend/build

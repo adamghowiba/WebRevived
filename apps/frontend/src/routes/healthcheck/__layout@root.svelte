@@ -1,6 +1,7 @@
 <script lang="ts">
 </script>
 
-<!-- <h1>Account</h1> -->
+<slot />
+
 <style lang="scss">
 </style>

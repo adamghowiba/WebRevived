@@ -2,11 +2,50 @@
 	import CallToAction from '$lib/components/global/CallToAction.svelte';
 	import ContactSection from '$lib/components/global/ContactSection.svelte';
 	import HeaderImage from '$lib/components/global/HeaderImage.svelte';
+	import LocalIcon from '$lib/components/global/LocalIcon.svelte';
 	import CtaBlock from '$lib/components/index/CtaBlock.svelte';
+	import CtaNew from '$lib/components/index/CtaNew.svelte';
 	import Hero from '$lib/components/index/Hero.svelte';
 	import IndexServices from '$lib/components/index/IndexServices.svelte';
 	import TextScroll from '$lib/components/index/TextScroll.svelte';
+	import { onMount } from 'svelte';
+	import {gsap, ScrollTrigger} from '$lib/gsap';
+
+	let barIcon: HTMLElement;
+
+/* 	const barChartAnimation = () => {
+		const paths = barIcon.querySelectorAll('path');
+		const barPaths = gsap.utils.toArray([paths[0], paths[1], paths[2], paths[3], paths[4]])
+		const underline = paths[5]
+		const underlineAndArrow = gsap.utils.toArray([paths[6], paths[7], paths[8]])
+
+		let timeline = gsap.timeline();
+		
+		timeline.from(barPaths, {
+			translateY: 400,
+			stagger: 0.3,
+			ease: "Power3.easeOut"
+		})
+		timeline.from(underline, {
+			xPercent: -100
+		})
+		timeline.from(underlineAndArrow, {
+			opacity: 0,
+			duration: 1
+		})
+
+		return () => {
+			timeline.kill();
+		}
+	}
+
+	onMount(() => {
+		const destory = barChartAnimation();
+
+		return () => destory();
+	}); */
 </script>
+
 
 <Hero />
 

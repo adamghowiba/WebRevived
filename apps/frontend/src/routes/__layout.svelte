@@ -1,8 +1,5 @@
 <script context="module" lang="ts">
-	import Tab from '$lib/components/tab/Tab.svelte';
-	import { tabs } from '$lib/stores/tabs-store';
 	import type { Load } from '@sveltejs/kit';
-	import IndexOld from './indexOld.svelte';
 
 	export const load: Load = async ({ session, url }) => {
 		if (!session?.user?.email)
@@ -21,23 +18,8 @@
 	let currentTab: string;
 </script>
 
-<nav>
-	<h5>Nav</h5>
-	<a href="/account">Accounts</a>
-	<a href="/projects">Projects</a>
-</nav>
 
-<section>
-	<Tab bind:currentTab />
-
-	{#each $tabs as tab}
-		<div class="tab-wrapper" class:active={currentTab === tab.name}>
-			<!-- <HomeScreen screenName={currentTab} /> -->
-			<!-- <slot /> -->
-			<IndexOld />
-		</div>
-	{/each}
-</section>
+<section />
 <!-- <h6>Welcome {$session.user.email}</h6> -->
 <slot />
 

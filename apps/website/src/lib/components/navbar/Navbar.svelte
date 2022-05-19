@@ -1,54 +1,43 @@
 <script lang="ts">
+import { LINKS } from '$lib/constants/links';
+	import { gsap } from '$lib/gsap';
+	import { createEventDispatcher, onDestroy } from 'svelte';
 	import Button from '../buttons/Button.svelte';
 	import Hamburger from './Hamburger.svelte';
-	import { gsap } from '$lib/gsap';
-	import { onDestroy, onMount } from 'svelte';
 
 	let timeline: gsap.core.Timeline;
+	export let isMobileNavbarOpen: boolean ;
 
-	const LINKS: { name: string; href: string }[] = [
-		{ name: 'About', href: '/about' },
-		{ name: 'Services', href: '/services' },
-		{ name: 'Login', href: '/' }
-	];
+	const dispatch = createEventDispatcher();
 
 	const handleMouseEnter = (event: MouseEvent) => {
 		const target = event.target as HTMLElement;
+
 		const wordWrap = target.querySelectorAll('.word-wrap');
 
-		let wordWrapOneChars = wordWrap[0].querySelectorAll('.char');
-		let wordWrapTwoChars = wordWrap[1].querySelectorAll('.char');
+		let chars = target.querySelectorAll('.char');
 
 		timeline = gsap.timeline();
-		let firstWordTimeline = gsap.timeline();
-		let secondWordTimeline = gsap.timeline();
 
-		firstWordTimeline.to(
-			wordWrapOneChars,
+		timeline.fromTo(
+			chars,
+			{
+				yPercent: 0
+			},
 			{
 				yPercent: -103,
 				stagger: 0.02,
-				duration: 0.3
-			},
-			'<'
+				duration: 0.25
+			}
 		);
-
-		secondWordTimeline.to(
-			wordWrapTwoChars,
-			{
-				yPercent: -100,
-				stagger: 0.02,
-				duration: 0.3
-			},
-			'<'
-		);
-
-		timeline.add(firstWordTimeline, '<');
-		timeline.add(secondWordTimeline, '<');
 	};
 
 	const handleMouseLeave = (event: MouseEvent) => {
 		timeline.reverse();
+	};
+
+	const handleHamburgerClick = () => {
+		isMobileNavbarOpen = !isMobileNavbarOpen;
 	};
 
 	onDestroy(() => {
@@ -81,11 +70,11 @@
 		<!-- <a href="/about">About</a>
 		<a href="/services">Services</a>
 		<a href="/contact">Login</a> -->
-		<Button href="/contact">Talk To Us</Button>
+		<Button href="/contact" hoverCircle>Talk To Us</Button>
 	</div>
 
 	<div class="hamburger">
-		<Hamburger />
+		<Hamburger open={isMobileNavbarOpen} on:click={handleHamburgerClick} />
 	</div>
 </nav>
 
@@ -101,6 +90,7 @@
 			top: 3px;
 			width: 100%;
 			max-width: 55px;
+			text-decoration: none;
 		}
 
 		a:hover {

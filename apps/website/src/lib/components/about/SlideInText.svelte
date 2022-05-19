@@ -54,7 +54,7 @@
 	{#each textBlocks as block}
 		<h1>{block}</h1>
 	{/each}
-	<Button textStyle="uppercase">Get started</Button>
+	<Button textStyle="uppercase" href="/contact" hoverCircle>Get started</Button>
 </section>
 
 <style lang="scss">

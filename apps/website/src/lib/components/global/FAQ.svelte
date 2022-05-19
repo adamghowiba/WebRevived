@@ -7,20 +7,20 @@
 
 	const QUESTIONS = [
 		{
-			question: "What's included with WebRevived services",
-			answer: `We execute our proprietary PPC strategies on key search engines such as Google and Bing. Our main deliverables include keyword research, ad copy, campaign management, reporting, and much more. NoGood's PPC strategies are based on extensive learnings from Fortune 500 companies and VC-backed startups, and our squads tailor the unique strategies to the unique needs of each partner.`
+			question: 'What Services Do You Offer?',
+			answer: `AB Digital Marketing is a Branding, Social Media, and Website design company. We help companies elevate their digital presence with these three primary services.`
 		},
 		{
-			question: 'How do you make a difference?',
-			answer: `We execute our proprietary PPC strategies on key search engines such as Google and Bing. Our main deliverables include keyword research, ad copy, campaign management, reporting, and much more. NoGood's PPC strategies are based on extensive learnings from Fortune 500 companies and VC-backed startups, and our squads tailor the unique strategies to the unique needs of each partner.`
+			question: 'What Makes You Different?',
+			answer: `We embrace the new and forget the old. With our young, high-energy, and diverse team, we can create the best of the best digital presence for all types of business. With our in-depth yet simple client process, you can worry about the day-to-day business work while we perfect your digital company.`
 		},
 		{
-			question: 'Why should we trust you?',
-			answer: `We execute our proprietary PPC strategies on key search engines such as Google and Bing. Our main deliverables include keyword research, ad copy, campaign management, reporting, and much more. NoGood's PPC strategies are based on extensive learnings from Fortune 500 companies and VC-backed startups, and our squads tailor the unique strategies to the unique needs of each partner.`
+			question: 'Why Should I Trust AB Digital Marketing?',
+			answer: `Our digital marketing team has 12+ years of experience combined. We have worked with companies of all sizes, locations, and levels. We pride ourselves on being able to service businesses of all kinds.`
 		},
 		{
-			question: 'What about the other 500 digital agencies?',
-			answer: `We execute our proprietary PPC strategies on key search engines such as Google and Bing. Our main deliverables include keyword research, ad copy, campaign management, reporting, and much more. NoGood's PPC strategies are based on extensive learnings from Fortune 500 companies and VC-backed startups, and our squads tailor the unique strategies to the unique needs of each partner.`
+			question: 'What If I Am New To Marketing?',
+			answer: `AB Digital Marketing specializes in helping companies start from the bottom. Whether you just have an idea or are looking for someone to pick up where you left off, we can do it all. With a large team and abundant resources, we can help you achieve all marketing needs regardless of where you're t in your business journey.`
 		}
 	];
 

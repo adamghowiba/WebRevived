@@ -6,7 +6,7 @@
 
 <section class="cta">
 	<h1><slot /></h1>
-	<Button href={button.href} color="black">{button.text}</Button>
+	<Button href={button.href} color="black" hoverCircle>{button.text}</Button>
 </section>
 
 <style lang="scss">

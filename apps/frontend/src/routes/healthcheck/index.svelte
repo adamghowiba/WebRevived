@@ -1,9 +1,7 @@
 <script lang="ts">
-
 </script>
 
-<h1>Project</h1>
+<h2>Healthy</h2>
 
 <style lang="scss">
-    
 </style>

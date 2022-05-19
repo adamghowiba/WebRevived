@@ -137,6 +137,15 @@ a {
 	letter-spacing: -0.4px;
 }
 
+::-webkit-scrollbar {
+	background-color: rgba(255, 255, 255, 0.247);
+	width: 5px;
+}
+::-webkit-scrollbar-thumb {
+	background-color: var(--color-primary);
+	border-radius: 10px;
+}
+
 /* LAPTOP */
 @media screen and (max-width: 1024px) {
 }

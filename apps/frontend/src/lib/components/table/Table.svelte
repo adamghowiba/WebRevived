@@ -17,6 +17,7 @@
 		border-radius: 5px;
 		white-space: nowrap;
 		border-spacing: 0;
+		border-collapse: collapse;
 	}
 	.table-wrapper {
 		width: 100%;

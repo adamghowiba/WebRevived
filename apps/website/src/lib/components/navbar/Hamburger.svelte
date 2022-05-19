@@ -1,12 +1,12 @@
 <script lang="ts">
-	let open: boolean = false;
+	export let open: boolean = false;
 	let strokeWidth = 5;
 </script>
 
 <button
 	class="menu"
 	style="--strokeWidth: {strokeWidth}"
-	on:click={() => (open = !open)}
+	on:click
 	class:opened={open}
 	aria-label="Main Menu"
 >

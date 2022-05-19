@@ -25,7 +25,7 @@ connectDb().then(logger.info).catch(logger.error);
 /* Initlize Express Application */
 new ExpressInitialization(app).registerCors().registerParsers().registerSessions().registerRoutes();
 
-/* Error Handleing */
+/* Error Handeling */
 app.use(errorHandler.notFoundError);
 app.use((err: Error | DatabaseError | ICustomError, req: Request, res: Response, next: NextFunction) => {
 	if (err instanceof DatabaseError) {

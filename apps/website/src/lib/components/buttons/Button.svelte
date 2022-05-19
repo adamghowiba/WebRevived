@@ -19,8 +19,10 @@
 	export let textStyle: TextStyle = 'uppercase';
 	export let icon: string | undefined = undefined;
 	export let iconStyle: IconStyle = {};
-	export let width: string = 'auto';
+	export let width: string = 'max-content';
 	export let maxWidth: string = 'none';
+
+	export let hoverCircle: boolean = false;
 
 	const DEFAULT_ICON: IconStyle = {
 		color: 'var(--color-white)',
@@ -35,6 +37,32 @@
 		rotate: iconStyle?.rotation || DEFAULT_ICON.rotation
 	};
 
+	const handleMouseEnter = (event: MouseEvent) => {
+		if (!hoverCircle) return;
+		const target = event.target as HTMLElement;
+		const circle = target.querySelector<HTMLElement>('.circle');
+		if (!circle) return;
+
+		circle.style.left = `${event.offsetX}px`;
+		circle.style.top = `${event.offsetY}px`;
+	};
+
+	const handleMouseLeave = (event: MouseEvent) => {
+		if (!hoverCircle) return;
+		const target = event.target as HTMLElement;
+		const circle = target.querySelector<HTMLElement>('.circle');
+		if (!circle) return;
+		circle.style.left = `${event.offsetX}px`;
+
+		const height = target.clientHeight;
+
+		if (circle.offsetTop < height / 2) {
+			circle.style.top = `-${20 + circle.offsetTop}px`;
+		} else {
+			circle.style.top = `${20 + circle.offsetTop}px`;
+		}
+	};
+
 	let styleString = `style--${style} size--${size} color--${color}`;
 </script>
 
@@ -42,7 +70,12 @@
 	class="button-wrap"
 	style:text-transform={textStyle}
 	style="--width: {width}; --maxWidth: {maxWidth};"
+	on:mouseenter={handleMouseEnter}
+	on:mouseleave={handleMouseLeave}
 >
+	{#if hoverCircle}
+		<div class="circle color--{color}" />
+	{/if}
 	{#if href}
 		<a {href} class={styleString} on:click>
 			<span><slot /></span>
@@ -61,11 +94,33 @@
 </div>
 
 <style lang="scss">
+	.circle {
+		position: absolute;
+		border-radius: 50%;
+		background-color: white;
+		left: -20px;
+		width: 25px;
+		height: 25px;
+		transition: transform 0.5s ease-in-out;
+
+		&.color--white {
+			background-color: white;
+		}
+
+		&.color--black {
+			background-color: var(--color-black);
+		}
+	}
 	.button-wrap {
+		position: relative;
 		display: inline-flex;
 		height: auto;
-		width: auto;
-		width: var(--width, auto);
+		width: var(--width, max-content);
+		overflow: hidden;
+
+		&:hover .circle {
+			transform: scale(14.5);
+		}
 	}
 	button {
 		appearance: none;
@@ -76,6 +131,7 @@
 
 	button,
 	a {
+		position: relative;
 		color: var(--color-white);
 		font-size: var(--text-button);
 		font-weight: var(--fw-bold);
@@ -93,8 +149,10 @@
 		}
 
 		span {
-			color: inherit;
+			color: white;
+			mix-blend-mode: difference;
 			line-height: normal;
+			transition: color 0.2s ease-in;
 		}
 	}
 
@@ -114,6 +172,15 @@
 		&--black {
 			color: var(--color-black);
 			border-color: var(--color-black);
+
+			span {
+				color: var(--color-black);
+				mix-blend-mode: unset;
+			}
+
+			&:hover span {
+				color: var(--color-white);
+			}
 		}
 	}
 

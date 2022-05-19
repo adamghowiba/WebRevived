@@ -28,7 +28,7 @@
 <section class="login">
 	<form class="form" on:submit|preventDefault={handleFormSubmit}>
 		<header>
-			<h4>Login To Core</h4>
+			<h4>Login To WebRevived Core</h4>
 			<p>Manage client data across the enite scope of the company.</p>
 		</header>
 
