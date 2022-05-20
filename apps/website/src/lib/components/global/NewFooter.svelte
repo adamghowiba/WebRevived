@@ -137,10 +137,10 @@
             gap: var(--space-xl);
         }
 
-		h3,
-		h3 a {
+		h3 {
 			font-size: var(--text-h3);
 			max-width: 20ch;
+			font-weight: var(--fw-medium);
 		}
 	}
 
@@ -155,7 +155,6 @@
 		}
 
 		a {
-			font-weight: var(--fw-regular);
 			color: var(--color-black);
 		}
 	}
@@ -165,4 +164,30 @@
 		color: var(--color-black);
 		font-weight: var(--fw-medium);
 	}
+
+	/* Laptop */
+	@media screen and (max-width: 1024px) {
+		.footer {
+
+			&__bottom {
+				gap: var(--space-md);
+			}
+
+			h3, h3 a {
+				font-size: var(--text-h4);
+			}
+		}
+	}
+
+	/* Mobile Large */
+	@media screen and (max-width: 597px) {
+		.footer {
+
+			&__bottom {
+				flex-direction: column;
+				gap: var(--space-xl);
+			}
+		}
+	}
+
 </style>

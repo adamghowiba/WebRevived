@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { gsap,ScrollTrigger } from '$lib/gsap';
+	import { gsap, ScrollTrigger } from '$lib/gsap';
 	import { destoryTweens } from '$lib/gsap-utils';
 	import { onMount } from 'svelte';
 	import ProcessBlock from './ProcessBlock.svelte';
@@ -37,7 +37,7 @@
 
 	onMount(() => {
 		let desotry = setupMobileHover();
-		
+
 		return () => {
 			desotry();
 		};
@@ -54,17 +54,17 @@
 			content="As a team, we're design-focused across every touchpoint or interaction. Everything we do and dream up has a solid design impact. We get up and go in the morning, supercharged to make a difference with design as a top-of-mind solution."
 		/>
 		<ProcessBlock
-			title="Design-focused, first and foremost."
+			title="We're part of your Team."
 			number={2}
-			content="As a team, we're design-focused across every touchpoint or interaction. Everything we do and dream up has a solid design impact. We get up and go in the morning, supercharged to make a difference with design as a top-of-mind solution."
+			content="Some brands and businesses need a vendor. Well, that’s just not us. We’ve crossed it out from our virtual dictionaries. It’s dead to us. Instead, we’re a partner, enabler, and true collaborator. We’re a team extension and built around unification."
 		/>
 		<ProcessBlock
-			title="Design-focused, first and foremost."
+			title="Senior teams, aiming for stellar impact."
 			number={3}
-			content="As a team, we're design-focused across every touchpoint or interaction. Everything we do and dream up has a solid design impact. We get up and go in the morning, supercharged to make a difference with design as a top-of-mind solution."
+			content="All of our service, strategy, design and digital team members are senior-level, ready to take on the world to help you on your mission as a game-changing brand. This is intentional, and built around the logic that to win big, we have to think big."
 		/>
 		<ProcessBlock
-			title="Design-focused, first and foremost."
+			title="R is for real results."
 			number={4}
 			content="As a team, we're design-focused across every touchpoint or interaction. Everything we do and dream up has a solid design impact. We get up and go in the morning, supercharged to make a difference with design as a top-of-mind solution."
 		/>

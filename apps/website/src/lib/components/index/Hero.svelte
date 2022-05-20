@@ -90,6 +90,8 @@
 	.container {
 		/* Screen Height Minus Navbar & space-sm padding */
 		height: calc(100vh - 260px);
+		position: relative;
+		z-index: 4;
 	}
 	.wheel {
 		position: absolute;

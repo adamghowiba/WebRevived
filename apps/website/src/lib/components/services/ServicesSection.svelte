@@ -128,7 +128,7 @@
 				id="service-image"
 				class:service-image--hidden={i !== 0}
 				src="/images/services/{service.image}"
-				alt=""
+				alt="Webdesign service"
 				on:load={handleImageLoad}
 			/>
 		{/each}
@@ -191,10 +191,13 @@
 
 			&__content {
 				height: auto;
+				width: 100%;
 			}
 
 			&__mobile-images {
 				height: 350px;
+				max-width: 400px;
+				width: 100%; 
 				display: block;
 			}
 

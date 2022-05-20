@@ -13,14 +13,18 @@
 		{
 			name: 'Branding & Identity',
 			imgSrc: '/images/services/service_branding.png',
-			href: '/services'
+			href: '/services/branding'
 		},
-		{ name: 'Social Mangement', imgSrc: '/images/services/service_ui.png', href: '/services' },
 		{
-			name: 'Web Development',
-			imgSrc: '/images/services/service_marketing.png',
-			href: '/services'
+			name: 'Social Mangement',
+			imgSrc: '/images/services/service_ui.png',
+			href: '/services/social'
 		},
+		{
+			name: 'Web Design',
+			imgSrc: '/images/services/service_marketing.png',
+			href: '/services/web-design'
+		}
 	];
 
 	let hoverdServiceIndex: number = 1;
