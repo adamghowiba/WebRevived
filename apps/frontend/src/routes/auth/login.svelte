@@ -17,11 +17,15 @@
 
 	const handleFormSubmit = async (event: SubmitEvent) => {
 		formState.state = 'loading';
-		const { response, result } = await authApi.login(loginData.email, loginData.password);
+		try {
+			const { response, result } = await authApi.login(loginData.email, loginData.password);
 
-		if (!response.ok) return (formState = { state: 'error', data: result.message });
+			if (!response.ok) return (formState = { state: 'error', data: result.message });
 
-		formState = { state: 'sucess', data: result };
+			formState = { state: 'sucess', data: result };
+		} catch {
+			formState = { state: 'error', data: 'Failed to login. Try again.' };
+		}
 	};
 </script>
 

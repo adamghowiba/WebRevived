@@ -2,6 +2,8 @@ import authApi from '$lib/api/auth-api';
 import type { GetSession, Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
+	if (event.url.pathname.includes('auth')) return await resolve(event);
+
 	try {
 		const { response: userResponse, result } = await authApi.getUserInformation(
 			event.request.headers.get('cookie')
@@ -11,7 +13,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		return await resolve(event);
 	} catch (error) {
 		console.error('Databse is offline.', error);
-		
+
 		return await resolve(event);
 	}
 };

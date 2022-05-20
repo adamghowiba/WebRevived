@@ -8,14 +8,10 @@
 	let openBlockIndex: number | null;
 	let sectionElement: HTMLElement;
 
-	function handleMobileClick(index: number) {
-		if (openBlockIndex === index) return (openBlockIndex = null);
-		openBlockIndex = index;
-	}
-
 	interface FooterLink {
 		name: string;
 		href: string;
+		newTab?: boolean;
 	}
 	interface FooterBlocks {
 		group: string;
@@ -44,19 +40,19 @@
 		{
 			group: 'Company',
 			links: [
-				{ name: 'Home', href: '/about' },
-				{ name: 'Services', href: '/about' },
+				{ name: 'Home', href: '/' },
+				{ name: 'Services', href: '/services' },
 				{ name: 'About', href: '/about' },
-				{ name: 'Contact', href: '/about' }
+				{ name: 'Contact', href: '/contact' }
 			]
 		},
 		{
 			group: 'Services',
 			links: [
-				{ name: 'Instagram', href: '/about' },
-				{ name: 'Twitter', href: '/about' },
-				{ name: 'LinkedIn', href: '/about' },
-				{ name: 'Dribble', href: '/about' }
+				{ name: 'Instagram', href: 'https://instagram.com', newTab: true },
+				{ name: 'Twitter', href: 'https://twitter.com', newTab: true },
+				{ name: 'LinkedIn', href: 'https://linkedin.com', newTab: true },
+				{ name: 'Dribble', href: 'https://dribbble.com', newTab: true }
 			]
 		}
 	];
@@ -75,7 +71,7 @@
 		<div class="footer__title">
 			<h2>Let's Start<br />Something great together!</h2>
 
-			<Button color="black" hoverCircle>Get Started</Button>
+			<Button color="black" href="/contact" hoverCircle>Get Started</Button>
 		</div>
 
 		<div class="footer__bottom">
@@ -94,13 +90,26 @@
 				{#each FOOTER_BLOCKS as block}
 					<div class="block__item">
 						{#each block.links as link}
-							<a href="">{link.name}</a>
+							<a
+								class="block__link"
+								target={link.newTab ? '__blank' : ''}
+								rel="noopener noreferrer"
+								href={link.href}>{link.name}</a
+							>
 						{/each}
 					</div>
 				{/each}
 			</div>
 		</div>
 	</footer>
+
+	<div class="container--sm disclaimer">
+		<span class="terms">© 2022 AB Digital Studio, LLC</span>
+
+		<span>
+			Built by <a href="https://webrevived.com" class="underline">Web Revived </a> with ❤️
+		</span>
+	</div>
 </section>
 
 <style lang="scss">
@@ -123,6 +132,7 @@
 		&__bottom {
 			display: flex;
 			gap: var(--space-xl);
+			justify-content: space-between;
 		}
 
 		&__contact {
@@ -131,13 +141,14 @@
 			gap: var(--space-md);
 		}
 
-        &__title {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-xl);
-        }
+		&__title {
+			display: flex;
+			flex-direction: column;
+			gap: var(--space-xl);
+		}
 
-		h3 {
+		h3,
+		h3 a {
 			font-size: var(--text-h3);
 			max-width: 20ch;
 			font-weight: var(--fw-medium);
@@ -146,17 +157,39 @@
 
 	.block {
 		display: flex;
-		gap: var(--space-2xl);
+		gap: var(--space-6xl);
 
 		&__item {
 			display: flex;
 			flex-direction: column;
 			gap: var(--space-md);
 		}
+	}
+
+	.disclaimer {
+		display: flex;
+		justify-content: space-between;
+		padding-bottom: var(--space-md);
 
 		a {
+			font-weight: inherit;
+			font-size: inherit;
+		}
+
+		span {
+			opacity: 0.7;
+			display: block;
+			font-size: 16px;
 			color: var(--color-black);
 		}
+	}
+
+	a {
+		transition: opacity 0.15s linear;
+	}
+
+	a:hover {
+		opacity: 0.7;
 	}
 
 	a,
@@ -167,13 +200,17 @@
 
 	/* Laptop */
 	@media screen and (max-width: 1024px) {
-		.footer {
+		.block {
+			gap: var(--space-5xl);
+		}
 
+		.footer {
 			&__bottom {
 				gap: var(--space-md);
 			}
 
-			h3, h3 a {
+			h3,
+			h3 a {
 				font-size: var(--text-h4);
 			}
 		}
@@ -182,12 +219,15 @@
 	/* Mobile Large */
 	@media screen and (max-width: 597px) {
 		.footer {
-
 			&__bottom {
 				flex-direction: column;
 				gap: var(--space-xl);
 			}
 		}
-	}
 
+		.disclaimer {
+			flex-direction: column;
+			gap: var(--space-md);
+		}
+	}
 </style>

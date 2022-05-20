@@ -1,12 +1,28 @@
 <script lang="ts">
+	import Button from '../buttons/Button.svelte';
+
 	export let type: 'email' | 'text' | 'tel';
 	export let name: string;
 	export let value: string;
 	export let placeholder: string;
+	export let width: string = '100%';
+	export let maxWidth: string = 'unset';
+	export let hoverEffect: boolean = true;
+	export let required: boolean = false;
 </script>
 
-<div class="input-wrap">
-	<input type="text" {name} {placeholder} bind:value />
+<div class="input-wrap" class:hoverEffect style:width style:max-width={maxWidth}>
+	{#if type == 'text'}
+		<input type="text" {name} {placeholder} bind:value {required} />
+	{/if}
+
+	{#if type == 'email'}
+		<input type="email" {name} {placeholder} bind:value {required} />
+	{/if}
+
+	{#if type == 'tel'}
+		<input type="tel" {name} {placeholder} bind:value {required} />
+	{/if}
 	<div class="underline" />
 </div>
 
@@ -22,14 +38,16 @@
 		width: 100%;
 		font-family: inherit;
 		font-weight: var(--fw-semi-bold);
-
-		&:focus + .underline {
-			background-color: var(--color-primary);
-			height: 6px;
-		}
+	
 	}
+	.hoverEffect input:focus + .underline {
+		background-color: var(--color-primary);
+		height: 6px;
+	}
+
 	.input-wrap {
 		position: relative;
+
 		.underline {
 			width: 100%;
 			height: 3px;
@@ -38,7 +56,7 @@
 			position: absolute;
 		}
 
-		&:hover .underline {
+		&.hoverEffect:hover .underline {
 			height: 6px;
 		}
 	}

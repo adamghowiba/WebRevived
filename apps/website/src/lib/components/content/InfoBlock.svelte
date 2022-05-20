@@ -18,14 +18,14 @@
 		let timeline = gsap.timeline({
 			scrollTrigger: {
 				trigger: headingsContainer,
-				start: 'top bottom-=20%',
-				end: 'bottom top+=15%'
+				start: 'top bottom-=10%',
+				end: 'bottom top+=15%',
 			}
 		});
 
 		timeline.from(gsap.utils.toArray(headings), {
 			yPercent: 102,
-			duration: 1,
+			duration: 0.75,
 			ease: Power4.easeInOut
 		});
 

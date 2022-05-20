@@ -20,7 +20,7 @@
 		},
 		{
 			question: 'What If I Am New To Marketing?',
-			answer: `AB Digital Marketing specializes in helping companies start from the bottom. Whether you just have an idea or are looking for someone to pick up where you left off, we can do it all. With a large team and abundant resources, we can help you achieve all marketing needs regardless of where you're t in your business journey.`
+			answer: `AB Digital Marketing specializes in helping companies start from the bottom. Whether you just have an idea or are looking for someone to pick up where you left off. With a large team and abundant resources, we can help you achieve all marketing needs regardless of where you're at in your business journey.`
 		}
 	];
 
@@ -102,6 +102,9 @@
 
 	p,
 	span {
-		color: #615e5e;
+		color: rgba(0, 0, 0, 0.61);
+		font-weight: var(--fw-semi-bold);
+		font-size: 18px;
+		line-height: 1.8;
 	}
 </style>

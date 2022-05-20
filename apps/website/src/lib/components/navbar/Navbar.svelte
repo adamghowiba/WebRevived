@@ -1,14 +1,12 @@
 <script lang="ts">
-import { LINKS } from '$lib/constants/links';
+	import { LINKS } from '$lib/constants/links';
 	import { gsap } from '$lib/gsap';
 	import { createEventDispatcher, onDestroy } from 'svelte';
 	import Button from '../buttons/Button.svelte';
 	import Hamburger from './Hamburger.svelte';
 
 	let timeline: gsap.core.Timeline;
-	export let isMobileNavbarOpen: boolean ;
-
-	const dispatch = createEventDispatcher();
+	export let isMobileNavbarOpen: boolean;
 
 	const handleMouseEnter = (event: MouseEvent) => {
 		const target = event.target as HTMLElement;
@@ -67,9 +65,6 @@ import { LINKS } from '$lib/constants/links';
 				{/each}
 			</a>
 		{/each}
-		<!-- <a href="/about">About</a>
-		<a href="/services">Services</a>
-		<a href="/contact">Login</a> -->
 		<Button href="/contact" hoverCircle>Talk To Us</Button>
 	</div>
 
@@ -84,6 +79,9 @@ import { LINKS } from '$lib/constants/links';
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		background-color: var(--color-black);
+		box-shadow: rgba(3, 3, 3, 0.192) 0px 6px 12px -2px, rgba(0, 0, 0, 0.25) 0px 3px 7px -3px;
+
 
 		&__logo {
 			position: relative;
@@ -91,9 +89,6 @@ import { LINKS } from '$lib/constants/links';
 			width: 100%;
 			max-width: 55px;
 			text-decoration: none;
-		}
-
-		a:hover {
 		}
 	}
 	.hover {

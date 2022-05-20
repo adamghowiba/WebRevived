@@ -35,11 +35,7 @@
 
 <img src={serviceData.header.imgSrc} alt="Webdesign laptop" />
 
-<!-- <div class="container section">
-	<p class="description body--xl">
-		{serviceData.description}
-	</p>
-</div> -->
+
 <FloatingText>
 	{serviceData.description}
 </FloatingText>
