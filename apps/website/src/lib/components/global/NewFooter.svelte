@@ -1,12 +1,15 @@
 <script lang="ts">
-	import { gsap } from '$lib/gsap';
+	import { gsap, ScrollTrigger } from '$lib/gsap';
 	import Icon from '@iconify/svelte';
 	import { onMount } from 'svelte';
 	import { slide } from 'svelte/transition';
 	import Button from '$lib/components/buttons/Button.svelte';
+	import { browser } from '$app/env';
+	import { afterNavigate } from '$app/navigation';
 
 	let openBlockIndex: number | null;
 	let sectionElement: HTMLElement;
+	let paralaxAnimation: gsap.core.Timeline;
 
 	interface FooterLink {
 		name: string;
@@ -19,20 +22,21 @@
 	}
 
 	const parlaxFooterAnimation = () => {
-		let timeline = gsap.timeline({
+		paralaxAnimation = gsap.timeline({
 			scrollTrigger: {
 				start: 'top+=70% bottom',
 				end: 'bottom+=70% bottom',
 				trigger: sectionElement,
-				scrub: 0.1
+				scrub: 0.1,
+				markers: true
 			}
 		});
 
-		timeline.from(sectionElement, { yPercent: -70 });
+		paralaxAnimation.from(sectionElement, { yPercent: -70 });
 
 		return () => {
-			timeline.scrollTrigger?.kill();
-			timeline.kill();
+			paralaxAnimation.scrollTrigger?.kill();
+			paralaxAnimation.kill();
 		};
 	};
 
@@ -56,6 +60,10 @@
 			]
 		}
 	];
+
+	afterNavigate(() => {
+		paralaxAnimation.scrollTrigger?.refresh();
+	});
 
 	onMount(() => {
 		let destory = parlaxFooterAnimation();

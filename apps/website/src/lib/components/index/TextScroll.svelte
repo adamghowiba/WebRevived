@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { gsap } from '$lib/gsap';
-import { destoryTimelines, destoryTweens } from '$lib/gsap-utils';
+	import { destoryTweens } from '$lib/gsap-utils';
 	import { onMount } from 'svelte';
 
 	let text =
