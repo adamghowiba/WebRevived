@@ -28,7 +28,6 @@
 				end: 'bottom+=70% bottom',
 				trigger: sectionElement,
 				scrub: 0.1,
-				markers: true
 			}
 		});
 
