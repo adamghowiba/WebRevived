@@ -57,6 +57,7 @@ import { IMAGE_URL } from '$lib/constants/config';
 
 <ContactSection />
 
+
 <style lang="scss">
 	.italic {
 		font-style: italic;

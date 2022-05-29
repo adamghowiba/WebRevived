@@ -23,6 +23,8 @@
 	let loadingAnimationPlayed: boolean;
 
 	const handleScroll = () => {
+		if (isMobileNavbarOpen) return;
+
 		const scrollTop = window.scrollY;
 
 		if (lastScrollY > scrollTop && !navbarVisible) {
@@ -93,7 +95,7 @@
 	});
 
 	onMount(() => {
-		document.addEventListener('scroll', handleScroll, { passive: true });
+		// document.addEventListener('scroll', handleScroll, { passive: true });
 		_loadingAnimation = loadingAnimation();
 
 		document.fonts.onloadingdone = () => {
@@ -102,7 +104,7 @@
 		};
 
 		return () => {
-			document.removeEventListener('scroll', handleScroll);
+			// document.removeEventListener('scroll', handleScroll);
 			_loadingAnimation.destory();
 		};
 	});
@@ -117,15 +119,15 @@
 	<div class="loading__overlay loading__overlay--red" />
 </div>
 
-<div class="navbar-wrap" bind:this={navbarElement}>
+<div class="navbar-wrap" bind:this={navbarElement} class:isMobileNavbarOpen>
 	<Navbar bind:isMobileNavbarOpen />
 </div>
 
-<div class="mobile-navbar">
-	{#if isMobileNavbarOpen}
-		<MobileNavbar on:scrollAway={() => (isMobileNavbarOpen = false)} />
-	{/if}
-</div>
+<!-- <div class="mobile-navbar"> -->
+{#if isMobileNavbarOpen}
+	<MobileNavbar on:scrollAway={() => (isMobileNavbarOpen = false)} />
+{/if}
+<!-- </div> -->
 
 <div class="body" class:noScroll={isMobileNavbarOpen}>
 	<slot />
@@ -159,16 +161,13 @@
 		top: 0;
 		width: 100%;
 		z-index: 100;
+		background-color: var(--color-black);
 
 		transition: transform 0.25s ease-in-out;
 	}
 	.body {
 		height: 100%;
 		margin-top: 108px;
-
-		&.noScroll {
-			overflow: hidden;
-		}
 	}
 	.mobile-navbar {
 		display: none;

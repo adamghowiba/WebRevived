@@ -19,11 +19,14 @@
 			placeholder="Email"
 			name="email"
 			bind:value
+			width="100%"
 			maxWidth="350px"
 			required
 			hoverEffect={false}
 		/>
-		<Button>Submit</Button>
+		<div class="button">
+			<Button width="100px">Submit</Button>
+		</div>
 	</form>
 </section>
 
@@ -36,6 +39,7 @@
 		gap: var(--space-md);
 		align-items: center;
 	}
+
 	form {
 		display: flex;
 		justify-content: center;

@@ -1,11 +1,9 @@
 <script lang="ts">
-	import { gsap, ScrollTrigger } from '$lib/gsap';
-	import Icon from '@iconify/svelte';
-	import { onMount } from 'svelte';
-	import { slide } from 'svelte/transition';
-	import Button from '$lib/components/buttons/Button.svelte';
 	import { browser } from '$app/env';
-	import { afterNavigate } from '$app/navigation';
+	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	import Button from '$lib/components/buttons/Button.svelte';
+	import { gsap } from '$lib/gsap';
+	import { onMount } from 'svelte';
 
 	let openBlockIndex: number | null;
 	let sectionElement: HTMLElement;
@@ -24,10 +22,10 @@
 	const parlaxFooterAnimation = () => {
 		paralaxAnimation = gsap.timeline({
 			scrollTrigger: {
-				start: 'top+=70% bottom',
-				end: 'bottom+=70% bottom',
+				start: () => 'top+=70% bottom',
+				end: () => 'bottom+=70% bottom',
 				trigger: sectionElement,
-				scrub: 0.1,
+				scrub: 0.1
 			}
 		});
 
@@ -59,7 +57,6 @@
 			]
 		}
 	];
-
 	afterNavigate(() => {
 		paralaxAnimation.scrollTrigger?.refresh();
 	});
@@ -73,50 +70,52 @@
 	});
 </script>
 
-<section class="footer-wrapper" bind:this={sectionElement}>
-	<footer class="container--sm footer">
-		<div class="footer__title">
-			<h2>Let's Start<br />Something great together!</h2>
+<section class="no-overflow">
+	<section class="footer-wrapper" bind:this={sectionElement}>
+		<footer class="container--sm footer">
+			<div class="footer__title">
+				<h2>Let's Start<br />Something great together!</h2>
 
-			<Button color="black" href="/contact" hoverCircle>Get Started</Button>
-		</div>
-
-		<div class="footer__bottom">
-			<!-- Footer Contact Information -->
-			<div class="footer__contact">
-				<p>Drop us a line and we'll get in touch.</p>
-
-				<h3>
-					<a href="mailto:malcolm@abdigital.studio">malcolm@abdigital.studio</a> Or
-					<a href="/contact" class="underline">Contact Us</a>
-				</h3>
+				<Button color="black" href="/contact" hoverCircle>Get Started</Button>
 			</div>
 
-			<!-- Footer Blocks -->
-			<div class="block">
-				{#each FOOTER_BLOCKS as block}
-					<div class="block__item">
-						{#each block.links as link}
-							<a
-								class="block__link"
-								target={link.newTab ? '__blank' : ''}
-								rel="noopener noreferrer"
-								href={link.href}>{link.name}</a
-							>
-						{/each}
-					</div>
-				{/each}
+			<div class="footer__bottom">
+				<!-- Footer Contact Information -->
+				<div class="footer__contact">
+					<p>Drop us a line and we'll get in touch.</p>
+
+					<h3>
+						<a href="mailto:malcolm@abdigital.studio">malcolm@abdigital.studio</a> Or
+						<a href="/contact" class="underline">Contact Us</a>
+					</h3>
+				</div>
+
+				<!-- Footer Blocks -->
+				<div class="block">
+					{#each FOOTER_BLOCKS as block}
+						<div class="block__item">
+							{#each block.links as link}
+								<a
+									class="block__link"
+									target={link.newTab ? '__blank' : ''}
+									rel="noopener noreferrer"
+									href={link.href}>{link.name}</a
+								>
+							{/each}
+						</div>
+					{/each}
+				</div>
 			</div>
+		</footer>
+
+		<div class="container--sm disclaimer">
+			<span class="terms">© 2022 AB Digital Studio, LLC</span>
+
+			<span>
+				Built by <a href="https://webrevived.com" class="underline">Web Revived </a> with ❤️
+			</span>
 		</div>
-	</footer>
-
-	<div class="container--sm disclaimer">
-		<span class="terms">© 2022 AB Digital Studio, LLC</span>
-
-		<span>
-			Built by <a href="https://webrevived.com" class="underline">Web Revived </a> with ❤️
-		</span>
-	</div>
+	</section>
 </section>
 
 <style lang="scss">

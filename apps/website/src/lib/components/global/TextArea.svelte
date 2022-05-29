@@ -61,4 +61,10 @@
 			height: 6px;
 		}
 	}
+
+	@media screen and (max-width: 375px) {
+		.textarea {
+			font-size: 14px;
+		}
+	}
 </style>

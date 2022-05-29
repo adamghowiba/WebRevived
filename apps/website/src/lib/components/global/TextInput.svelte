@@ -60,4 +60,11 @@
 			height: 6px;
 		}
 	}
+
+	@media screen and (max-width: 375px) {
+			input {
+				font-size: 14px;
+				min-height: 47px;
+			}
+	}
 </style>

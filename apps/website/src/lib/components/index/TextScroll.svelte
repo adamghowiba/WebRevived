@@ -11,34 +11,34 @@
 	const textAnimation = () => {
 		const lines = textWrapper.querySelectorAll('.line');
 		const tweens: gsap.core.Tween[] = [];
-		
+
 		lines.forEach((elem, i) => {
 			let tween = gsap.to(elem, {
 				scrollTrigger: {
 					trigger: elem,
 					start: `top-=20% center+=25%`,
-					end: "bottom+=70% center+=25%",
+					end: 'bottom+=70% center+=25%',
 					scrub: 1.4
 				},
-				backgroundPositionX: "0",
+				backgroundPositionX: '0',
 				duration: 1,
 				stagger: 0.4
 			});
 
 			tweens.push(tween);
-		})
+		});
 
 		return () => {
 			destoryTweens(tweens, true);
-		}
+		};
 	};
 
 	onMount(() => {
-		const destory = textAnimation();
+		// const destory = textAnimation();
 
 		return () => {
-			destory();
-		}
+			// destory();
+		};
 	});
 
 	const splitText = (text: string, amount: number) => {
@@ -63,15 +63,17 @@
 </script>
 
 <section class="container">
-	<h3 bind:this={textWrapper}>
+	<!-- <h3 bind:this={textWrapper}>
 		{#each splitText(text, 7) as line}
 			<div class="line">{line}</div>
 		{/each}
+	</h3> -->
+	<h3>
+		We make things, and we're awesome at it. AB Digital is a tight-knit team of experts who are
+		ready to tackle the most intricate puzzles when it comes to digital marketing.
 	</h3>
 </section>
 
-<!-- We make things, and we're awesome at it. AB Digital is a tight-knit team of experts who are
-ready to tackle the most intricate puzzles when it comes to digital marketing. -->
 <style lang="scss">
 	section {
 		text-align: center;

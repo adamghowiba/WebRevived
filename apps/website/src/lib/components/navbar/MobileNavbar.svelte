@@ -13,6 +13,7 @@
 			trigger: navWrapperElement,
 			start: 'bottom bottom-=5%',
 			end: 'bottom bottom',
+			markers: true,
 			onLeave: () => {
 				dispatch('scrollAway');
 			}
@@ -30,8 +31,7 @@
 
 		timeline.from(node, {
 			height: 0,
-			ease: 'Power3.easeInOut',
-			duration: 1
+			duration: 0.65
 		});
 		timeline.from(
 			navLinks,
@@ -63,15 +63,12 @@
 	};
 
 	onMount(() => {
-		const destory = scrollAwayTrigger();
+		/* TODO: Bug causing scrollaway to be triggered when not at top. */
+		// const destory = scrollAwayTrigger();
 
 		return () => {
-			destory();
+			// destory();
 		};
-		// const timeline = openAniamtion();
-		// return () => {
-		// 	timeline.kill();
-		// };
 	});
 </script>
 
@@ -95,11 +92,12 @@
 
 <style lang="scss">
 	.nav-wrapper {
-		position: absolute;
+		position: fixed;
 		width: 100%;
-		height: calc(100vh - 113px);
+		height: calc(100vh - 108px);
 		background-color: var(--color-black);
 		z-index: 100;
+		top: 108px;
 		padding: var(--space-md);
 		overflow: hidden;
 	}

@@ -9,11 +9,12 @@
 	import IndexServices from '$lib/components/index/IndexServices.svelte';
 	import TextScroll from '$lib/components/index/TextScroll.svelte';
 	import { onMount } from 'svelte';
-	import {gsap, ScrollTrigger} from '$lib/gsap';
+	import { gsap, ScrollTrigger } from '$lib/gsap';
+	import NewFooter from '$lib/components/global/NewFooter.svelte';
 
 	let barIcon: HTMLElement;
 
-/* 	const barChartAnimation = () => {
+	/* 	const barChartAnimation = () => {
 		const paths = barIcon.querySelectorAll('path');
 		const barPaths = gsap.utils.toArray([paths[0], paths[1], paths[2], paths[3], paths[4]])
 		const underline = paths[5]
@@ -45,7 +46,6 @@
 		return () => destory();
 	}); */
 </script>
-
 
 <Hero />
 

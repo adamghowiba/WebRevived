@@ -23,8 +23,16 @@
 	import Capabilities from '$lib/components/services/Capabilities.svelte';
 	import ServiceImages from '../../lib/components/services/ServiceImages.svelte';
 	import FloatingText from '$lib/components/global/FloatingText.svelte';
+	import { ScrollTrigger } from '$lib/gsap';
 
 	export let serviceData: Service;
+	let headerImageLoaded: boolean = false;
+
+	const handleLoad = (event: Event) => {
+		headerImageLoaded = true;
+		ScrollTrigger.refresh();
+		console.log('Header image loaded')
+	};
 </script>
 
 <PageHeader
@@ -33,14 +41,13 @@
 	subtitle={serviceData.header.subtitle}
 />
 
-<img src={serviceData.header.imgSrc} alt="Webdesign laptop" />
-
+<img src={serviceData.header.imgSrc} alt="Webdesign laptop" on:load={handleLoad} />
 
 <FloatingText>
 	{serviceData.description}
 </FloatingText>
 
-<ServiceImages images={serviceData.images} />
+<!-- <ServiceImages images={serviceData.images} /> -->
 
 <ArticleContent title="Approach">
 	<p>

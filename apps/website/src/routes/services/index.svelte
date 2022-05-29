@@ -28,6 +28,7 @@
 
 <ContactSection />
 
+
 <style lang="scss">
 	.description {
 		display: grid;
