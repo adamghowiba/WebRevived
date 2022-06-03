@@ -8,19 +8,19 @@
 	const QUESTIONS = [
 		{
 			question: 'What Services Do You Offer?',
-			answer: `AB Digital Marketing is a Branding, Social Media, and Website design company. We help companies elevate their digital presence with these three primary services.`
+			answer: `Web Revived is a Branding, Social Media, and Website design company. We help companies elevate their digital presence with these three primary services.`
 		},
 		{
 			question: 'What Makes You Different?',
 			answer: `We embrace the new and forget the old. With our young, high-energy, and diverse team, we can create the best of the best digital presence for all types of business. With our in-depth yet simple client process, you can worry about the day-to-day business work while we perfect your digital company.`
 		},
 		{
-			question: 'Why Should I Trust AB Digital Marketing?',
+			question: 'Why Should I Trust Web Revived ?',
 			answer: `Our digital marketing team has 12+ years of experience combined. We have worked with companies of all sizes, locations, and levels. We pride ourselves on being able to service businesses of all kinds.`
 		},
 		{
 			question: 'What If I Am New To Marketing?',
-			answer: `AB Digital Marketing specializes in helping companies start from the bottom. Whether you just have an idea or are looking for someone to pick up where you left off. With a large team and abundant resources, we can help you achieve all marketing needs regardless of where you're at in your business journey.`
+			answer: `Web Revived specializes in helping companies start from the bottom. Whether you just have an idea or are looking for someone to pick up where you left off. With a large team and abundant resources, we can help you achieve all marketing needs regardless of where you're at in your business journey.`
 		}
 	];
 

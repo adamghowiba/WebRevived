@@ -67,7 +67,7 @@
 	<CtaBlock
 		content={{
 			// title: 'The missing piece of your marketing puzzle.',
-			headings: ['The missing', 'peice of your', 'marketing pizzle'],
+			headings: ['The missing', 'peice of your', 'marketing puzzle'],
 			desc: "We develop world-class digital experiences that grow companies. From brand strategy to web development to digital marketing, beautiful design isn't just what we do; it's our life's work.",
 			button: { text: "Let's talk", href: '/contact' }
 		}}
@@ -78,7 +78,7 @@
 		content={{
 			// title: 'No Fluff. High impact. No penny wasted.',
 			headings: ['Simple efficient', 'strategies that', 'drives results'],
-			desc: 'We believe in telling stories. Emotions drive our choices, our wallets, and our lives. We help businesses to tell that story with their online presence.',
+			desc: 'We believe in telling stories. Emotions drive our choices, our wallets, and our lives. We help businesses tell that story with their online presence.',
 			button: { text: 'See our services', href: '/services' }
 		}}
 		icon="barChart"

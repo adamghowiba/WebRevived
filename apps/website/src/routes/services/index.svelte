@@ -17,8 +17,8 @@
 <article class="section--md container description">
 	<h4>What We Do</h4>
 	<p class="body--xl">
-		AB Digital is a digital brand agency that lives where design, technology,and experience collide.
-		We are obsessed with creativity — challenging what is, while defining what comes next.
+		Web Revived is a digital brand agency that lives where design, technology,and experience
+		collide. We are obsessed with creativity — challenging what is, while defining what comes next.
 	</p>
 </article>
 
@@ -27,7 +27,6 @@
 <ServiceProcess />
 
 <ContactSection />
-
 
 <style lang="scss">
 	.description {

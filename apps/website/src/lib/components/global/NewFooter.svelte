@@ -109,7 +109,7 @@
 		</footer>
 
 		<div class="container--sm disclaimer">
-			<span class="terms">© 2022 AB Digital Studio, LLC</span>
+			<span class="terms">© 2022 Web Revived, LLC</span>
 
 			<span>
 				Built by <a href="https://webrevived.com" class="underline">Web Revived </a> with ❤️

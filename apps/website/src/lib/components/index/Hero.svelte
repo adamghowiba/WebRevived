@@ -63,7 +63,7 @@
 	<div class="container">
 		<header>
 			<h1 class="title">
-				We Help Impactful Brands Build <TextBreak /> <br /> Copunding Growth.
+				We Help Impactful Brands Build <TextBreak /> <br /> Compounding Growth.
 			</h1>
 			<p class="body--lg">
 				Business marketing used to be about "fitting in" with everyone else. Today, it's about

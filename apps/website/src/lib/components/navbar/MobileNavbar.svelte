@@ -85,7 +85,7 @@
 	<footer class="footer">
 		<div class="footer__block">
 			<a href="tel:4079246902">+1 407 924 6902</a>
-			<a href="mailto:malcom@abdigitalstudio.com">malcom@abdigitalstudio.com</a>
+			<a href="mailto:adam@webrevived.com">adam@webrevived.com</a>
 		</div>
 	</footer>
 </section>

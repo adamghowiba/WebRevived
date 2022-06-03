@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 
 	let text =
-		"We make things, and we're awesome at it. AB Digital is a tight-knit team of experts who are ready to tackle the most intricate puzzles when it comes to digital marketing.";
+		"We make things, and we're awesome at it. Web Revived is a tight-knit team of experts who are ready to tackle the most intricate puzzles when it comes to digital marketing.";
 
 	let textWrapper: HTMLElement;
 
@@ -69,7 +69,7 @@
 		{/each}
 	</h3> -->
 	<h3>
-		We make things, and we're awesome at it. AB Digital is a tight-knit team of experts who are
+		We make things, and we're awesome at it. Web Revived is a tight-knit team of experts who are
 		ready to tackle the most intricate puzzles when it comes to digital marketing.
 	</h3>
 </section>

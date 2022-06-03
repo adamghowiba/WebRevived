@@ -41,7 +41,7 @@ import { IMAGE_URL } from '$lib/constants/config';
 
 <ArticleContent title="Simply put, we do what others don't">
 	<p>
-		When you work with AB Digital Marketing, you are getting a team of experts to ensure that your
+		When you work with Web Revived, you are getting a team of experts to ensure that your
 		business reaches new heights. Because it's not just work, it's passion. It's not just clients,
 		it's people. Every project we take on is important to us.
 	</p>
