@@ -31,15 +31,15 @@
 	const handleLoad = (event: Event) => {
 		headerImageLoaded = true;
 		ScrollTrigger.refresh();
-		console.log('Header image loaded')
+		console.log('Header image loaded');
 	};
 </script>
 
-<PageHeader
+<!-- <PageHeader
 	pageName={serviceData.name}
 	title={serviceData.header.title}
 	subtitle={serviceData.header.subtitle}
-/>
+/> -->
 
 <img src={serviceData.header.imgSrc} alt="Webdesign laptop" on:load={handleLoad} />
 

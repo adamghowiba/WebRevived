@@ -85,7 +85,8 @@
 					<p>Drop us a line and we'll get in touch.</p>
 
 					<h3>
-						<a href="mailto:malcolm@abdigital.studio">malcolm@abdigital.studio</a> Or
+						<a href="mailto:adam@webrevived.com">adam@webrevived.com</a> 
+						<a href="tel:4079246902">407 924 6902</a>
 						<a href="/contact" class="underline">Contact Us</a>
 					</h3>
 				</div>
@@ -145,6 +146,12 @@
 			display: flex;
 			flex-direction: column;
 			gap: var(--space-md);
+		}
+
+		&__contact h3 {
+			display: flex;
+			flex-direction: column;
+			gap: var(--space-2xs);
 		}
 
 		&__title {
