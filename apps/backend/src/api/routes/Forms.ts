@@ -1,7 +1,7 @@
 // import { authController } from '@controllers';
-import { Router } from 'express';
 import { formController } from '@controllers';
-import { requireRole, requireRoles } from '@middlewear/auth-mw';
+import { requireRole } from '@middlewear/auth-mw';
+import { Router } from 'express';
 
 const router = Router({ mergeParams: true });
 

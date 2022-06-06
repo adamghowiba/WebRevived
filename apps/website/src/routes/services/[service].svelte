@@ -35,13 +35,13 @@
 	};
 </script>
 
-<!-- <PageHeader
+<PageHeader
 	pageName={serviceData.name}
 	title={serviceData.header.title}
 	subtitle={serviceData.header.subtitle}
-/> -->
+/>
 
-<img src={serviceData.header.imgSrc} alt="Webdesign laptop" on:load={handleLoad} />
+<!-- <img src={serviceData.header.imgSrc} alt="Webdesign laptop" on:load={handleLoad} /> -->
 
 <FloatingText>
 	{serviceData.description}
