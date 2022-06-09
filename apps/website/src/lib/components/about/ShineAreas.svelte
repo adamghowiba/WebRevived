@@ -58,7 +58,7 @@
 		<img src="/images/services/service_2.png" alt="" />
 		<img src="/images/about/branding_3.png" alt="" />
 	</div>
-	
+
 	<div class="group group--second">
 		<img src="/images/services/service_1.png" alt="" />
 		<img src="/images/about/branding_2.png" alt="" />
@@ -97,6 +97,7 @@
 		grid-template-columns: 1.7fr 1.2fr 1fr 1.8fr;
 		gap: var(--space-md);
 		min-height: 70vh;
+		column-gap: 5vw;
 
 		&:nth-child(1) {
 			margin-top: 10rem;
@@ -174,10 +175,9 @@
 			grid-template-rows: 1fr 1fr;
 			gap: 3rem;
 			row-gap: 8rem;
-			
+
 			img:nth-child(even) {
 				margin: var(--space-5xl) 0;
-				border: 1px solid red;
 			}
 
 			&--second {
@@ -185,7 +185,6 @@
 			}
 
 			&--third {
-				margin-top: 20rem;
 				grid-template-columns: 1.5fr 1fr;
 			}
 			&--first {
@@ -196,14 +195,14 @@
 
 	@media screen and (max-width: 425px) {
 		h1 {
-			font-size: 7rem;
+			font-size: 6rem;
 		}
+	}
 
-		// Phone SM
-		@media screen and (max-width: 375px) {
-			h1 {
-				font-size: 5.3rem;
-			}
+	// Phone SM
+	@media screen and (max-width: 375px) {
+		h1 {
+			font-size: 5.3rem;
 		}
 	}
 </style>

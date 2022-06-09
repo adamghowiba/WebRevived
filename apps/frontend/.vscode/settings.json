@@ -1,0 +1,4 @@
+{
+    "cssvar.files": {"frontend": "/src/lib/styles/root.css"},
+    "html-css-class-completion.includeGlobPattern": "/src/lib/styles/global.css"
+}

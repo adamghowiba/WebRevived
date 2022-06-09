@@ -14,7 +14,7 @@ body {
 	background-color: var(--color-black);
 	color: var(--color-white);
 	font-family: var(--font-family);
-	font-size: var(--text-base);
+	font-size: var(--text-body);
 	overflow-x: hidden;
 	scroll-behavior: smooth;
 }

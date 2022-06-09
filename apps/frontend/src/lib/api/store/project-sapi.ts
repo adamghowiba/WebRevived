@@ -1,5 +1,5 @@
 import { HOST } from '$lib/constants/config';
-import { get, writable } from 'svelte/store';
+import { derived, get, writable } from 'svelte/store';
 
 export interface Project {
 	id: number;
@@ -11,23 +11,37 @@ export interface Project {
 	createdAt: Date;
 }
 
-const createProjectStore = () => {
-	const { set, update, subscribe } = writable<Project[]>(null, () => {
-		refresh();
+export interface AsyncStore<D> {
+	state: 'loading' | 'error' | 'sucess' | 'idle';
+	data: D;
+	error?: string | Error;
+}
+
+const getProjects = async () => {
+	const response = await fetch(`${HOST}/project`, {
+		credentials: 'include'
 	});
+	const result = await response.json();
 
-	const getProjects = async () => {
-		const response = await fetch(`${HOST}/project`, {
-			credentials: 'include'
-		});
-		const result = await response.json();
+	return result;
+};
 
-		return result;
-	};
+const createProjectStore = () => {
+	const { set, update, subscribe } = writable<AsyncStore<Project[]>>(
+		{ state: 'idle', data: [] },
+		() => {
+			refresh();
+		}
+	);
 
 	const refresh = async () => {
-		const projects = await getProjects();
-		set(projects);
+		set({ state: 'loading', data: [] });
+		try {
+			const projects = await getProjects();
+			set({ data: projects, state: 'sucess' });
+		} catch (error) {
+			set({ data: [], state: 'error', error: error });
+		}
 	};
 
 	return {
@@ -37,4 +51,31 @@ const createProjectStore = () => {
 	};
 };
 
+const createAsyncStore = <D>(inital: D, getData: () => Promise<D | undefined>) => {
+	const store = writable<AsyncStore<D>>({ state: 'idle', data: inital }, () => {
+		refresh();
+	});
+	const { set, subscribe } = store;
+
+	const state = derived(store, ($store) => $store.state);
+
+	const refresh = async () => {
+		try {
+			const data = await getData();
+			set({ state: 'sucess', data });
+		} catch (error) {
+			set({ state: 'error', data: undefined, error });
+		}
+	};
+
+	return {
+		subscribe,
+		state,
+		refresh
+	};
+};
+
+export const asyncProjectStore = createAsyncStore<Project[]>([], () => {
+	return getProjects();
+});
 export const projectsStore = createProjectStore();

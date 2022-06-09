@@ -89,7 +89,6 @@ video {
 	border: 0;
 	font-size: 100%;
 	font: inherit;
-	font-family: inherit;
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -128,13 +127,3 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
-input,
-textarea {
-	font-family: inherit;
-	appearance: none;
-	outline: none;
-	border: none;
-}
-
-

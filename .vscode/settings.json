@@ -1,5 +1,11 @@
 {
-    "cssvar.files": ["./apps/website/src/lib/styles/root.css"],
-    "html-css-class-completion.excludeGlobPattern": "",
-    "html-css-class-completion.includeGlobPattern": "apps/website/src/lib/styles/global.css"
+    // Quick Fix For Borken Extension
+
+    // WEBSITE 
+    // "cssvar.files": ["./apps/website/src/lib/styles/root.css"],
+    // "html-css-class-completion.includeGlobPattern": "apps/website/src/lib/styles/global.css",
+    
+    // FRONTEND
+    "cssvar.files": ["./apps/frontend/src/lib/styles/root.css"],
+    "html-css-class-completion.includeGlobPattern": "apps/frontend/src/lib/styles/global.css",
 }

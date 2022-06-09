@@ -1,0 +1,81 @@
+:root {
+	/* --- COLORS --- */
+	--color-background: white;
+	--color-text-body: #1e293b;
+	--color-primary: #5C60F5;
+	--color-error: #D82C0D;
+	--color-success: #008060;
+	--color-warn: #FFC453;
+	--color-surface: #F0F0F0;
+
+	--color-error-muted: rgb(216, 44, 13, 0.25);
+	--color-success-muted: rgb(0, 128, 96, 0.25);
+	--color-primary-muted: rgb(92, 96, 245, 0.25);
+
+	/* NUTURALS */
+	--color-gray: #d9dbde;
+	--color-gray-blue-100: #f1f5f9;
+	--color-gray-blue-200: #e2e8f0;
+	--color-gray-blue-300: #cbd5e1;
+	--color-gray-blue-400: #94a3b8;
+	--color-gray-blue-500: #64748b;
+	--color-gray-blue-600: #475569;
+	--color-gray-blue-700: #334155;
+
+	--color-gray-100: #f8f9fa;
+	--color-gray-200: #e9ecef;
+	--color-gray-300: #dee2e6;
+	--color-gray-400: #ced4da;
+	--color-gray-500: #adb5bd;
+	--color-gray-600: #6c757d;
+	--color-gray-700: #495057;
+	--color-gray-800: #343a40;
+	--color-gray-900: #212529;
+
+	/* ALPHAS */
+	--color-tran-light: rgba(255, 255, 255, 0.151);
+
+	/* --- TYPOGRAPHY --- */
+	--text-h1: 2.488rem;
+	--text-h2: 2.074rem;
+	--text-h3: 1.728rem;
+	--text-h4: 1.44rem;
+	--text-h5: 1.2rem;
+	--text-body: 14px;
+	--text-body-lg: 1rem;
+	--text-sm: 0.833rem;
+	--text-xs: 0.694rem;
+
+	--fw-normal: 400;
+	--fw-medium: 500;
+	--fw-bold: 700;
+
+	/* --- BORDER RADIUS ---- */
+	--br-sm: 4px;
+	--br-md: 6px;
+	--br-lg: 8px;
+
+	/* SPACING */
+	--space-3xs: 4px;
+	--space-2xs: 8px;
+	--space-xs: 16px;
+	--space-sm: 24px;
+	--space-md: 32px;
+	--space-lg: 40px;
+	--space-xl: 56px;
+	--space-2xl: 64px;
+	--space-3xl: 72px;
+	--space-4xl: 80px;
+	--space-5xl: 88px;
+	--space-6xl: 160px;
+	--space-7xl: 216px;
+
+	--transition-theme-background: background-color 0.2s ease-in-out;
+	--transition-theme-color: color 0.2s ease-in-out;
+}
+
+:root .theme--dark {
+	--color-background: #1b2434;
+	--color-text-body: #626976;
+	--color-text-heading: #fafbfc;
+}

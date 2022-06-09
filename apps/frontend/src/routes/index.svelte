@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { projectsStore, type Project } from '$lib/api/store/project-sapi';
+	import { asyncProjectStore, projectsStore, type Project } from '$lib/api/store/project-sapi';
 	import DataTable from '$lib/components/datatable/DataTable.svelte';
 	import type { DataTableCol } from '$lib/types/table';
 	import { onMount } from 'svelte';
@@ -26,7 +26,7 @@
 		{ feild: 'slack_channel', headerName: 'Slack Channel' }
 	];
 
-	const transformProjectData = (projects: Project[] & { link: string }) => {
+	const transformProjectData = (projects: Project[]) => {
 		const data = projects.map(
 			({ name, id, type, account_id, createdAt, description, slack_channel }) => ({
 				id,
@@ -35,19 +35,20 @@
 				account_id,
 				createdAt,
 				description,
-				slack_channel,
-				link: 'hello',
-				max: 'more',
-				bam: 'dowdawodm'
+				slack_channel
 			})
 		);
 
+		console.log(data);
 		return data;
 	};
 
 	const handleRowClick = ({ detail: index }) => {
 		console.log(index);
 	};
+
+	const state = asyncProjectStore.state;
+	$: ({data, error} = $asyncProjectStore);
 
 	let selectedRows: number[] = [];
 	$: selectedData = selectedRows.map((rowIndex) => $projectsStore[rowIndex]);
@@ -56,7 +57,18 @@
 <section>
 	<div class="card">
 		<h4>Accounts</h4>
-		{#await $projectsStore || projectsStore.getProjects()}
+
+		{#if $state === 'loading'}
+			<h2>Loading...</h2>
+		{:else if $state == 'sucess'}
+			<DataTable
+				{columns}
+				rows={transformProjectData(data)}
+				selectable
+				on:rowClick={handleRowClick}
+			/>
+		{/if}
+		<!-- {#await $projectsStore}
 			<h4>Loading...</h4>
 		{:then project}
 			<DataTable
@@ -67,7 +79,7 @@
 			/>
 		{:catch error}
 			<span>{error}</span>
-		{/await}
+		{/await} -->
 	</div>
 </section>
 

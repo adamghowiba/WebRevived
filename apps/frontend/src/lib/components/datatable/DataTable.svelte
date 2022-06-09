@@ -25,7 +25,7 @@
 
 	let lastSelectedRow: number;
 	let shiftKeyHeld: boolean = false;
-	let pinnedColumns = [0, 1]
+	let pinnedColumns = [0, 1];
 
 	const dispatch = createEventDispatcher();
 
@@ -128,18 +128,17 @@
 	};
 
 	const formatData = () => {
-		const data = rows.map((data) => {
-			const rowItem = Object.entries(columns).reduce((acc, [k, v], i) => {
-				if (data['link']) acc[columns[i].feild] = data[columns[i].feild] || '';
+		const columnData = rows.map((data) => {
+			return columns.reduce((acc: any, curr) => {
+				if (data[curr.feild]) acc[curr.feild] = data[curr.feild];
 				return acc;
 			}, {});
+		});
 
-			return rowItem;
-		}, []);
-
-		return data;
+		return columnData;
 	};
 
+	$: rows = formatData();
 	$: rowStart = page * rowsPerPage;
 	$: rowEnd = (page + 1) * rowsPerPage;
 </script>

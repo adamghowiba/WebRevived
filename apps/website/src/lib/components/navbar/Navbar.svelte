@@ -80,7 +80,7 @@
 		justify-content: space-between;
 		align-items: center;
 		background-color: var(--color-black);
-		box-shadow: rgba(3, 3, 3, 0.192) 0px 6px 12px -2px, rgba(0, 0, 0, 0.25) 0px 3px 7px -3px;
+		// box-shadow: rgba(3, 3, 3, 0.192) 0px 6px 12px -2px, rgba(0, 0, 0, 0.25) 0px 3px 7px -3px;
 
 
 		&__logo {

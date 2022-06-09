@@ -1,4 +1,5 @@
 <script context="module" lang="ts">
+import Navbar from '$lib/components/navbar/Navbar.svelte';
 	import type { Load } from '@sveltejs/kit';
 
 	export const load: Load = async ({ session, url }) => {
@@ -19,8 +20,8 @@
 </script>
 
 
-<section />
 <!-- <h6>Welcome {$session.user.email}</h6> -->
+<Navbar />
 <slot />
 
 <style lang="scss">
