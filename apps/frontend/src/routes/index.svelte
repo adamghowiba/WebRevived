@@ -1,100 +1,19 @@
 <script lang="ts">
-	import { asyncProjectStore, projectsStore, type Project } from '$lib/api/store/project-sapi';
-	import DataTable from '$lib/components/datatable/DataTable.svelte';
-	import type { DataTableCol } from '$lib/types/table';
-	import { onMount } from 'svelte';
-
-	interface Account {
-		id: number;
-		name: string;
-		industry: string;
-		phone: string;
-		street: string;
-		city: string;
-		state: string;
-		code: string;
-		country: string;
-	}
-
-	let columns: DataTableCol[] = [
-		{ feild: 'id', headerName: 'ID' },
-		{ feild: 'name', headerName: 'Project' },
-		{ feild: 'type', headerName: 'Type' },
-		{ feild: 'account_id', headerName: 'Account Id' },
-		{ feild: 'createdAt', headerName: 'Created' },
-		{ feild: 'description', headerName: 'Description' },
-		{ feild: 'slack_channel', headerName: 'Slack Channel' }
-	];
-
-	const transformProjectData = (projects: Project[]) => {
-		const data = projects.map(
-			({ name, id, type, account_id, createdAt, description, slack_channel }) => ({
-				id,
-				name,
-				type,
-				account_id,
-				createdAt,
-				description,
-				slack_channel
-			})
-		);
-
-		console.log(data);
-		return data;
-	};
-
-	const handleRowClick = ({ detail: index }) => {
-		console.log(index);
-	};
-
-	const state = asyncProjectStore.state;
-	$: ({data, error} = $asyncProjectStore);
-
-	let selectedRows: number[] = [];
-	$: selectedData = selectedRows.map((rowIndex) => $projectsStore[rowIndex]);
+	import { session } from '$app/stores';
+	import PageHeader from '$lib/components/global/PageHeader.svelte';
+	import { isRole } from '$lib/utils/role-utils';
+	import AdminHome from '$lib/views/home/AdminHome.svelte';
 </script>
 
-<section>
-	<div class="card">
-		<h4>Accounts</h4>
+<header class="container">
+	<PageHeader title="Dashboard" subtitle="Overview" />
+</header>
 
-		{#if $state === 'loading'}
-			<h2>Loading...</h2>
-		{:else if $state == 'sucess'}
-			<DataTable
-				{columns}
-				rows={transformProjectData(data)}
-				selectable
-				on:rowClick={handleRowClick}
-			/>
-		{/if}
-		<!-- {#await $projectsStore}
-			<h4>Loading...</h4>
-		{:then project}
-			<DataTable
-				{columns}
-				rows={transformProjectData(project)}
-				selectable
-				on:rowClick={handleRowClick}
-			/>
-		{:catch error}
-			<span>{error}</span>
-		{/await} -->
-	</div>
-</section>
+{#if isRole($session.user.role, 'ADMIN', 'DEVELOPER')}
+	<main class="container ">
+		<AdminHome />
+	</main>
+{/if}
 
 <style lang="scss">
-	section {
-		gap: 1rem;
-		width: 100%;
-		height: 100%;
-	}
-	.card {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		margin: 0 auto;
-		width: 100%;
-		padding: 2rem;
-	}
 </style>

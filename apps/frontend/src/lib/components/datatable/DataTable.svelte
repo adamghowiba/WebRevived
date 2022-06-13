@@ -8,7 +8,7 @@
 	import { range } from '$lib/utils/number-utils';
 	import { createEventDispatcher } from 'svelte';
 	import TableFooter from '../table/TableFooter.svelte';
-
+	
 	export let expandable: boolean = false;
 	export let selectable: boolean = false;
 	export let disableSelectionOnClick: boolean = false;
@@ -25,7 +25,6 @@
 
 	let lastSelectedRow: number;
 	let shiftKeyHeld: boolean = false;
-	let pinnedColumns = [0, 1];
 
 	const dispatch = createEventDispatcher();
 
@@ -37,7 +36,6 @@
 
 			if (numIndex > -1) {
 				selectedRows = selectedRows.filter((rowIndex) => rowIndex !== num);
-				// console.log(`Row at ${numIndex} already exists`)
 			} else {
 				selectedRows = [...selectedRows, num];
 			}
@@ -127,10 +125,14 @@
 		shiftKeyHeld = event.shiftKey;
 	};
 
-	const formatData = () => {
-		const columnData = rows.map((data) => {
+	const formatData = (data: any[]) => {
+		const columnData = data.map((data) => {
 			return columns.reduce((acc: any, curr) => {
-				if (data[curr.feild]) acc[curr.feild] = data[curr.feild];
+				if (!data[curr.feild]) {
+					acc[curr.feild] = '';
+				} else {
+					acc[curr.feild] = data[curr.feild];
+				}
 				return acc;
 			}, {});
 		});
@@ -138,7 +140,7 @@
 		return columnData;
 	};
 
-	$: rows = formatData();
+	$: rows = formatData(rows);
 	$: rowStart = page * rowsPerPage;
 	$: rowEnd = (page + 1) * rowsPerPage;
 </script>
@@ -148,14 +150,16 @@
 <div class="table-wrapper">
 	<Table>
 		<TableHeader>
-			<TableRow padding="10px 10px">
+			<TableRow padding="10px 10px" header>
 				{#if selectable}
-					<TableCell width="0px">
-						<input
-							type="checkbox"
-							checked={Boolean(selectedRows.length)}
-							on:click={handleClickRowsHeader}
-						/>
+					<TableCell width="0px" padding="0px">
+						<div class="input-wrap">
+							<input
+								type="checkbox"
+								checked={Boolean(selectedRows.length)}
+								on:click={handleClickRowsHeader}
+							/>
+						</div>
 					</TableCell>
 				{/if}
 				{#if expandable}
@@ -179,13 +183,15 @@
 					on:click={() => handleRowClick(realtiveIndex)}
 				>
 					{#if selectable}
-						<TableCell>
-							<input
-								data-row={realtiveIndex}
-								type="checkbox"
-								checked={isSelected}
-								on:click={handleClickInput}
-							/>
+						<TableCell padding="0px">
+							<div class="input-wrap">
+								<input
+									data-row={realtiveIndex}
+									type="checkbox"
+									checked={isSelected}
+									on:click={handleClickInput}
+								/>
+							</div>
 						</TableCell>
 					{/if}
 
@@ -196,10 +202,13 @@
 					{/if}
 
 					<!-- Tabel Data  -->
-
 					{#each Object.values(row) as data, j}
-						<TableCell pinned={pinnedColumns.includes(j)}>
-							{data || ''}
+						<TableCell>
+							{#if typeof data === 'object'}
+								<a href={data.link}>{data.name}</a>
+							{:else}
+								{data}
+							{/if}
 						</TableCell>
 					{/each}
 				</TableRow>
@@ -235,11 +244,18 @@
 		background-color: rgba(255, 228, 196, 0.13);
 		white-space: normal;
 	}
+	.input-wrap {
+		padding-left: var(--space-2xs);
+		display: flex;
+		align-items: center;
+	}
 	input {
-		width: 22px;
-		height: 22px;
+		margin: 0;
+		width: 16px;
+		height: 16px;
 	}
 	.table-wrapper {
+		font-size: var(--text-body);
 		width: 100%;
 	}
 </style>

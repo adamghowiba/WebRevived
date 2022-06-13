@@ -1,6 +1,8 @@
 <script lang="ts">
+	import Action from '../button/Action.svelte';
+
 	export let rowsPerPageOptions = [5, 10, 15, 20, 25, 30];
-	export let rowsPerPage = rowsPerPageOptions[0];
+	export let rowsPerPage = rowsPerPageOptions[1];
 	export let page = 0;
 	export let rowSize: number;
 
@@ -21,8 +23,18 @@
 	</span>
 
 	<div class="buttons">
-		<button on:click={() => page--} disabled={page === 0}>Prev</button>
-		<button on:click={() => page++} disabled={rowEnd > rowSize}>Next</button>
+		<Action
+			on:click={() => page--}
+			disabled={page === 0}
+			icon={{ icon: 'ic:round-navigate-next', rotation: 2 }}
+			hoverEffect="fill"
+		/>
+		<Action
+			on:click={() => page++}
+			disabled={rowEnd > rowSize}
+			icon={{ icon: 'ic:round-navigate-next' }}
+			hoverEffect="fill"
+		/>
 	</div>
 </footer>
 
@@ -30,7 +42,12 @@
 	footer {
 		display: flex;
 		gap: 1rem;
-		padding: 5px 20px;
+		padding: var(--space-xs) 20px;
 		justify-content: flex-end;
+		align-items: center;
+	}
+	.buttons {
+		display: flex;
+		align-items: center;
 	}
 </style>

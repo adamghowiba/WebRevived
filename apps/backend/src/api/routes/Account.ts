@@ -2,6 +2,8 @@
 import { Router } from 'express';
 import { accountController } from '@controllers';
 import { requireRole } from '@middlewear/auth-mw';
+import { validate } from '../middlewears/validate';
+import accountValidation from '@validation/account-validation';
 
 const router = Router({ mergeParams: true });
 
@@ -14,7 +16,7 @@ router.get('/', accountController.getAllAccounts);
 router.get('/:account_id', accountController.getAccountByID);
 
 /* POST New Account */
-router.post('/', accountController.postAccount);
+router.post('/', validate(accountValidation.createProject), accountController.postAccount);
 
 /* UPDATE Account */
 router.put('/:account_id', accountController.putAccount);

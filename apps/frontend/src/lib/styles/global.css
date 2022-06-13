@@ -21,8 +21,9 @@ main {
 	transition: var(--transition-theme-background);
 }
 
-a {
+a, button {
 	color: inherit;
+	font-size: var(--text-body);
 	text-decoration: none;
 }
 
@@ -53,14 +54,43 @@ h5,
 h6 {
 	color: var(--color-text-heading);
 	transition: var(--transition-theme-color);
-	font-weight: var(--fw-md);
+	font-weight: var(--fw-medium);
 }
-p {
+p, span {
 	font-size: var(--text-body);
 	line-height: 1.4;
 	transition: var(--transition-theme-color);
 }
 
+/* Containers */
+.container {
+	padding: 0 12px;
+	max-width: 1100px;
+}
+
+.container--lg {
+	max-width: 1400px;
+}
+
+.container--md {
+	max-width: 1000px;
+}
+
+.container--sm {
+	max-width: 900px;
+}
+
+.container,
+.container--md,
+.container--lg,
+.container--sm {
+	width: 100%;
+	margin: 0 auto;
+	padding-left: var(--space-md);
+	padding-right: var(--space-md);
+}
+
+/* INPUT */
 .focused-input {
 	border: 1px solid #5865f2 !important;
 	transition: border 0.15s linear;

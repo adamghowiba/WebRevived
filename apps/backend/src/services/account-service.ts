@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import prisma from '@controllers/db-controller';
 import { DatabaseError } from '@errors/DatabaseError';
-import { Address } from '@type/account';
+import { Account } from '@prisma/client';
+import Prisma from '@prisma/client';
 
 /* GET All Accounts */
 export const getAllAccounts = async (limit = 30) => {
@@ -16,35 +17,22 @@ export const getAllAccounts = async (limit = 30) => {
 };
 
 /* GET Specfic Account */
-export const getAccountByID = async (id: number) => {
+export const getAccountByID = async (id: number, include?: Prisma.Prisma.AccountInclude) => {
 	const account = await prisma.account.findUnique({
 		where: {
 			id
-		}
+		},
+		include: include
 	});
 
 	return account;
 };
 
 /* POST New Account */
-export const createAccount = async (
-	name: string,
-	phone: string = undefined,
-	industry: string = undefined,
-	address: Address = undefined
-) => {
+export const createAccount = async (account: Account) => {
 	try {
 		const accounteCreated = await prisma.account.create({
-			data: {
-				name,
-				phone,
-				industry,
-				street: address?.street,
-				city: address?.city,
-				state: address?.state,
-				code: address?.code,
-				country: address?.country
-			}
+			data: account
 		});
 		return accounteCreated;
 	} catch (error) {

@@ -32,8 +32,11 @@
   },
   "type": "module",
   "dependencies": {
+    "@felte/validator-yup": "^1.0.8",
+    "felte": "^1.2.2",
     "sass": "^1.49.7",
     "svelte-preprocess-sass": "^2.0.1",
-    "wds": "^1.0.0"
+    "wds": "^1.0.0",
+    "yup": "^0.32.11"
   }
 }

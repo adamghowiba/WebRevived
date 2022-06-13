@@ -3,6 +3,7 @@ import { catchAsync } from '@utils/error-utils';
 import { accountService, websiteService } from '@services';
 import { accountRequestBody } from '@validation/account-validation';
 import ApiError from '@errors/ApiError';
+import { Account } from '@prisma/client';
 
 /* GET All Accounts */
 export const getAllAccounts = catchAsync(async (req: Request, res: Response) => {
@@ -13,22 +14,17 @@ export const getAllAccounts = catchAsync(async (req: Request, res: Response) => 
 
 /* GET Specfic Account */
 export const getAccountByID = catchAsync(async (req: Request, res: Response) => {
-	const id = parseInt(req.body.account_id, 10);
+	const id = parseInt(req.params.account_id, 10);
 	if (!id) throw new ApiError('account_id is required');
 
-	const account = await accountService.getAccountByID(id);
+	const account = await accountService.getAccountByID(id, {contacts: true});
 
 	res.json(account);
 });
 
 /* POST New Account */
-export const postAccount = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-	const { name, phone } = req.body;
-	const { error } = accountRequestBody.validate(req.body);
-
-	if (error) throw new ApiError(error.message, 505);
-
-	const createdAccount = await accountService.createAccount(name, phone);
+export const postAccount = catchAsync(async (req: Request<unknown, unknown, Account>, res: Response) => {
+	const createdAccount = await accountService.createAccount(req.body);
 
 	res.json(createdAccount);
 });

@@ -31,6 +31,7 @@ model User {
   bio         String?
   website     Website[]
   projects    Project[]
+  accounts    Account[]
   group       Group?    @relation(references: [id], fields: [group_id])
   group_id    Int?
   role        UserRole  @default(GUEST)
@@ -69,6 +70,7 @@ model Account {
   state    String?
   code     String?
   country  String?
+  users    User[]
   contacts Contact[]
   website  Website[]
   portal   Portal?

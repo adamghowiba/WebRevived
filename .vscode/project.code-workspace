@@ -4,14 +4,6 @@
       "name": "frontend",
       "path": "../apps/frontend"
     },
-    {
-      "name": "backend",
-      "path": "../apps/backend"
-    },
-    {
-      "name": "website",
-      "path": "../apps/website"
-    }
   ],
   "settings": {
     "files.exclude": {

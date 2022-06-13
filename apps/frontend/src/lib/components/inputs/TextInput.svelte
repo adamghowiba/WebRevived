@@ -22,20 +22,25 @@
 </script>
 
 <script lang="ts">
+	import { clickOutside } from '$lib/actions/clickOutside';
 	import Icon from '@iconify/svelte';
 	import { createEventDispatcher } from 'svelte';
-
+	import { fly } from 'svelte/transition';
+	import LoadingSpinner from '../global/LoadingSpinner.svelte';
+	
 	export let value: string;
-	export let label: string = undefined;
-	export let placeholder: string = undefined;
-	export let name: string = undefined;
-	export let state: ValidationState = undefined;
+	export let label: string | undefined = undefined;
+	export let placeholder: string | undefined = undefined;
+	export let name: string | undefined = undefined;
+	export let state: ValidationState | undefined = undefined;
+	export let error: string | undefined = undefined;
 
-	export let isFocused: boolean = false;
-	export let isReadonly: boolean = false;
-	export let isDisabled: boolean = false;
-	export let isRequired: boolean = false;
-	export let icon: PartialIconStyle | string = undefined;
+	export let isLoading: boolean | undefined = false;
+	export let isFocused: boolean | undefined = false;
+	export let isReadonly: boolean | undefined = false;
+	export let isDisabled: boolean | undefined = false;
+	export let isRequired: boolean | undefined = false;
+	export let icon: PartialIconStyle | string | undefined = undefined;
 
 	let inputElement: HTMLInputElement;
 
@@ -46,16 +51,22 @@
 		dispatch('iconClick');
 	};
 
-	const onFocusEvent = () => {
+	const onFocusEvent = (event: FocusEvent) => {
+		dispatch('focus', event);
 		isFocused = true;
 	};
 
 	const onBlurEvent = (event: Event) => {
+		dispatch('blur', event);
 		isFocused = false;
 	};
 
+	const onClickOutside = () => {
+		dispatch('clickOutside');
+	};
+
 	const getIconStyles = (icon: PartialIconStyle | string): IconStyle => {
-        if (!icon) return;
+		if (!icon) return;
 
 		if (typeof icon === 'string') {
 			return { ...DEFAULT_ICON_STYLE, icon };
@@ -69,11 +80,12 @@
 
 <div class="wrap">
 	{#if label}
-		<label for={name}>{label}</label>
+		<label for={name}>{label} <span class="required-astrik"> {isRequired ? '*' : ''}</span></label>
 	{/if}
 
 	<div
-		class="input-wrap state--{state} icon-location--{iconStyle?.location}"
+		class="input-wrap state--{error ? 'error' : ''} icon-location--{iconStyle?.location}"
+		class:isLoading
 		class:isFocused
 		class:readonly={isDisabled || isReadonly}
 	>
@@ -102,10 +114,21 @@
 			required={isRequired}
 			readonly={isReadonly}
 			bind:value
+			use:clickOutside={onClickOutside}
 			on:focus={onFocusEvent}
 			on:blur={onBlurEvent}
 		/>
+
+		{#if isLoading}
+			<div class="loading-spinner">
+				<LoadingSpinner />
+			</div>
+		{/if}
 	</div>
+
+	{#if error}
+		<span transition:fly={{y: -10, duration: 250}} class="error">{error}</span>
+	{/if}
 </div>
 
 <style lang="scss">
@@ -113,6 +136,16 @@
 		display: flex;
 		flex-direction: column;
 		gap: calc(var(--space-2xs) + 3px);
+	}
+	.error {
+		font-size: var(--text-sm);
+		color: var(--color-error);
+		margin-left: var(--space-2xs);
+		margin-top: -5px;
+	}
+	.loading-spinner {
+		position: absolute;
+		right: var(--space-2xs);
 	}
 
 	.input-wrap {
@@ -225,5 +258,11 @@
 		left: 2px;
 		font-size: var(--text-body);
 		font-weight: var(--fw-medium);
+
+		.required-astrik {
+			opacity: 0.8;
+			padding-left: 2px;
+			color: var(--color-error);
+		}
 	}
 </style>
