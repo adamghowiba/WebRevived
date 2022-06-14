@@ -1,52 +1,42 @@
 <script lang="ts">
+	import accountApi from '$lib/api/account-api';
 	import CardBase from '$lib/components/global/CardBase.svelte';
+	import EditInputWrap from '$lib/components/global/EditInputWrap.svelte';
+	import EditableInput from '$lib/components/inputs/editable/EditableInput.svelte';
+	import EidtableSelect from '$lib/components/inputs/editable/EidtableSelect.svelte';
+	import Select from '$lib/components/inputs/Select.svelte';
+	import type { Account } from '$lib/types/account';
+	import * as yup from 'yup';
 
-	export let accountName: string;
-	export let phone: string;
-	export let industry: string;
-	export let city: string;
+	export let accountData: Account;
+
+	const accountSchema = yup.object({
+		name: yup.string()
+	});
 </script>
 
 <CardBase>
-	<div class="items">
-		<div class="items__item">
-			<span class="items__key">Account Name: </span>
-			<span class="items__value">{accountName} </span>
-		</div>
-        <div class="items__item">
-			<span class="items__key">Phone: </span>
-			<span class="items__value">{phone} </span>
-		</div>
-        <div class="items__item">
-			<span class="items__key">Industry: </span>
-			<span class="items__value">{industry} </span>
-		</div>
-        <div class="items__item">
-			<span class="items__key">City: </span>
-			<span class="items__value">{city} </span>
-		</div>
+	<div class="details">
+		<EditInputWrap validationSchema={accountSchema}>
+			<EditableInput label="Account Name" inputKey="name" value={accountData.name} on:save />
+			<EditableInput label="Phone" inputKey="phone" value={accountData.phone} on:save />
+			<EditableInput label="Industry" inputKey="industry" value={accountData.industry} on:save />
+			<EidtableSelect label="Website" inputKey="street" value={1} on:save />
+			<Select items={[{name: "adam", value: 1}]} value={1} />
+		</EditInputWrap>
+
+		<!-- <EditInputWrap>
+			<EditableInput label="Account Name" value="" />
+			<EditableInput label="Account Name" value="" />
+			<EditableInput label="Account Name" value="" />
+			<EditableInput label="Account Name" value="" />
+		</EditInputWrap> -->
 	</div>
 </CardBase>
 
 <style lang="scss">
-	.items {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-xs);
-		padding: var(--space-xs) var(--space-md);
-
-        &__item {
-            display: grid;
-            grid-template-columns: 0.15fr 1fr;
-            gap: var(--space-xs);
-        }
-
-		&__key {
-			font-weight: var(--fw-medium);
-		}
-
-		&__value {
-			font-weight: var(--fw-normal);
-		}
+	.details {
+		display: grid;
+		grid-template-columns: auto auto;
 	}
 </style>

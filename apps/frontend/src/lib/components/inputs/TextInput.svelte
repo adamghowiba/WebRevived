@@ -76,6 +76,7 @@
 	};
 
 	$: iconStyle = getIconStyles(icon);
+	$: if (isFocused && inputElement) inputElement.focus();
 </script>
 
 <div class="wrap">

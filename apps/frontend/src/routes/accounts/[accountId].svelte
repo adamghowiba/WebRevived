@@ -16,25 +16,36 @@
 </script>
 
 <script lang="ts">
+import accountApi from '$lib/api/account-api';
+
 	import ContactBlock from '$lib/components/releated-list/ContactBlock.svelte';
 	import ReleatedList from '$lib/components/releated-list/ReleatedList.svelte';
 	import { HOST } from '$lib/constants/config';
 	import type { Account } from '$lib/types/account';
-	import DetailCardAccount from '$lib/views/account/cards/DetailCard-Account.svelte';
+	import BusinessCard from '$lib/views/account/cards/BusinessCard-Account.svelte';
+	import DetailCard from '$lib/views/account/cards/DetailCard-Account.svelte';
 	import type { Load } from '@sveltejs/kit';
 
 	export let accountData: Account;
+	export let accountId: number;
 
-	console.log(accountData);
+	const handleUpdateData = async (event: { detail: { inputKey: string; value: string } }) => {
+		const { inputKey, value } = event.detail;
+
+		const result = await accountApi.putAccount(accountId, { [inputKey]: value });
+	};
 </script>
 
 <main class="container">
-	<DetailCardAccount
+	<BusinessCard
 		accountName={accountData.name}
 		city={accountData.city}
 		industry={accountData.industry}
 		phone={accountData.phone}
+		{accountId}
 	/>
+
+	<DetailCard {accountData} on:save={handleUpdateData}/>
 
 	<ReleatedList title="Contacts">
 		{#if accountData.contacts?.length}

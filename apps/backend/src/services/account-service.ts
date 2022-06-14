@@ -41,7 +41,18 @@ export const createAccount = async (account: Account) => {
 };
 
 /* UPDATE Account */
-export const updateAccount = async () => {};
+export const updateAccount = async (id: number, account: Partial<Account>) => {
+	try {
+		const updatedAccount = await prisma.account.update({
+			where: { id },
+			data: account
+		});
+
+		return updatedAccount
+	} catch (error) {
+		throw new DatabaseError(error);
+	}
+};
 
 /* DELETE Account */
 export const deleteAccount = async () => {};

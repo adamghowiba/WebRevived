@@ -8,7 +8,7 @@ export const accountRequestBody = Joi.object({
 	industry: Joi.string().optional()
 });
 
-const createProject: ValidateScehma = {
+const createAccount: ValidateScehma = {
 	body: Joi.object<Account>().keys({
 		name: Joi.string().required(),
 		city: Joi.string().optional(),
@@ -21,4 +21,12 @@ const createProject: ValidateScehma = {
 	})
 };
 
-export default { createProject };
+const optionalAccount = createAccount.body.fork('name', schema => schema.optional());
+const updateAccount: ValidateScehma = {
+	body: optionalAccount,
+	params: Joi.object({
+		account_id: Joi.number()
+	})
+};
+
+export default { createAccount, updateAccount };

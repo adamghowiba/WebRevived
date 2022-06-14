@@ -6,9 +6,12 @@
 	import TextInput from './TextInput.svelte';
 
 	export let items: DropdownItems[] | undefined;
-	export let isLoading: boolean = false;
-	export let value: string;
+	export let value: any = undefined;
+	export let label: string | undefined = undefined;
+	export let placeholder: string | undefined = undefined;
 	export let isDropdownOpen = false;
+	export let isLoading: boolean = false;
+	export let selectedName: string = undefined;
 
 	const dispatch = createEventDispatcher();
 
@@ -26,20 +29,20 @@
 	const handleItemSelect = (event) => {
 		const item: DropdownItems = event.detail;
 		isDropdownOpen = false;
-
-		console.log(item);
+		value = item;
+		selectedName = item.name;
 	};
 
 	$: if (value && (!items || !items?.length)) isLoading = true;
-	// export let textProps: PropsTypes<TextInput> = undefined;
+	$: selectedValue = items.find((item) => item.value === value).name;
 </script>
 
 <div class="search" use:clickOutside={handleClickOutside}>
 	<TextInput
 		name=""
-		bind:value
-		label="Search"
-		placeholder="Search"
+		{label}
+		{placeholder}
+		value={selectedValue}
 		on:focus={onInputFocus}
 		{isLoading}
 	/>

@@ -16,10 +16,10 @@ router.get('/', accountController.getAllAccounts);
 router.get('/:account_id', accountController.getAccountByID);
 
 /* POST New Account */
-router.post('/', validate(accountValidation.createProject), accountController.postAccount);
+router.post('/', validate(accountValidation.createAccount), accountController.postAccount);
 
 /* UPDATE Account */
-router.put('/:account_id', accountController.putAccount);
+router.put('/:account_id', validate(accountValidation.updateAccount), accountController.putAccount);
 
 /* DELETE Account */
 router.delete('/:account_id', accountController.deleteAccount);

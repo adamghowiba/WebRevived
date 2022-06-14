@@ -1,0 +1,155 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output = "../../../packages/types"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DEVELOPMENT_DATABASE_URL")
+}
+
+// * Ordering of the roles is very important. Starting from lowest-highest
+enum UserRole {
+  GUEST
+  DESIGNER
+  DEVELOPER
+  ADMIN
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  email       String    @unique
+  password    String
+  first_name  String
+  last_name   String?
+  title       String?
+  clickup_uid String?
+  slack_uid   String?
+  zoho_uid    String?
+  bio         String?
+  website     Website[]
+  projects    Project[]
+  accounts    Account[]
+  group       Group?    @relation(references: [id], fields: [group_id])
+  group_id    Int?
+  role        UserRole  @default(GUEST)
+  createdAt   DateTime  @default(now())
+}
+
+model Group {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String
+  users       User[]
+  createdAt   DateTime @default(now())
+}
+
+model Project {
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
+  type          String
+  description   String?
+  slack_channel String?
+  contacts      Contact[]
+  users         User[]
+  account       Account?  @relation(references: [id], fields: [account_id])
+  account_id    Int?
+  due_date      DateTime?
+  createdAt     DateTime  @default(now())
+}
+
+model Account {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  industry String?
+  phone    String?
+  street   String?
+  city     String?
+  state    String?
+  code     String?
+  country  String?
+  users    User[]
+  contacts Contact[]
+  website  Website[]
+  portal   Portal?
+  projects Project[]
+}
+
+model Contact {
+  id           Int               @id @default(autoincrement())
+  first_name   String
+  last_name    String
+  title        String            @default("member")
+  email        String            @unique
+  phone        String?
+  portal_uid   Int?              @unique
+  forms        Form[]
+  account      Account[]
+  portal_token PortalInvitation?
+  portal_user  PortalUser?
+  Project      Project?          @relation(fields: [projectId], references: [id])
+  projectId    Int?
+}
+
+model Website {
+  id         Int     @id @default(autoincrement())
+  account_id Int
+  url        String  @unique
+  forms      Form[]
+  users      User[]
+  account    Account @relation(references: [id], fields: [account_id], onDelete: Cascade)
+}
+
+model PortalUser {
+  password   String
+  contact_id Int     @unique
+  portal_id  Int     @unique
+  contact    Contact @relation(fields: [contact_id], references: [id])
+  portal     Portal  @relation(fields: [portal_id], references: [id])
+
+  @@id([contact_id])
+}
+
+model PortalInvitation {
+  token           String
+  expiration_date DateTime
+  contact_id      Int
+  conatct         Contact  @relation(references: [id], fields: [contact_id])
+
+  @@id([contact_id])
+}
+
+model Portal {
+  id         Int          @id @default(autoincrement())
+  account_id Int          @unique
+  users      PortalUser[]
+  account    Account      @relation(references: [id], fields: [account_id])
+}
+
+model Form {
+  id               Int              @id @default(autoincrement())
+  name             String
+  website_id       Int
+  website          Website          @relation(references: [id], fields: [website_id], onDelete: Cascade)
+  contacts         Contact[]
+  form_submissions FormSubmission[]
+}
+
+model FormSubmission {
+  id            Int      @id @default(autoincrement())
+  data          Json
+  from_id       Int
+  submittedDate DateTime @default(now())
+  form          Form     @relation(fields: [from_id], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id        String   @id
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}

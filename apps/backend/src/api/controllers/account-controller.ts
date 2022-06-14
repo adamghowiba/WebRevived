@@ -1,9 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
-import { catchAsync } from '@utils/error-utils';
-import { accountService, websiteService } from '@services';
-import { accountRequestBody } from '@validation/account-validation';
 import ApiError from '@errors/ApiError';
 import { Account } from '@prisma/client';
+import { accountService } from '@services';
+import { catchAsync } from '@utils/error-utils';
+import { Request, Response } from 'express';
 
 /* GET All Accounts */
 export const getAllAccounts = catchAsync(async (req: Request, res: Response) => {
@@ -30,7 +29,13 @@ export const postAccount = catchAsync(async (req: Request<unknown, unknown, Acco
 });
 
 /* UPDATE Account */
-export const putAccount = catchAsync(async (req: Request, res: Response) => {});
+type PutAccountRequest = Request<{account_id: number}, unknown, Partial<Account>>
+export const putAccount = catchAsync(async (req: PutAccountRequest, res: Response) => {
+	const accountId = req.params.account_id;
+
+	const updatedAccount = await accountService.updateAccount(accountId, req.body);
+	res.json(updatedAccount);
+});
 
 /* DELETE Account */
 export const deleteAccount = catchAsync(async (req: Request, res: Response) => {});
