@@ -1,6 +1,8 @@
 import { Account } from '@prisma/client';
+import { AccountApi } from '@type/account';
 import Joi from 'joi';
 import { ValidateScehma } from '../types/validation';
+import { routeValidation } from './validation';
 
 export const accountRequestBody = Joi.object({
 	name: Joi.string().min(2).required(),
@@ -21,12 +23,25 @@ const createAccount: ValidateScehma = {
 	})
 };
 
-const optionalAccount = createAccount.body.fork('name', schema => schema.optional());
-const updateAccount: ValidateScehma = {
-	body: optionalAccount,
+const getByIdSchema = routeValidation({
+	query: Joi.object<AccountApi.GetQueryParams>().keys({
+		contacts: Joi.boolean(),
+		projects: Joi.boolean(),
+		website: Joi.boolean(),
+		users: Joi.boolean()
+	})
+});
+
+const updateAccountOptional = createAccount.body.fork('name', schema => schema.optional());
+const updateAccount = routeValidation({
+	body: updateAccountOptional.concat(
+		Joi.object({
+			users: Joi.array().items(Joi.number())
+		})
+	),
 	params: Joi.object({
 		account_id: Joi.number()
 	})
-};
+});
 
-export default { createAccount, updateAccount };
+export default { createAccount, updateAccount, getByIdSchema };

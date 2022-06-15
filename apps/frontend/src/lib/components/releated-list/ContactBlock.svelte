@@ -10,9 +10,9 @@
 		<span class="details__name">
 			{name}
 		</span>
-		<span class="details__email">
+		<a href="mailto:{email}" class="details__email">
 			{email}
-		</span>
+		</a>
 	</div>
 </div>
 

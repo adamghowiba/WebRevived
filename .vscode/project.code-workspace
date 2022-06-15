@@ -2,12 +2,16 @@
   "folders": [
     {
       "name": "frontend",
-      "path": "../apps/frontend"
+      "path": "../apps/frontend",
     },
+    {
+      "name": ".vscode",
+      "path": "./"
+    }
   ],
   "settings": {
     "files.exclude": {
       "node_modules/": true,
-    }
+    },
   }
 }

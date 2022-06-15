@@ -12,7 +12,7 @@ router.use(requireRole('ADMIN'));
 /* GET All Accounts */
 router.get('/', accountController.getAllAccounts);
 
-/* GET Specfic Account */
+/* GET Account By ID */
 router.get('/:account_id', accountController.getAccountByID);
 
 /* POST New Account */

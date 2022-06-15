@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Action from '../button/Action.svelte';
 
-	export let rowsPerPageOptions = [5, 10, 15, 20, 25, 30];
-	export let rowsPerPage = rowsPerPageOptions[1];
+	export let rowsPerPageOptions: number[];
+	export let rowsPerPage: number;
 	export let page = 0;
 	export let rowSize: number;
 
@@ -23,15 +23,18 @@
 	</span>
 
 	<div class="buttons">
+		<!-- Previous Action -->
 		<Action
 			on:click={() => page--}
 			disabled={page === 0}
 			icon={{ icon: 'ic:round-navigate-next', rotation: 2 }}
 			hoverEffect="fill"
 		/>
+
+		<!-- Next Action -->
 		<Action
 			on:click={() => page++}
-			disabled={rowEnd > rowSize}
+			disabled={rowEnd >= rowSize}
 			icon={{ icon: 'ic:round-navigate-next' }}
 			hoverEffect="fill"
 		/>

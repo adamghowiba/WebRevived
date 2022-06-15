@@ -1,5 +1,6 @@
 import { HOST } from '$lib/constants/config';
 import type { Account } from '@prisma/client';
+import type { Prisma } from 'types/prisma';
 
 const getAccounts = async () => {
 	const response = await fetch(`${HOST}/account`, {
@@ -9,8 +10,16 @@ const getAccounts = async () => {
 	return await response.json();
 };
 
-const getAccountByID = async (id: number) => {
-	const response = await fetch(`${HOST}/account/${id}`);
+const getAccountByID = async (id: number, include?: Prisma.AccountInclude) => {
+	const URLParams = new URLSearchParams();
+
+	if (include) {
+		Object.entries(include).forEach(([key, value]) => {
+			URLParams.set(key, String(value));
+		});
+	}
+
+	const response = await fetch(`${HOST}/account/${id}?${URLParams.toString()}`);
 	const result = await response.json();
 
 	return result;

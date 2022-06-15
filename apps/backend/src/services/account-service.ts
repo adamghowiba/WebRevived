@@ -3,6 +3,7 @@ import prisma from '@controllers/db-controller';
 import { DatabaseError } from '@errors/DatabaseError';
 import { Account } from '@prisma/client';
 import Prisma from '@prisma/client';
+import { AccountApi } from '@type/account';
 
 /* GET All Accounts */
 export const getAllAccounts = async (limit = 30) => {
@@ -41,14 +42,43 @@ export const createAccount = async (account: Account) => {
 };
 
 /* UPDATE Account */
-export const updateAccount = async (id: number, account: Partial<Account>) => {
+export const updateAccount = async (id: number, account: AccountApi.PutBody) => {
+	const transformIds = (ids: number[]) => (ids?.length ? ids.map(id => ({ id })) : undefined);
+
 	try {
 		const updatedAccount = await prisma.account.update({
 			where: { id },
-			data: account
+			data: {
+				...account,
+				users: { connect: transformIds(account.users) },
+				contacts: { connect: transformIds(account.users) }
+			}
 		});
 
-		return updatedAccount
+		return updatedAccount;
+	} catch (error) {
+		throw new DatabaseError(error);
+	}
+};
+
+export const updateAndConnectAccount = async (
+	id: number,
+	account: AccountApi.PutBody,
+	connect: AccountApi.PutInclude
+) => {
+	const transformIds = (ids: number[]) => ids.map(id => ({ id }));
+
+	const obj = {
+		users: connect.users ? transformIds(connect.users) : undefined
+	};
+
+	try {
+		const updatedAccount = await prisma.account.update({
+			where: { id },
+			data: { ...account, users: { connect: obj.users } }
+		});
+
+		return updatedAccount;
 	} catch (error) {
 		throw new DatabaseError(error);
 	}

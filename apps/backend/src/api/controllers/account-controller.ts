@@ -1,8 +1,11 @@
 import ApiError from '@errors/ApiError';
 import { Account } from '@prisma/client';
 import { accountService } from '@services';
+import { AccountApi } from '@type/account';
 import { catchAsync } from '@utils/error-utils';
+import accountValidation from '@validation/account-validation';
 import { Request, Response } from 'express';
+import { validateRequest } from '../middlewears/validate';
 
 /* GET All Accounts */
 export const getAllAccounts = catchAsync(async (req: Request, res: Response) => {
@@ -12,11 +15,14 @@ export const getAllAccounts = catchAsync(async (req: Request, res: Response) => 
 });
 
 /* GET Specfic Account */
-export const getAccountByID = catchAsync(async (req: Request, res: Response) => {
+export const getAccountByID = catchAsync(async (req: AccountApi.GetRequest, res: Response) => {
 	const id = parseInt(req.params.account_id, 10);
 	if (!id) throw new ApiError('account_id is required');
 
-	const account = await accountService.getAccountByID(id, {contacts: true});
+	const { error, values } = validateRequest<AccountApi.GetRequest>(accountValidation.getByIdSchema, { req });
+	if (error) throw new ApiError(error);
+
+	const account = await accountService.getAccountByID(id, values.query);
 
 	res.json(account);
 });
@@ -29,9 +35,8 @@ export const postAccount = catchAsync(async (req: Request<unknown, unknown, Acco
 });
 
 /* UPDATE Account */
-type PutAccountRequest = Request<{account_id: number}, unknown, Partial<Account>>
-export const putAccount = catchAsync(async (req: PutAccountRequest, res: Response) => {
-	const accountId = req.params.account_id;
+export const putAccount = catchAsync(async (req: AccountApi.PutRequest, res: Response) => {
+	const accountId = parseInt(req.params.account_id);
 
 	const updatedAccount = await accountService.updateAccount(accountId, req.body);
 	res.json(updatedAccount);

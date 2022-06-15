@@ -1,9 +1,18 @@
 <script lang="ts" context="module">
 	export const load: Load = async ({ fetch, params }) => {
 		const accountId = params.accountId;
-		const response = await fetch(`${HOST}/account/${accountId}`, {
+
+		const URLParams = new URLSearchParams();
+		URLParams.set('projects', 'true');
+		URLParams.set('contacts', 'true');
+		URLParams.set('website', 'true');
+		URLParams.set('users', 'true');
+
+		const URL = `${HOST}/account/${accountId}?${URLParams.toString()}`;
+		const response = await fetch(URL, {
 			credentials: 'include'
 		});
+
 		const accountData = await response.json();
 
 		return {
@@ -16,18 +25,27 @@
 </script>
 
 <script lang="ts">
-import accountApi from '$lib/api/account-api';
-
+	import accountApi from '$lib/api/account-api';
 	import ContactBlock from '$lib/components/releated-list/ContactBlock.svelte';
 	import ReleatedList from '$lib/components/releated-list/ReleatedList.svelte';
 	import { HOST } from '$lib/constants/config';
-	import type { Account } from '$lib/types/account';
-	import BusinessCard from '$lib/views/account/cards/BusinessCard-Account.svelte';
-	import DetailCard from '$lib/views/account/cards/DetailCard-Account.svelte';
+	import BusinessCard from '$lib/views/account/sections/BusinessCard-Account.svelte';
+	import DetailCard from '$lib/views/account/sections/DetailCard-Account.svelte';
+	import ProjectsAccount from '$lib/views/account/sections/Projects-Account.svelte';
+	import TeamMembersAccount from '$lib/views/account/sections/Representatives-Account.svelte';
+	import WebsitesAccount from '$lib/views/account/sections/Websites-account.svelte';
 	import type { Load } from '@sveltejs/kit';
+	import type { Account, Contact, Project, Website, User } from 'types/prisma';
 
-	export let accountData: Account;
+	export let accountData: Account & {
+		projects: Project[];
+		contacts: Contact[];
+		website: Website[];
+		users: User[];
+	};
 	export let accountId: number;
+
+	// console.log(accountData);
 
 	const handleUpdateData = async (event: { detail: { inputKey: string; value: string } }) => {
 		const { inputKey, value } = event.detail;
@@ -45,21 +63,21 @@ import accountApi from '$lib/api/account-api';
 		{accountId}
 	/>
 
-	<DetailCard {accountData} on:save={handleUpdateData}/>
+	<DetailCard {accountData} on:save={handleUpdateData} />
 
-	<ReleatedList title="Contacts">
-		{#if accountData.contacts?.length}
-			<div class="contacts">
-				{#each accountData.contacts as contact}
-					<ContactBlock name="{contact.first_name} {contact.last_name}" email={contact.email} />
-				{/each}
-			</div>
-		{:else}
-			<div class="contact-empty">
-				<p>There are no contacts</p>
-			</div>
-		{/if}
+	<ReleatedList title="Contacts" isEmpty={!accountData.contacts?.length}>
+		<div class="contacts">
+			{#each accountData.contacts as contact}
+				<ContactBlock name="{contact.first_name} {contact.last_name}" email={contact.email} />
+			{/each}
+		</div>
 	</ReleatedList>
+
+	<ProjectsAccount projects={accountData.projects} />
+
+	<WebsitesAccount websites={accountData.website} />
+
+	<TeamMembersAccount {accountId} representatives={accountData.users} />
 </main>
 
 <style lang="scss">
@@ -78,9 +96,5 @@ import accountApi from '$lib/api/account-api';
 		align-items: center;
 		gap: var(--space-lg);
 		padding: var(--space-xs);
-	}
-	.contact-empty {
-		padding: var(--space-md);
-		text-align: center;
 	}
 </style>

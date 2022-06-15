@@ -1,19 +1,20 @@
 <script lang="ts" context="module">
-	type ButtonColor = 'purple' | 'green' | 'orange' | 'red' | 'gray';
+	type ButtonColor = 'purple' | 'green' | 'orange' | 'red' | 'gray' | 'default';
 
 	const BUTTON_COLOR: { [color in ButtonColor]: string } = {
 		purple: 'var(--color-primary)',
 		green: 'var(--color-success)',
 		orange: 'var(--color-warn)',
 		red: 'var(--color-error)',
-		gray: 'var(--color-gray-600)'
+		gray: 'var(--color-gray-600)',
+		default: ''
 	};
 
 	const DEFAULT_ICON_STYLE: IconStyle = {
 		icon: 'gg:add-r',
 		size: 19,
 		location: 'left',
-		color: 'var(--color-background)',
+		color: 'inherit',
 		rotation: 0
 	};
 </script>
@@ -26,7 +27,8 @@
 	export let color: ButtonColor = 'purple';
 	export let disabled: boolean = false;
 	export let style: 'outline' | 'fill' | 'ghost' = 'fill';
-	export let size: 'small' | 'base' | 'large' = 'base';
+	export let size: 'xs' | 'small' | 'base' | 'large' = 'base';
+	export let width: 'base' | 'fill' = 'base';
 	export let borderColor: 'button-color' | 'gray' = 'button-color';
 	export let icon: PartialIcon | string = undefined;
 
@@ -39,7 +41,7 @@
 	};
 
 	$: iconStyles = getIconStyles(icon);
-	const buttonClasses = `button color--${color} size--${size} style--${style} border-color--${borderColor}`;
+	const buttonClasses = `button color--${color} size--${size} style--${style} border-color--${borderColor} width--${width}`;
 </script>
 
 <div
@@ -79,6 +81,7 @@
 
 <style lang="scss">
 	.button-wrap {
+		width: auto;
 	}
 
 	.button {
@@ -92,7 +95,7 @@
 		line-height: normal;
 		color: inherit;
 		min-width: 130px;
-		padding: var(--space-2xs);
+		padding: var(--space-2xs) var(--space-xs);
 		border-radius: var(--br-sm);
 		transition: opacity 0.15s ease-out;
 
@@ -121,14 +124,27 @@
 			background-color: var(--color-success);
 			color: white;
 		}
+		&.color--default {
+			background: linear-gradient(var(--color-surface) 0,var(--color-background) 100%) no-repeat padding-box;
+			border: 1px solid var(--color-gray-300);
+			box-shadow: 0 -1px 0 0 rgba(208, 212, 223, 0.274) inset;
+		}
 
 		/* SIZES */
 		&.size--small {
 			min-width: 75px;
+			gap: var(--space-2xs);
 		}
 		&.size--large {
 			min-width: 120px;
 			padding: calc(var(--space-xs) - 4px);
+		}
+		&.size--xs {
+			min-width: 75px;
+			padding: var(--space-3xs);
+		}
+		&.width--fill {
+			width: 100%;
 		}
 
 		/* STYLE */

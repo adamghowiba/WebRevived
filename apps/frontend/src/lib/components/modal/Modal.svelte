@@ -29,8 +29,9 @@
 >
 	<slot name="header">
 		<header>
-			<h5>{title}</h5>
-
+			{#if title}
+				<h5>{title}</h5>
+			{/if}
 			<Action icon="heroicons-solid:x" />
 		</header>
 	</slot>
@@ -51,6 +52,12 @@
 		width: 300px;
 		width: 100%;
 		background-color: var(--color-surface);
+	}
+
+	header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
 
 	.modal-body {
