@@ -1,19 +1,17 @@
 <script lang="ts">
-	import { browser } from '$app/env';
 	import Button from '$lib/components/button/Button.svelte';
-	import DataTable from '$lib/components/datatable/DataTable.svelte';
-	import TextInput from '$lib/components/inputs/TextInput.svelte';
-	import type { DataTableCol, DataTableRow } from '$lib/types/table';
+	import type { DataTableRow } from '$lib/types/table';
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import Modal from '../Modal.svelte';
 	import ModalFooter from '../ModalFooter.svelte';
 	import ModalHeader from '../ModalHeader.svelte';
-
+	
+    export let isLoading: boolean = false;
 	let rows: DataTableRow[];
-    
+
 	const dispatch = createEventDispatcher();
-    
+
 	/* Dispatches an array of selected data back to the parent to update the record. */
 	const handleSaveEvent = () => {
 		const selectedData = selectedRows.map((row) => rows[row]);
@@ -37,13 +35,6 @@
 
 		<div class="body">
 			<slot more="wild" />
-			<!-- <DataTable
-				{columns}
-				{rows}
-				tableStyles={{ header: { backgroundColor: 'transparent' } }}
-				selectable
-				bind:selectedRows
-			/> -->
 		</div>
 	</div>
 
@@ -57,7 +48,13 @@
 			{/if}
 
 			<div class="footer__save">
-				<Button on:click={handleSaveEvent}>Save</Button>
+				<Button on:click={handleSaveEvent}>
+					{#if !isLoading}
+						Assign
+					{:else}
+						Loading...
+					{/if}
+				</Button>
 			</div>
 		</div>
 	</ModalFooter>

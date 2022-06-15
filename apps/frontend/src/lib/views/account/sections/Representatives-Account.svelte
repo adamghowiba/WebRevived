@@ -12,7 +12,10 @@
 	export let accountId: number;
 
 	let isAssignModalOpen: boolean = false;
+	let isAssignModalSaving: boolean = false;
 
+	let assignRows = [];
+	let selectedAssignRows: number[] = [];
 	const assignColumns: DataTableCol[] = [
 		{ feild: 'id', headerName: 'id' },
 		{ feild: 'first_name', headerName: 'First' },
@@ -20,7 +23,6 @@
 		{ feild: 'role', headerName: 'role' },
 		{ feild: 'title', headerName: 'title' }
 	];
-	let assignRows = [];
 
 	const columns: DataTableCol[] = [
 		{ feild: 'id', headerName: 'id' },
@@ -33,10 +35,15 @@
 		return array.map((data) => data?.id);
 	};
 
-	const handleAssignSave = (event: { detail: any[] }) => {
-		const { detail } = event;
-		accountApi.putAccount(accountId, { users: parseIds(detail) });
-		console.log('Saving', detail);
+	const handleAssignSave = async () => {
+		if (!assignRows) return;
+		isAssignModalSaving = true;
+
+		const selectedData = selectedAssignRows.map((row) => assignRows[row])
+		await accountApi.putAccount(accountId, { users: parseIds(selectedData) });
+		
+		isAssignModalOpen = false;
+		isAssignModalSaving = true;
 	};
 
 	const repFetchFunction = async () => {
@@ -55,8 +62,6 @@
 	};
 
 	$: if (isAssignModalOpen) repFetchFunction();
-
-	$: console.log(assignRows);
 </script>
 
 <RelatedTable {columns} rows={transformRep(representatives)} title="Team Assigned">
@@ -67,7 +72,7 @@
 
 {#if isAssignModalOpen}
 	<AssignModal
-		currentData={representatives}
+		isLoading={isAssignModalSaving}
 		on:save={handleAssignSave}
 		on:exit={() => (isAssignModalOpen = false)}
 	>
@@ -76,6 +81,7 @@
 			rows={assignRows}
 			tableStyles={{ header: { backgroundColor: 'transparent' } }}
 			selectable
+			bind:selectedRows={selectedAssignRows}
 		/>
 	</AssignModal>
 {/if}

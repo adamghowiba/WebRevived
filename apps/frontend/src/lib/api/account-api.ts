@@ -42,7 +42,10 @@ const postAccount = async (account: Omit<Account, 'id'>) => {
 	}
 };
 
-const putAccount = async (id: number, account: Partial<Account>) => {
+const putAccount = async (
+	id: number,
+	account: Partial<Account & { users: number[]; projects: number[]; contacts: number[] }>
+) => {
 	try {
 		const response = await fetch(`${HOST}/account/${id}`, {
 			method: 'PUT',

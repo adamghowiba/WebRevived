@@ -77,7 +77,7 @@
 
 	<WebsitesAccount websites={accountData.website} />
 
-	<TeamMembersAccount {accountId} representatives={accountData.users} />
+	<TeamMembersAccount {accountId} bind:representatives={accountData.users} />
 </main>
 
 <style lang="scss">
