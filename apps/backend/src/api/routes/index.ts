@@ -9,11 +9,11 @@ router.get('/api/hello', (req: Request, res: Response) => {
 
 /* GET home page. */
 router.get('/api', (req: Request, res: Response) => {
-	res.status(200).json('Web Revived Core API v0.1.1 BETA [staging test]');
+	res.status(200).json(`Web Revived Core API v0.2.0 BETA [npm ${process.env.npm_package_version}] - api route`);
 });
 
 router.get('/', (req: Request, res: Response) => {
-	res.status(200).json('Web Revived Core API v0.1.1 BETA [staging test]');
+	res.status(200).json(`Web Revived Core API v0.2.0 BETA [npm ${process.env.npm_package_version}]`);
 });
 
 export default router;
