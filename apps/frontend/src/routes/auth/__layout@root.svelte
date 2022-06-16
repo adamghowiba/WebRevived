@@ -15,14 +15,8 @@
 <script lang="ts">
 </script>
 
-<nav>
-	<h5>Web Revived.</h5>
-</nav>
 
 <slot />
 
 <style lang="scss">
-	nav {
-		padding: 1rem;
-	}
 </style>

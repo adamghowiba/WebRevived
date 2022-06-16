@@ -1,126 +1,112 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import authApi from '$lib/api/auth-api';
-	import Button from 'wds/Button.svelte';
-	import Create from '../portal/create.svelte';
+	import Button from '$lib/components/button/Button.svelte';
+	import CardBase from '$lib/components/global/CardBase.svelte';
+	import TextInput from '$lib/components/inputs/TextInput.svelte';
+	import authValidation from '$lib/validation/auth-validation';
+	import { validator } from '@felte/validator-yup';
+	import { createForm } from 'felte';
+	
+	let formError: string;
 
-	interface FormState<M = string> {
-		state: 'loading' | 'error' | 'sucess' | 'idle';
-		data: M;
-	}
-
-	const loginData = {
-		email: '',
-		password: ''
-	};
-
-	let formState: FormState<unknown> = { state: 'idle', data: null };
-
-	const handleFormSubmit = async (event: SubmitEvent) => {
-		formState.state = 'loading';
-		try {
-			const { response, result } = await authApi.login(loginData.email, loginData.password);
-
-			if (!response.ok) return (formState = { state: 'error', data: result.message });
-
-			formState = { state: 'sucess', data: result };
-		} catch {
-			formState = { state: 'error', data: 'Failed to login. Try again.' };
-		}
-	};
+	const { form, isSubmitting, errors } = createForm({
+		onSubmit: async (values) => {
+			const {response, result} = await authApi.login(values.email, values.password);
+			if (!response.ok) throw new Error(result?.message || 'Login failed. Please try again');
+		},
+		onError: async (error: string) => {
+			formError = error;
+		},
+		onSuccess: () => {
+			goto('/');
+		},
+		extend: validator({ schema: authValidation.loginSchema })
+	});
 </script>
 
-<section class="login">
-	<form class="form" on:submit|preventDefault={handleFormSubmit}>
-		<header>
-			<h4>Login To WebRevived Core</h4>
-			<p>Manage client data across the enite scope of the company.</p>
-		</header>
+<main>
+	<img class="logo" src="/images/logo.svg" alt="" />
 
-		{#if formState.state === 'error'}
-			<span class="error">{formState.data}</span>
-		{/if}
+	<section class="login">
+		<CardBase padding="var(--space-md)">
+			<form class="form" use:form>
+				<h5 class="form__title">Login to your account</h5>
+				{#if formError}
+					<span class="form__error"> {formError}</span>
+				{/if}
 
-		{#if formState.state === 'sucess'}
-			<span class="sucess">Login sucessful</span>
-		{/if}
-
-		<div class="form__inputs">
-			<input bind:value={loginData.email} type="text" name="email" placeholder="Email" />
-			<input bind:value={loginData.password} type="text" name="email" placeholder="Password" />
-		</div>
-
-		<button>
-			{#if formState.state === 'loading'}
-				Loading...
-			{:else}
-				Login
-			{/if}
-		</button>
-	</form>
-</section>
+				<div class="form__inputs">
+					<TextInput
+						label="Email address"
+						placeholder="Enter email"
+						name="email"
+						value=""
+						error={$errors.email?.toString()}
+					/>
+					<TextInput
+						label="Password"
+						placeholder="Password"
+						name="password"
+						value=""
+						error={$errors.password?.toString()}
+					/>
+				</div>
+				<Button color="purple" width="fill">
+					{#if !$isSubmitting}
+						Log in
+					{:else}
+						Logging In...
+					{/if}
+				</Button>
+			</form>
+		</CardBase>
+	</section>
+</main>
 
 <style lang="scss">
+	main {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		gap: var(--space-md);
+	}
+
 	.login {
 		display: flex;
+		align-items: center;
 		justify-content: center;
-		align-items: flex-start;
-		height: 100%;
-		flex-direction: column;
-
-		h4 {
-			text-transform: uppercase;
-		}
-	}
-	.error {
-		color: rgb(235, 69, 69);
-	}
-	.sucess {
-		color: rgb(79, 233, 118);
-	}
-
-	p {
-		color: rgba(255, 255, 255, 0.603);
-		font-size: 14px;
-	}
-
-	button {
-		appearance: none;
-		background-color: #9c59df;
-		font-size: 14px;
-		font-weight: 600;
-		padding: 12px;
-		border-radius: 6px;
-		color: white;
-		border: none;
-		outline: none;
+		width: 100%;
+		max-width: 450px;
 	}
 
 	.form {
-		width: 100%;
-		max-width: 300px;
 		display: flex;
 		flex-direction: column;
-		margin: 0 auto;
-		gap: 1rem;
+		justify-content: center;
+		gap: var(--space-md);
 
 		&__inputs {
 			display: flex;
 			flex-direction: column;
-			gap: 12px;
-			width: 100%;
+			gap: var(--space-sm);
+		}
+
+		&__title {
+			margin: 0 auto;
+			font-size: var(--text-body-lg);
+		}
+
+		&__error {
+			margin: 0 auto;
+			color: var(--color-error);
 		}
 	}
 
-	input {
-		appearance: none;
-		border: none;
-		background-color: transparent;
-		outline: none;
-		border: 1px solid rgba(255, 255, 255, 0.459);
-		border-radius: 5px;
-		padding: 16px 12px;
-		width: 100%;
-		font-size: 12px;
-		color: white;
+	.logo {
+		max-width: 130px;
 	}
 </style>

@@ -14,7 +14,7 @@ body {
 	background-color: var(--color-black);
 	color: var(--color-white);
 	font-family: var(--font-family);
-	font-size: var(--text-base);
+	font-size: var(--text-body);
 	overflow-x: hidden;
 	scroll-behavior: smooth;
 }
@@ -53,22 +53,6 @@ body {
 .section {
 	padding-top: var(--space-section-base);
 	padding-bottom: var(--space-section-base);
-}
-.section--sm {
-	padding-top: var(--space-section-sm);
-	padding-bottom: var(--space-section-sm);
-}
-.section--md {
-	padding-top: var(--space-section-md);
-	padding-bottom: var(--space-section-md);
-}
-.section--lg {
-	padding-top: var(--space-section-lg);
-	padding-bottom: var(--space-section-lg);
-}
-.section--xl {
-	padding-top: var(--space-section-xl);
-	padding-bottom: var(--space-section-xl);
 }
 
 /* ------------ TYPOGRAPHY ------------  */

@@ -13,7 +13,7 @@
 <style lang="scss">
 	table {
 		width: var(--width, 100%);
-		border: 1px solid var(--color-tran-light);
+		// border: 1px solid var(--color-tran-light);
 		border-radius: 5px;
 		white-space: nowrap;
 		border-spacing: 0;
