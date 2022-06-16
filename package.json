@@ -8,7 +8,8 @@
   },
   "workspaces": [
     "packages/*",
-    "apps/*"
+    "apps/*",
+    "types"
   ],
   "repository": {
     "type": "git",
@@ -21,6 +22,8 @@
   },
   "homepage": "https://github.com/TechnoPvP/WebRevived#readme",
   "dependencies": {
-    "website": "^0.1.1"
+    "@felte/validator-yup": "^1.0.8",
+    "website": "^0.1.1",
+    "yup": "^0.32.11"
   }
 }

@@ -5,12 +5,12 @@ WORKDIR /app
 COPY ./package*.json ./
 
 # Copy packages used
-# None for now
+COPY /packages/types ./packages/types/
 
 COPY /apps/backend/package*.json ./apps/backend/
 COPY /apps/backend ./apps/backend/
 
-# RUN npm set timeout=100000
+RUN npm install -g npm@7.18.1
 RUN npm install -w backend
 RUN npm run generate -w backend
 RUN npm run build -w backend

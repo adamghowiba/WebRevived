@@ -1,5 +1,5 @@
 import { DatabaseError } from '@errors/DatabaseError';
-import { User, UserRole } from '@prisma/client';
+import { User } from '@prisma/client';
 
 export const findUserById = async (userId: number) => {
 	try {

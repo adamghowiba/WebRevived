@@ -14,6 +14,7 @@
 
 	let barIcon: HTMLElement;
 
+	/* Commented Out While Not Being Used */
 	/* 	const barChartAnimation = () => {
 		const paths = barIcon.querySelectorAll('path');
 		const barPaths = gsap.utils.toArray([paths[0], paths[1], paths[2], paths[3], paths[4]])

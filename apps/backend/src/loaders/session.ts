@@ -1,9 +1,9 @@
 import session from 'express-session';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
-import prisma from '@controllers/db-controller';
+import PrismaClient from '@controllers/db-controller';
 import { UserRole } from '@prisma/client';
 
-const prismaStore = new PrismaSessionStore(prisma, {
+const prismaStore = new PrismaSessionStore(PrismaClient, {
 	checkPeriod: 2 * 60 * 1000
 });
 

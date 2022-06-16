@@ -7,25 +7,17 @@
 
 	export let width: string = 'auto';
 	export let minWidth: string = '40px';
-	export let pinned: boolean = false;
+	export let padding: string = undefined;
 </script>
 
-<td class:pinned style="{parseStylesVars({ width, minWidth })} {parseStyles({ ...cellStyles })}" ><slot /></td>
+<td style="{parseStylesVars({ width, minWidth })} {parseStyles({ ...cellStyles })}" style:padding
+	><slot /></td
+>
 
 <style lang="scss">
 	td {
 		width: var(--width);
 		min-width: var(--minWidth);
-
-		&.pinned {
-			position: sticky;
-			left: 0;
-			top: 0;
-			justify-content: center;
-			align-items: center;
-			background-color: #0e1116;
-			height: 100%;
-			padding: 0 30px !important;
-		}
+		vertical-align: middle;
 	}
 </style>

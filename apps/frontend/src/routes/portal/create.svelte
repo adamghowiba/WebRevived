@@ -4,8 +4,6 @@
 	onMount(() => {
 		const searchParams = new URLSearchParams(window.location.search);
 		const token = searchParams.get('token');
-
-		console.log(token);
 	});
 </script>
 

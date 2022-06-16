@@ -1,24 +1,23 @@
 /// <reference types="@sveltejs/kit" />
 
+import type { SessionUser } from '$lib/types/user';
+
 // See https://kit.svelte.dev/docs#typescript
 // for information about these interfaces
-interface UserSession {
-	email: string;
-	role: 'ADMIN' | 'DEVELOPER' | 'DESIGNER' | 'GUEST';
-	id: number;
-}
 
 declare namespace App {
 	interface Locals {
-		user?: UserSession;
+		user?: SessionUser;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-empty-interface
 	interface Platform {}
 
 	// TODO: Match with backend
 	interface Session {
-		user?: UserSession;
+		user?: SessionUser;
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-empty-interface
 	interface Stuff {}
 }

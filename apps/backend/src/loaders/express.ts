@@ -1,12 +1,12 @@
 import express, { Application } from 'express';
 import indexRouter from '@routes/index';
-import authRouter from '@routes/Auth';
-import websiteRouter from '@routes/Website';
-import accountRouter from '@routes/Account';
-import portalRouter from '@routes/Portal';
-import formRouter from '@routes/Forms';
-import userRouter from '@routes/User';
-import projectRouter from '@routes/Project';
+import authRouter from '@routes/auth-route';
+import websiteRouter from '@routes/website-route';
+import accountRouter from '@routes/account-route';
+import portalRouter from '@routes/portal-route';
+import formRouter from '@routes/form-route';
+import userRouter from '@routes/user-route';
+import projectRouter from '@routes/projects-route';
 import logger from '@logger';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -25,7 +25,7 @@ export default class App {
 	}
 
 	registerCors() {
-		this.app.use(cors({ origin: '*', credentials: true }));
+		this.app.use(cors({ origin: ['http://localhost:3000', '*'], credentials: true }));
 		return this;
 	}
 

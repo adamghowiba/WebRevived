@@ -60,8 +60,9 @@
 			top: 'unset',
 			bottom: 0
 		});
-		outAnimation.from([loadingScreens[1], loadingScreens[0]], {
-			height: '100%',
+
+		outAnimation.to([loadingScreens[1], loadingScreens[0]], {
+			height: '0%',
 			stagger: 0.15,
 			duration: 0.45
 		});
@@ -75,6 +76,8 @@
 	};
 
 	beforeNavigate((navigation) => {
+		if (!navigation.to?.pathname) return;
+
 		if (!loadingAnimationPlayed) {
 			_loadingAnimation.inAnimation.play(0);
 			navigation.cancel();
@@ -90,6 +93,8 @@
 	});
 
 	afterNavigate((navigation) => {
+		if (!loadingAnimationPlayed) return;
+
 		_loadingAnimation.outAnimation.play(0);
 		loadingAnimationPlayed = false;
 	});
@@ -146,7 +151,7 @@
 			top: 0;
 			left: 0;
 			z-index: 1000;
-			height: 0;
+			height: 0px;
 			width: 100%;
 			background-color: var(--color-primary);
 		}

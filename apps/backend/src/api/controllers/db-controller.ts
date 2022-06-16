@@ -8,7 +8,7 @@ declare global {
 }
 
 const databseURI = config.isProduction ? config.prodDatabaseURL : config.devDatabaseURL;
-const prisma = new PrismaClient({ errorFormat: 'minimal', datasources: { db: { url: databseURI } } });
+const prisma = new PrismaClient({ errorFormat: 'pretty', datasources: { db: { url: databseURI } } });
 
 if (config.isDevelopment) global.prisma = prisma;
 
