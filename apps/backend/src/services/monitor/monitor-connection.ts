@@ -8,10 +8,10 @@ const connection = createConnection({
 	database: 'sampleDB'
 });
 
-connection.connect((err) => {
-    if (err) {
-        console.log('Error connecting', err)
-        return;
-    }
-    console.log('Connected to database');
-})
+connection.connect(err => {
+	if (err) {
+		console.log('Error connecting', err);
+		return;
+	}
+	console.log('Connected to database');
+});

@@ -1,6 +1,6 @@
 import { Account, Prisma } from '@prisma/client';
 import { Request } from 'express';
-import { User } from '../../../frontend/src/lib/types/user';
+import { Prisma as PType } from '@webrevived/types/prisma';
 
 export interface Address {
 	street: string;

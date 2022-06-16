@@ -6,6 +6,7 @@ COPY ./package*.json ./
 
 # Copy packages being used
 COPY /packages/wds ./packages/wds
+COPY /packages/types ./packages/types
 
 # Something seems fishy here...
 # TODO Minimize container size

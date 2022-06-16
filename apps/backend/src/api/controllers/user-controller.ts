@@ -22,4 +22,4 @@ export const getAllUsers = catchAsync(async (req: Request, res: Response) => {
 	const users = await userService.getAllUsers();
 
 	return res.json(users);
-})
+});
