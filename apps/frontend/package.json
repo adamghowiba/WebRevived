@@ -34,6 +34,7 @@
   "type": "module",
   "dependencies": {
     "@felte/validator-yup": "^1.0.8",
+    "dotenv": "^16.0.1",
     "felte": "^1.2.2",
     "sass": "^1.49.7",
     "svelte-preprocess-sass": "^2.0.1",
