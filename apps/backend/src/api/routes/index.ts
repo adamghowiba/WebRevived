@@ -1,10 +1,10 @@
 import { Request, Response, Router } from 'express';
-
+import '@services/aws/sns-service';
 const router = Router();
 
 /* GET home page. */
 router.get('/api/hello', (req: Request, res: Response) => {
-	res.json('Latest change with first auto deploy');
+	res.json(req.body);
 });
 
 router.get('/', (req: Request, res: Response) => {
