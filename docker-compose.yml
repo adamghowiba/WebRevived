@@ -1,18 +1,6 @@
 version: '3'
 
 services:
-  nginx:
-    container_name: webrevived-nginx
-    build:
-      context: ./apps/nginx
-    depends_on:
-      - frontend
-      - backend
-    volumes:
-      - /nginx/nginx.conf:/etc/nginx.conf
-    ports:
-      - 80:80
-
   frontend:
     container_name: webrevived-frontend
     hostname: frontend
