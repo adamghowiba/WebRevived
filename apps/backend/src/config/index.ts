@@ -15,6 +15,7 @@ export default {
 	nodeEnv: process.env.NODE_ENV || 'development',
 	isProduction: process.env.NODE_ENV === 'production',
 	isDevelopment: process.env.NODE_ENV === 'development',
+	isStaging: process.env.NODE_ENV === 'staging',
 	prodDatabaseURL: process.env.DATABASE_URL,
 	devDatabaseURL: process.env.DEVELOPMENT_DATABASE_URL,
 	shadowDatabseUrl: process.env.SHADOW_DATABASE_URL,
@@ -28,4 +29,24 @@ export default {
 	api: {
 		prefix: '/api'
 	}
-};
+} as EnvConfig;
+
+interface EnvConfig {
+	port: number;
+	nodeEnv: 'development' | 'production' | 'staging';
+	isProduction: boolean;
+	isStaging: boolean;
+	isDevelopment: boolean;
+	prodDatabaseURL: string;
+	devDatabaseURL: string;
+	slack_token: string;
+	shadowDatabseUrl: string;
+	clickup_token: string;
+	awsAccessKeyId: string;
+	awsSecretAccessKey: string;
+	shadowDatabaseUrl: string;
+	api: { prefix: string };
+	logs: {
+		level: 'info' | 'warn' | 'silly' | 'error';
+	};
+}

@@ -45,13 +45,6 @@ export default class App {
 
 	registerRoutes() {
 		this.app.use('/', indexRouter);
-		this.app.use('/api/auth', authRouter);
-		this.app.use('/api/account', accountRouter);
-		this.app.use('/api/website', websiteRouter);
-		this.app.use('/api/form', formRouter);
-		this.app.use('/api/portal', portalRouter);
-		this.app.use('/api/user', userRouter);
-		this.app.use('/api/project', projectRouter);
 		logger.info('API Routes registered sucessfully');
 		return this;
 	}
