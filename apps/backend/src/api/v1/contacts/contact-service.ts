@@ -1,4 +1,4 @@
-import prisma from '@controllers/db-controller';
+import prisma from '@common/db';
 import type { Contact, Prisma } from '@prisma/client';
 
 /* GET All Contacts */

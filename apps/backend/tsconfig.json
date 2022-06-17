@@ -26,10 +26,11 @@
 
 			"@type/*": ["types/*"],
 			"@api/*": ["api/*"],
+			"@common/*": ["common/*"],
 
+			"@helpers/*": ["helpers/*"],
 			"@logger": ["loaders/logger.ts"],
 			"@routes/*": ["api/routes/*"],
-			"@validation/*": ["validation/*"],
 			"@errors/*": ["errors/*"],
 			"@utils/*": ["utils/*"],
 			"@repo/*": ["repositories/*"],

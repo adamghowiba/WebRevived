@@ -1,6 +1,6 @@
 import session from 'express-session';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
-import PrismaClient from '@controllers/db-controller';
+import PrismaClient from '@common/db';
 import { UserRole } from '@prisma/client';
 
 const prismaStore = new PrismaSessionStore(PrismaClient, {

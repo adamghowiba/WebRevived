@@ -1,4 +1,4 @@
-import prisma from '@controllers/db-controller';
+import prisma from '@common/db';
 import { generateToken } from '@utils/token-utils';
 
 export const getAllPortals = async () => {};

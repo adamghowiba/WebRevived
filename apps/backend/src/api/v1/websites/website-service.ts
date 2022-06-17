@@ -1,4 +1,4 @@
-import prisma from '@controllers/db-controller';
+import prisma from '@common/db';
 import { WebsiteGetQueryParam } from '@type/website-api';
 
 /* GET All Website */

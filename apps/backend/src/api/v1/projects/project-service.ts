@@ -1,8 +1,7 @@
+import prisma from '@common/db';
 import { DatabaseError } from '@errors/DatabaseError';
-import { Project } from '@prisma/client';
-import { ProjectGetAll, ProjectCreate } from '@type/project-api';
+import { ProjectCreate, ProjectGetAll } from '@type/project-api';
 import { transformIdsArray } from '@utils/transforms';
-import prisma from '@controllers/db-controller';
 
 export const getAllProjects = async (query?: ProjectGetAll) => {
 	const page = query?.page || 0;

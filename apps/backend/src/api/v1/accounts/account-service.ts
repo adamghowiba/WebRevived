@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import prisma from '@controllers/db-controller';
+import prisma from '@common/db';
 import { DatabaseError } from '@errors/DatabaseError';
 import { Account } from '@prisma/client';
 import Prisma from '@prisma/client';
