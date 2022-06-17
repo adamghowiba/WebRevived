@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { DatabaseError } from '@errors/DatabaseError';
 import { Account } from '@prisma/client';
-import  { Prisma } from '@prisma/client';
-import { AccountApi } from '@type/account';
+import { Prisma } from '@prisma/client';
+import { AccountApi } from '@webrevived/types/account';
 import prisma from '@common/db';
+import { transformIdsArray } from '../../../utils/transforms';
 
 /* GET All Accounts */
 export const getAllAccounts = async (limit = 30) => {
@@ -43,39 +46,14 @@ export const createAccount = async (account: Account) => {
 
 /* UPDATE Account */
 export const updateAccount = async (id: number, account: AccountApi.PutBody) => {
-	const transformIds = (ids: number[]) => (ids?.length ? ids.map(id => ({ id })) : undefined);
-
 	try {
 		const updatedAccount = await prisma.account.update({
 			where: { id },
 			data: {
 				...account,
-				users: { connect: transformIds(account.users) },
-				contacts: { connect: transformIds(account.users) }
+				users: { connect: transformIdsArray(account.users) },
+				websites: { connect: transformIdsArray(account.websites) }
 			}
-		});
-
-		return updatedAccount;
-	} catch (error) {
-		throw new DatabaseError(error);
-	}
-};
-
-export const updateAndConnectAccount = async (
-	id: number,
-	account: AccountApi.PutBody,
-	connect: AccountApi.PutInclude
-) => {
-	const transformIds = (ids: number[]) => ids.map(id => ({ id }));
-
-	const obj = {
-		users: connect.users ? transformIds(connect.users) : undefined
-	};
-
-	try {
-		const updatedAccount = await prisma.account.update({
-			where: { id },
-			data: { ...account, users: { connect: obj.users } }
 		});
 
 		return updatedAccount;

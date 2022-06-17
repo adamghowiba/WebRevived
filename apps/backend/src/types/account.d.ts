@@ -1,6 +1,6 @@
-import { Account, Prisma } from '@prisma/client';
+import { Prisma } from '@prisma/client';
+import { AccountApi as AccountType } from '@webrevived/types/account';
 import { Request } from 'express';
-import { Prisma as PType } from '@webrevived/types/prisma';
 
 export interface Address {
 	street: string;
@@ -11,18 +11,11 @@ export interface Address {
 }
 
 /* TODO Change all routes to reflect this structure */
-declare namespace AccountApi {
+declare namespace AccountRequest {
 	/* GET ACCOUNT */
 	type GetQueryParams = Prisma.AccountInclude;
-	interface AccountParams {
-		account_id: string;
-	}
-	type GetRequest = Request<AccountParams, unknown, unknown, GetQueryParams>;
+	type GetRequest = Request<AccountType.GetParams, unknown, unknown, GetQueryParams>;
 
-	interface PutInclude {
-		users?: number[];
-		projects?: number[];
-	}
-	type PutBody = Partial<Account> & PutInclude;
-	type PutRequest = Request<AccountParams, unknown, PutBody, unknown>;
+	/* PUT ACCOUNT */
+	type PutRequest = Request<AccountType.GetParams, unknown, AccountType.PutBody, unknown>;
 }

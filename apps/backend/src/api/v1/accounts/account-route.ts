@@ -1,6 +1,6 @@
 // import { authController } from '@controllers';
 import { Router } from 'express';
-import accountController  from '@api/v1/accounts/account-controller';
+import accountController from '@api/v1/accounts/account-controller';
 import { requireRole } from '@middlewear/auth-mw';
 import { validate } from '../../middlewears/validate';
 import accountValidation from '@api/v1/accounts/account-validation';

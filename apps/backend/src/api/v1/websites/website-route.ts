@@ -2,6 +2,7 @@
 import { Router } from 'express';
 import websiteController from '@api/v1/websites/website-controller';
 import { requireRole } from '@middlewear/auth-mw';
+import { validate } from '../../middlewears/validate';
 
 const router = Router({ mergeParams: true });
 
@@ -17,7 +18,7 @@ router.get('/:website_id', websiteController.getWebsiteByID);
 router.post('/', websiteController.postWebsite);
 
 /* UPDATE Website */
-router.put('/', websiteController.putWebsite);
+router.put('/:website_id', websiteController.putWebsite);
 
 /* DELETE Website */
 router.delete('/', websiteController.deleteWebsite);

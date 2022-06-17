@@ -1,28 +1,34 @@
 <script lang="ts">
 	import Button from '$lib/components/button/Button.svelte';
-	import type { DataTableRow } from '$lib/types/table';
+	import DataTable from '$lib/components/datatable/DataTable.svelte';
+	import type { AsyncStore } from '$lib/types/async';
+	import type { DataTableCol, DataTableRow } from '$lib/types/table';
 	import { createEventDispatcher } from 'svelte';
 	import { fly } from 'svelte/transition';
 	import Modal from '../Modal.svelte';
 	import ModalFooter from '../ModalFooter.svelte';
 	import ModalHeader from '../ModalHeader.svelte';
-	
-    export let isLoading: boolean = false;
-	let rows: DataTableRow[];
+
+	export let isLoading: boolean = false;
+	export let title: string;
+	export let dataRows: any[];
+	export let columns: DataTableCol[];
+	export let dataId: string = 'id';
+	export let selectedRows: number[] = [];
 
 	const dispatch = createEventDispatcher();
 
-	/* Dispatches an array of selected data back to the parent to update the record. */
+	/* Dispatches an array of selected ids back to the parent to update the record. */
 	const handleSaveEvent = () => {
-		const selectedData = selectedRows.map((row) => rows[row]);
-		dispatch('save', selectedData);
-	};
+		if (!dataRows) return;
+		const selectedIds = selectedRows.map((rowIndex) => dataRows[rowIndex][dataId]);
 
-	let selectedRows: number[] = [];
+		dispatch('save', selectedIds);
+	};
 </script>
 
-<Modal title="Assign People" width="70%">
-	<ModalHeader slot="header" title="Assign Rep" on:exit />
+<Modal title="Assign People" width="70%" on:clickOutside={() => dispatch('exit')}>
+	<ModalHeader slot="header" {title} on:exit />
 
 	<div class="body-wrap">
 		<header>
@@ -34,7 +40,19 @@
 		</header>
 
 		<div class="body">
-			<slot more="wild" />
+			<slot>
+				{#if dataRows}
+					<DataTable
+						{columns}
+						rows={dataRows}
+						tableStyles={{ header: { backgroundColor: 'transparent' } }}
+						selectable
+						bind:selectedRows
+					/>
+				{:else}
+					<h4>Loading...</h4>
+				{/if}
+			</slot>
 		</div>
 	</div>
 

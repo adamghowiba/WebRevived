@@ -1,6 +1,7 @@
 import { HOST } from '$lib/constants/config';
 import type { Account } from '@prisma/client';
-import type { Prisma } from 'types/prisma';
+import type { Prisma } from '@webrevived/types/prisma';
+import type { AccountApi } from '@webrevived/types/account';
 
 const getAccounts = async () => {
 	const response = await fetch(`${HOST}/account`, {
@@ -25,7 +26,7 @@ const getAccountByID = async (id: number, include?: Prisma.AccountInclude) => {
 	return result;
 };
 
-const postAccount = async (account: Omit<Account, 'id'>) => {
+const postAccount = async (account: AccountApi.PutBody) => {
 	try {
 		const response = await fetch(`${HOST}/account`, {
 			method: 'POST',
@@ -42,10 +43,7 @@ const postAccount = async (account: Omit<Account, 'id'>) => {
 	}
 };
 
-const putAccount = async (
-	id: number,
-	account: Partial<Account & { users: number[]; projects: number[]; contacts: number[] }>
-) => {
+const putAccount = async (id: number, account: AccountApi.PutBody) => {
 	try {
 		const response = await fetch(`${HOST}/account/${id}`, {
 			method: 'PUT',

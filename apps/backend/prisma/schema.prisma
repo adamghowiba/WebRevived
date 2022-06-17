@@ -73,7 +73,7 @@ model Account {
   country  String?
   users    User[]
   contacts Contact[]
-  website  Website[]
+  websites  Website[]
   portal   Portal?
   projects Project[]
 }

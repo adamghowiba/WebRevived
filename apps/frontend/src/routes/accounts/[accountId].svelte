@@ -5,7 +5,7 @@
 		const URLParams = new URLSearchParams();
 		URLParams.set('projects', 'true');
 		URLParams.set('contacts', 'true');
-		URLParams.set('website', 'true');
+		URLParams.set('websites', 'true');
 		URLParams.set('users', 'true');
 
 		const URL = `${HOST}/account/${accountId}?${URLParams.toString()}`;
@@ -35,12 +35,12 @@
 	import TeamMembersAccount from '$lib/views/account/sections/Representatives-Account.svelte';
 	import WebsitesAccount from '$lib/views/account/sections/Websites-account.svelte';
 	import type { Load } from '@sveltejs/kit';
-	import type { Account, Contact, Project, Website, User } from 'types/prisma';
+	import type { Account, Contact, Project, Website, User } from '@webrevived/types/prisma';
 
 	export let accountData: Account & {
 		projects: Project[];
 		contacts: Contact[];
-		website: Website[];
+		websites: Website[];
 		users: User[];
 	};
 	export let accountId: number;
@@ -75,7 +75,7 @@
 
 	<ProjectsAccount projects={accountData.projects} />
 
-	<WebsitesAccount websites={accountData.website} />
+	<WebsitesAccount {accountId} websites={accountData.websites} />
 
 	<TeamMembersAccount {accountId} bind:representatives={accountData.users} />
 </main>

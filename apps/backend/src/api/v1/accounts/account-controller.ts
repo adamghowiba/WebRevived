@@ -1,7 +1,7 @@
 import ApiError from '@errors/ApiError';
 import { Account } from '@prisma/client';
 import { accountService } from '@services';
-import { AccountApi } from '@type/account';
+import { AccountRequest } from '@type/account';
 import { catchAsync } from '@utils/error-utils';
 import accountValidation from '@api/v1/accounts/account-validation';
 import { Request, Response } from 'express';
@@ -15,11 +15,11 @@ export const getAllAccounts = catchAsync(async (req: Request, res: Response) => 
 });
 
 /* GET Specfic Account */
-export const getAccountByID = catchAsync(async (req: AccountApi.GetRequest, res: Response) => {
+export const getAccountByID = catchAsync(async (req: AccountRequest.GetRequest, res: Response) => {
 	const id = parseInt(req.params.account_id, 10);
 	if (!id) throw new ApiError('account_id is required');
 
-	const { error, values } = validateRequest<AccountApi.GetRequest>(accountValidation.getByIdSchema, { req });
+	const { error, values } = validateRequest<AccountRequest.GetRequest>(accountValidation.getByIdSchema, { req });
 	if (error) throw new ApiError(error);
 
 	const account = await accountService.getAccountByID(id, values.query);
@@ -35,7 +35,7 @@ export const postAccount = catchAsync(async (req: Request<unknown, unknown, Acco
 });
 
 /* UPDATE Account */
-export const putAccount = catchAsync(async (req: AccountApi.PutRequest, res: Response) => {
+export const putAccount = catchAsync(async (req: AccountRequest.PutRequest, res: Response) => {
 	const accountId = parseInt(req.params.account_id);
 
 	const updatedAccount = await accountService.updateAccount(accountId, req.body);

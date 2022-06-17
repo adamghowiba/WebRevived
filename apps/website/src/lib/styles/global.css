@@ -54,6 +54,22 @@ body {
 	padding-top: var(--space-section-base);
 	padding-bottom: var(--space-section-base);
 }
+.section--sm {
+	padding-top: var(--space-section-sm);
+	padding-bottom: var(--space-section-sm);
+}
+.section--md {
+	padding-top: var(--space-section-md);
+	padding-bottom: var(--space-section-md);
+}
+.section--lg {
+	padding-top: var(--space-section-lg);
+	padding-bottom: var(--space-section-lg);
+}
+.section--xl {
+	padding-top: var(--space-section-xl);
+	padding-bottom: var(--space-section-xl);
+}
 
 /* ------------ TYPOGRAPHY ------------  */
 .title {

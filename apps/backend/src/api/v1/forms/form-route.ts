@@ -1,12 +1,13 @@
 // import { authController } from '@controllers';
-import formController  from '@api/v1/forms/form-controller';
+import formController from '@api/v1/forms/form-controller';
 import { requireRole } from '@middlewear/auth-mw';
 import { Router } from 'express';
+import cors from 'cors';
 
 const router = Router({ mergeParams: true });
 
 /* POST New Form Submission */
-router.post('/:formId/submissions', formController.postFormSubmission);
+router.post('/:formId/submissions', cors({ origin: '*' }), formController.postFormSubmission);
 
 router.use(requireRole('ADMIN'));
 

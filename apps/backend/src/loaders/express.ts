@@ -1,15 +1,8 @@
-import express, { Application } from 'express';
 import indexRouter from '@api/v1/index';
-import authRouter from '@api/v1/auth/auth-route';
-import websiteRouter from '@api/v1/websites/website-route';
-import accountRouter from '@api/v1/accounts/account-route';
-import portalRouter from '@api/v1/portal/portal-route';
-import formRouter from '@api/v1/forms/form-route';
-import userRouter from '@api/v1/users/user-route';
-import projectRouter from '@api/v1/projects/projects-route';
 import logger from '@logger';
-import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import express, { Application } from 'express';
 import morgan from 'morgan';
 import session from './session';
 

@@ -12,10 +12,10 @@
 <ReleatedList {title} {isEmpty}>
 	<slot slot="actions" name="actions" />
 	<DataTable
-	{columns}
-	{rows}
-	tableStyles={{ header: { backgroundColor: 'transparent' } }}
-	rowsPerPage={5}
+		{columns}
+		{rows}
+		tableStyles={{ header: { backgroundColor: 'transparent' } }}
+		rowsPerPage={5}
 	/>
 </ReleatedList>
 

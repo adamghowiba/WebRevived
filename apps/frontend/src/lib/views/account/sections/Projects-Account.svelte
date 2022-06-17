@@ -1,7 +1,7 @@
 <script lang="ts">
 	import RelatedTable from '$lib/components/releated-list/Related-Table.svelte';
 	import type { DataTableCol, DataTableRow, DataTableRowLink } from '$lib/types/table';
-	import type { Project } from 'types/prisma';
+	import type { Project } from '@webrevived/types/prisma';
 
 	export let projects: Project[];
 

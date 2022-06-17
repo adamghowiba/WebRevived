@@ -37,7 +37,7 @@ export const getWebsitesByAccount = async (accountId: number) => {
 			id: accountId
 		},
 		select: {
-			website: true
+			websites: true
 		}
 	});
 

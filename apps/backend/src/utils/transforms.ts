@@ -5,7 +5,7 @@ import { User } from '@prisma/client';
  *
  * @example [1, 2, 3] = [{id: 1}, {id: 2}, ..]
  */
-export const transformIdsArray = (ids: number[]) => ids.map(id => ({ id }));
+export const transformIdsArray = (ids: number[]) => (ids?.length ? ids.map(id => ({ id })) : undefined);
 
 /**
  * Transforms a list of users into a comma seperated string
