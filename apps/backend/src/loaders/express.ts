@@ -1,5 +1,5 @@
 import express, { Application } from 'express';
-import indexRouter from '@routes/index';
+import indexRouter from '@api/v1/index';
 import authRouter from '@api/v1/auth/auth-route';
 import websiteRouter from '@api/v1/websites/website-route';
 import accountRouter from '@api/v1/accounts/account-route';
