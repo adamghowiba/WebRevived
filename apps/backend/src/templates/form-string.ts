@@ -1,5 +1,4 @@
 import ejs from 'ejs';
-import path from 'path';
 
 export const generateFormEmail = (data: { [key: string]: string }) => {
 	let stringResult;

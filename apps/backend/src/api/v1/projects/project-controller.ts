@@ -7,7 +7,7 @@ import { ProjectGetRequest, ProjectPostRequest } from '@type/project-api';
 import { catchAsync } from '@utils/error-utils';
 import { transformSlackIds } from '@utils/transforms';
 import { Request, Response } from 'express';
-import clickup from '../../loaders/clickup';
+import clickup from '../../../loaders/clickup';
 
 export const getAll = catchAsync(async (req: ProjectGetRequest, res: Response) => {
 	const projects = await projectService.getAllProjects({ ...req.query });
@@ -36,3 +36,5 @@ export const post = catchAsync(async (req: ProjectPostRequest, res: Response) =>
 
 	return res.json(project);
 });
+
+export default { getAll, getByID, post };

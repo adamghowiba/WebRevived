@@ -1,7 +1,6 @@
-import { userController } from '@controllers';
-import { requireRole } from '@middlewear/auth-mw';
+import userController from '@api/v1/users/user-controller';
+import userValidation from '@api/v1/users/user-validation';
 import { validate } from '@middlewear/validate';
-import userValidation from '@validation/user-validation';
 import { Router } from 'express';
 
 const router = Router();

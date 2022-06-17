@@ -25,6 +25,7 @@
 			"@config": ["config"],
 
 			"@type/*": ["types/*"],
+			"@api/*": ["api/*"],
 
 			"@logger": ["loaders/logger.ts"],
 			"@routes/*": ["api/routes/*"],

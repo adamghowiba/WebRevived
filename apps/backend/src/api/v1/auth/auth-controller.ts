@@ -4,7 +4,7 @@ import { userService } from '@services';
 import { catchAsync } from '@utils/error-utils';
 import { compare } from 'bcrypt';
 import { Request, Response } from 'express';
-import { UserLoginRequest } from '../../types/user-api';
+import { UserLoginRequest } from '../../../types/user-api';
 
 export const login = catchAsync(async (req: UserLoginRequest, res: Response) => {
 	const foundUser = await userService.findByEmail(req.body.email);
@@ -23,3 +23,5 @@ export const me = (req: Request, res: Response) => {
 
 	return res.json(user);
 };
+
+export default { me, login };

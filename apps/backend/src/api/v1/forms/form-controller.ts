@@ -2,9 +2,9 @@ import ApiError from '@errors/ApiError';
 import { formService } from '@services';
 import { sendFormEmail } from '@services/email-service';
 import { catchAsync } from '@utils/error-utils';
-import { formPost } from '@validation/form-validation';
+import { formPost } from '@api/v1/forms/form-validation';
 import { NextFunction, Request, Response } from 'express';
-import { FormPostRequest } from '../../types/form-api';
+import { FormPostRequest } from '../../../types/form-api';
 
 /* GET All Forms */
 export const getAllForms = catchAsync(async (req: Request, res: Response) => {
@@ -71,3 +71,5 @@ export const postFormSubmission = catchAsync(
 		res.json(formSubmission);
 	}
 );
+
+export default { postFormSubmission, getFormSubmissions, deleteForm, putForm, postForm, getFormByID, getAllForms };

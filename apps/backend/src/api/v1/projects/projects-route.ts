@@ -1,7 +1,6 @@
-import { projectController } from '@controllers';
-import { requireRole } from '@middlewear/auth-mw';
+import projectValidation from '@api/v1/projects/project-validation';
+import projectController from '@api/v1/projects/project-controller';
 import { validate } from '@middlewear/validate';
-import projectValidation from '@validation/project-validation';
 import { Router } from 'express';
 
 const router = Router();

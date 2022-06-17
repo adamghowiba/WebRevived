@@ -1,6 +1,6 @@
 // import { authController } from '@controllers';
 import { Router } from 'express';
-import { websiteController } from '@controllers';
+import websiteController from '@api/v1/websites/website-controller';
 import { requireRole } from '@middlewear/auth-mw';
 
 const router = Router({ mergeParams: true });

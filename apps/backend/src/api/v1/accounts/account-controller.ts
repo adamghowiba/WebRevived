@@ -3,9 +3,9 @@ import { Account } from '@prisma/client';
 import { accountService } from '@services';
 import { AccountApi } from '@type/account';
 import { catchAsync } from '@utils/error-utils';
-import accountValidation from '@validation/account-validation';
+import accountValidation from '@api/v1/accounts/account-validation';
 import { Request, Response } from 'express';
-import { validateRequest } from '../middlewears/validate';
+import { validateRequest } from '../../middlewears/validate';
 
 /* GET All Accounts */
 export const getAllAccounts = catchAsync(async (req: Request, res: Response) => {
@@ -44,3 +44,5 @@ export const putAccount = catchAsync(async (req: AccountApi.PutRequest, res: Res
 
 /* DELETE Account */
 export const deleteAccount = catchAsync(async (req: Request, res: Response) => {});
+
+export default { deleteAccount, putAccount, postAccount, getAccountByID, getAllAccounts };

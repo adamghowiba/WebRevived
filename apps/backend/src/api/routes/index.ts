@@ -16,4 +16,6 @@ router.get('/api', (req: Request, res: Response) => {
 	res.status(200).json(`Web Revived Core API BETA ${process.env.npm_package_version}]`);
 });
 
+
+
 export default router;

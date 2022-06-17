@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from 'express';
-import { catchAsync } from '@utils/error-utils';
-import { portalService, contactService, tokenService } from '@services';
 import ApiError from '@errors/ApiError';
+import { contactService, portalService, tokenService } from '@services';
 import { sendEmail } from '@services/email-service';
+import { catchAsync } from '@utils/error-utils';
+import { Request, Response } from 'express';
 
 export const getPortal = catchAsync(async (req: Request, res: Response) => {});
 
@@ -49,3 +49,14 @@ export const verifyPortalSignup = catchAsync(async (req: Request, res: Response)
 
 	res.json({ status: 'Sucess', message: 'Token found sucssfully', ...portalToken });
 });
+
+export default {
+	verifyPortalSignup,
+	sendPortalRequest,
+	putContactToPortal,
+	postPortalContact,
+	deletePortal,
+	putPortal,
+	postPortal,
+	getPortal
+};

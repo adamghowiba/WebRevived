@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { portalController } from '@controllers';
+import portalController from '@api/v1/portal/portal-controller';
 
 const router = Router({ mergeParams: true });
 

@@ -1,5 +1,5 @@
 // import { authController } from '@controllers';
-import { formController } from '@controllers';
+import formController  from '@api/v1/forms/form-controller';
 import { requireRole } from '@middlewear/auth-mw';
 import { Router } from 'express';
 

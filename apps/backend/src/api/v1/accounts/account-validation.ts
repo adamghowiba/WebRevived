@@ -1,8 +1,8 @@
 import { Account } from '@prisma/client';
 import { AccountApi } from '@type/account';
 import Joi from 'joi';
-import { ValidateScehma } from '../types/validation';
-import { routeValidation } from './validation';
+import { ValidateScehma } from '../../../types/validation';
+import { routeValidation } from '../../../validation/validation';
 
 export const accountRequestBody = Joi.object({
 	name: Joi.string().min(2).required(),

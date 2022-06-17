@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response } from 'express';
-import { catchAsync } from '@utils/error-utils';
-import { websiteService } from '@services';
 import ApiError from '@errors/ApiError';
-import { websiteQueryPValidation, websiteRequestBody } from '@validation/website-validation';
-import { WebsiteGetAllRequest, WebsiteGetQueryParam } from '../../types/website-api';
+import { websiteService } from '@services';
+import { catchAsync } from '@utils/error-utils';
+import { websiteQueryPValidation, websiteRequestBody } from '@api/v1/websites/website-validation';
+import { Request, Response } from 'express';
+import { WebsiteGetAllRequest } from '../../../types/website-api';
 
 /* GET All Websites */
 export const getAllWebsites = catchAsync(async (req: WebsiteGetAllRequest, res: Response) => {
@@ -47,3 +47,5 @@ export const putWebsite = catchAsync(async (req: Request, res: Response) => {});
 
 /* DELETE Website */
 export const deleteWebsite = catchAsync(async (req: Request, res: Response) => {});
+
+export default { deleteWebsite, putWebsite, postWebsite, getWebsiteByID, getAllWebsites };

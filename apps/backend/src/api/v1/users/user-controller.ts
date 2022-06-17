@@ -4,7 +4,7 @@ import { catchAsync } from '@utils/error-utils';
 import { transformRoleString } from '@utils/role-utils';
 import { genSalt, hash } from 'bcrypt';
 import { Response, Request } from 'express';
-import { UserPostRequest } from '../../types/user-api';
+import { UserPostRequest } from '../../../types/user-api';
 
 export const createUser = catchAsync(async (req: UserPostRequest, res: Response) => {
 	const salt = await genSalt(10);
@@ -23,3 +23,5 @@ export const getAllUsers = catchAsync(async (req: Request, res: Response) => {
 
 	return res.json(users);
 });
+
+export default { createUser, getAllUsers };
