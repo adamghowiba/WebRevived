@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import prisma from '@common/db';
 import { DatabaseError } from '@errors/DatabaseError';
 import { Account } from '@prisma/client';
-import Prisma from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import { AccountApi } from '@type/account';
 
 /* GET All Accounts */
@@ -18,7 +17,7 @@ export const getAllAccounts = async (limit = 30) => {
 };
 
 /* GET Specfic Account */
-export const getAccountByID = async (id: number, include?: Prisma.Prisma.AccountInclude) => {
+export const getAccountByID = async (id: number, include?: Prisma.AccountInclude) => {
 	const account = await prisma.account.findUnique({
 		where: {
 			id

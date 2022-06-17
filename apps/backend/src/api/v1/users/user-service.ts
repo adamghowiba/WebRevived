@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { DatabaseError } from '@errors/DatabaseError';
+import prisma from '@common/db';
 import { User } from '@prisma/client';
 
 export const findUserById = async (userId: number) => {
@@ -48,7 +50,7 @@ export const createUser = async ({ email, first_name, last_name, password, role 
 		});
 
 		return createdUser;
-	} catch (error) {
+	} catch (error: any) {
 		throw new DatabaseError(error);
 	}
 };

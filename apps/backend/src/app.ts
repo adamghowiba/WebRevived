@@ -43,12 +43,12 @@ app.use((err: Error | DatabaseError | ICustomError, req: Request, res: Response,
 		return res.status(400).json({ ...err, is_unknown: true });
 	}
 
-	return res.status(400).json({ error: err?.message, is_unknown: true });
+	return res.status(400).json({ statusCode: err?.name, error: err?.message, is_unknown: true });
 });
 
 /* Lights, Camera, Action. */
-server.listen(config?.port || 5000, () => {
-	logger.info(`Loaded app sucessfully on port ${config?.port || 500}`);
+server.listen(config.port || 5000, () => {
+	logger.info(`Loaded app sucessfully on port ${config.port || 500}`);
 });
 
 export default app;

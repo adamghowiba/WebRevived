@@ -31,9 +31,10 @@ export default {
 	}
 } as EnvConfig;
 
+export type NodeEnv = 'development' | 'production';
 interface EnvConfig {
 	port: number;
-	nodeEnv: 'development' | 'production' | 'staging';
+	nodeEnv: NodeEnv;
 	isProduction: boolean;
 	isStaging: boolean;
 	isDevelopment: boolean;
