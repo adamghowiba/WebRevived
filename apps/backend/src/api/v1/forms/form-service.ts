@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import prisma from '@common/db';
-import { DatabaseError, PrismaError } from '@errors/DatabaseError';
+import { DatabaseError } from '@errors/DatabaseError';
 import { Form, Prisma } from '@prisma/client';
 
 /* GET All Forms */

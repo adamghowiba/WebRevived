@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { DatabaseError } from '@errors/DatabaseError';
 import { Account } from '@prisma/client';
-import { Prisma } from '@prisma/client';
+import  { Prisma } from '@prisma/client';
 import { AccountApi } from '@type/account';
+import prisma from '@common/db';
 
 /* GET All Accounts */
 export const getAllAccounts = async (limit = 30) => {

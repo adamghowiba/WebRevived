@@ -17,6 +17,7 @@
 		},
 		onError: async (error: string) => {
 			formError = error;
+			console.debug(formError);
 		},
 		onSuccess: () => {
 			goto('/');
