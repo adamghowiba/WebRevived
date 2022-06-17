@@ -2,7 +2,7 @@
 
 import ApiError from '@errors/ApiError';
 import { ValidateScehma } from '@type/validation';
-import { pick } from '@utils/pick';
+import { pick } from '@utils/pick-utils';
 import { NextFunction, Request, Response } from 'express';
 import Joi from 'joi';
 

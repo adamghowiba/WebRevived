@@ -22,14 +22,16 @@ ENV NODE_ENV=production
 
 # Copy build packages.
 COPY --from=builder /app/apps/backend/build ./build/
+COPY --from=builder /app/apps/backend/src ./src/
+# TODO Do I need these?
 COPY --from=builder /app/apps/backend/package*.json ./
 COPY --from=builder /app/apps/backend/tsconfig.json ./
-COPY --from=builder /app/apps/backend/src ./src/
 
 WORKDIR /app
 
 # For tsconfig paths
 COPY --from=builder /app/node_modules ./node_modules/
+# TODO Do I even need this?
 COPY --from=builder /app/package*.json ./
 
 RUN npm prune --production

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import config from '@config';
-import { connectDb } from '@controllers/db-controller';
+import { connectDb } from '@common/db';
 import { DatabaseError } from '@errors/DatabaseError';
 import ICustomError from '@errors/ICustomError';
 import UnknownError from '@errors/UnknownError';
