@@ -1,5 +1,5 @@
 import { HOST } from '$lib/constants/config';
-import type { User } from '$lib/types/user';
+import type { User } from '@webrevived/types/prisma';
 
 const getUsers = async (): Promise<User[]> => {
 	const response = await fetch(`${HOST}/user`, { credentials: 'include' });

@@ -26,12 +26,14 @@ export const getFormsByWebsiteID = async (websiteId: number) => {
 };
 
 /* GET Form By Id */
-export const getFormByID = async (id: number, filter?: Prisma.FormSelect): Promise<Partial<Form>> => {
+export const getFormByID = async (id: number, filter?: Prisma.FormSelect): Promise<Partial<Form | []>> => {
 	const form = await prisma.form.findUnique({
 		where: {
 			id
 		}
 	});
+
+	if (!form) return [];
 
 	return form;
 };
@@ -47,15 +49,15 @@ export const getFormEmails = async (id: number): Promise<string[]> => {
 		}
 	});
 
-	const formEmails = form.contacts.reduce((acc, curr) => (acc = [...acc, curr.email]), []);
+	if (!form) return [];
+
+	const formEmails = form.contacts.map(_form => _form.email);
 	return formEmails;
 };
 
 /* POST New Form */
 export const createForm = async (name: string, websiteId: number, contactIds: number[]) => {
-	const transformedContactIds = contactIds.map(id => {
-		return { id };
-	});
+	const transformedContactIds = contactIds.map(id => ({ id }));
 
 	try {
 		const formCreated = await prisma.form.create({
@@ -71,7 +73,7 @@ export const createForm = async (name: string, websiteId: number, contactIds: nu
 		});
 
 		return formCreated;
-	} catch (error) {
+	} catch (error: any) {
 		throw new DatabaseError(error);
 	}
 };
@@ -97,7 +99,7 @@ export const createFormSubmission = async (formId: number, formData: object) => 
 		});
 
 		return formSubmission;
-	} catch (err) {
+	} catch (err: any) {
 		throw new DatabaseError(err);
 	}
 };

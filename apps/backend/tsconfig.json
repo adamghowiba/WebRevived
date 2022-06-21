@@ -5,6 +5,8 @@
 		"target": "ES6",
 		"noImplicitAny": true,
 		"moduleResolution": "node",
+		"strictNullChecks": true,
+		"strict": true,
 		"sourceMap": true,
 		"outDir": "./build",
 		"removeComments": true,

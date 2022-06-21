@@ -28,7 +28,7 @@
 
 	const handleAssignSave = async (event: { detail: number[] }) => {
 		isAssignModalSaving = true;
-		await accountApi.putAccount(accountId, { websites: event.detail });
+		const account = await accountApi.putAccount(accountId, { websites: event.detail });
 		
 		isAssignModalSaving = false;
 		isAssignWebsiteModalOpen = false;

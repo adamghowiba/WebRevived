@@ -6,7 +6,7 @@
 	import AssignModal from '$lib/components/modal/modals/AssignModal.svelte';
 	import RelatedTable from '$lib/components/releated-list/Related-Table.svelte';
 	import type { DataTableCol, DataTableRow, DataTableRowLink } from '$lib/types/table';
-	import type { User } from 'types/prisma';
+	import type { User } from '@webrevived/types/prisma';
 
 	export let representatives: User[];
 	export let accountId: number;
@@ -39,9 +39,9 @@
 		if (!assignRows) return;
 		isAssignModalSaving = true;
 
-		const selectedData = selectedAssignRows.map((row) => assignRows[row])
+		const selectedData = selectedAssignRows.map((row) => assignRows[row]);
 		await accountApi.putAccount(accountId, { users: parseIds(selectedData) });
-		
+
 		isAssignModalOpen = false;
 		isAssignModalSaving = true;
 	};

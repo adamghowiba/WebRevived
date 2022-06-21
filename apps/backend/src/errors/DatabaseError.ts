@@ -38,12 +38,12 @@ export const parseErrorMessages = (code: string): KnownErrorType => {
 export class DatabaseError extends Error {
 	message: string;
 
-	status: string;
+	status: string | undefined;
 
 	statusCode: number;
 
 	constructor(error: PrismaError) {
-		super(error.message);
+		super(JSON.stringify(error.message));
 
 		this.message = error.message;
 

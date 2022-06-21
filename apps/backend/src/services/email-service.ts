@@ -36,6 +36,8 @@ export const sendEmail = async (subject: string, toAddress: string[], htmlData: 
 
 export const sendFormEmail = async (title: string, toAddress: string[], data: { [key: string]: string }) => {
 	const parsedHTML = generateFormEmail(data);
+	if (!parsedHTML) return;
+	
 	const result = await sendEmail(title, toAddress, parsedHTML);
 
 	return result;

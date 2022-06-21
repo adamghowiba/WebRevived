@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import prisma from '@common/db';
 import { DatabaseError } from '@errors/DatabaseError';
 import { ProjectCreate, ProjectGetAll } from '@type/project-api';
@@ -17,7 +18,7 @@ export const getAllProjects = async (query?: ProjectGetAll) => {
 		});
 
 		return projects;
-	} catch (error) {
+	} catch (error: any) {
 		throw new DatabaseError(error);
 	}
 };
@@ -50,7 +51,7 @@ export const createProject = async (data: ProjectCreate) => {
 		});
 
 		return projects;
-	} catch (error) {
+	} catch (error: any) {
 		throw new DatabaseError(error);
 	}
 };

@@ -9,8 +9,8 @@
 		},
 		{ name: 'Accounts', href: '/accounts', icon: 'bx:home' },
 		{ name: 'Projects', href: '/project', icon: 'bx:home' },
+		{ name: 'Contacts', href: '/contacts', icon: 'bx:home' },
 		{ name: 'Forms', href: '/form', icon: 'bx:home' },
-		{ name: 'Help', href: '/help', icon: 'bx:home' },
 		{
 			name: 'Extra',
 			href: '/extra',

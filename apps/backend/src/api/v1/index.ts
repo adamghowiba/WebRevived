@@ -6,6 +6,7 @@ import portalRouter from '@api/v1/portal/portal-route';
 import formRouter from '@api/v1/forms/form-route';
 import userRouter from '@api/v1/users/user-route';
 import projectRouter from '@api/v1/projects/projects-route';
+import contactsRouter from '@api/v1/contacts/contact-route';
 import '@services/aws/sns-service';
 
 const router = Router();
@@ -17,6 +18,7 @@ router.use('/api/form', formRouter);
 router.use('/api/portal', portalRouter);
 router.use('/api/user', userRouter);
 router.use('/api/project', projectRouter);
+router.use('/api/contacts', contactsRouter);
 
 /* GET home page. */
 router.get('/api/hello', (req: Request, res: Response) => {

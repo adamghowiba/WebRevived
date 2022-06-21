@@ -4,6 +4,7 @@
 	import CardBase from '$lib/components/global/CardBase.svelte';
 	import PageHeader from '$lib/components/global/PageHeader.svelte';
 	import AccountModal from '$lib/components/modal/modals/AccountModal.svelte';
+	import DataTableSkeleton from '$lib/components/skeleton/DataTableSkeleton.svelte';
 	import { accountStore } from '$lib/stores/api/account-store';
 	import type { Account } from '$lib/types/account';
 	import type { DataTableCol } from '$lib/types/table';
@@ -39,7 +40,7 @@
 
 	<div class="accounts">
 		{#if $state === 'idle'}
-			<h2>Loading...</h2>
+			<DataTableSkeleton />
 		{:else if $state === 'success'}
 			<CardBase padding="0px">
 				<DataTable

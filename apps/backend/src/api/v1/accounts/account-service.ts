@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { DatabaseError } from '@errors/DatabaseError';
-import { Account } from '@prisma/client';
-import { Prisma } from '@prisma/client';
-import { AccountApi } from '@webrevived/types/account';
 import prisma from '@common/db';
-import { transformIdsArray } from '../../../utils/transforms';
+import { DatabaseError } from '@errors/DatabaseError';
+import { Account, Prisma } from '@prisma/client';
+import { AccountApi } from '@webrevived/types/account';
+import { transformIdsArray } from '@utils/transforms';
+import { connectIds } from '../../../utils/transforms';
 
 /* GET All Accounts */
 export const getAllAccounts = async (limit = 30) => {
@@ -39,7 +39,7 @@ export const createAccount = async (account: Account) => {
 			data: account
 		});
 		return accounteCreated;
-	} catch (error) {
+	} catch (error: any) {
 		throw new DatabaseError(error);
 	}
 };
@@ -51,13 +51,14 @@ export const updateAccount = async (id: number, account: AccountApi.PutBody) => 
 			where: { id },
 			data: {
 				...account,
-				users: { connect: transformIdsArray(account.users) },
-				websites: { connect: transformIdsArray(account.websites) }
+				users: connectIds(account.users),
+				websites: connectIds(account.websites),
+				projects: connectIds(account.projects),
 			}
 		});
 
 		return updatedAccount;
-	} catch (error) {
+	} catch (error: any) {
 		throw new DatabaseError(error);
 	}
 };

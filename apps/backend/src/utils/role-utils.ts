@@ -8,7 +8,7 @@ export function transformRoleString(role: UserRole): UserRole {
 	roleMap.set(UserRole.DEVELOPER.toLowerCase(), UserRole.DEVELOPER);
 	roleMap.set(UserRole.GUEST.toLowerCase(), UserRole.GUEST);
 
-	return roleMap.get(role);
+	return roleMap.get(role) || UserRole.GUEST;
 }
 
 export const getAboveRoles = (role: UserRole) => {

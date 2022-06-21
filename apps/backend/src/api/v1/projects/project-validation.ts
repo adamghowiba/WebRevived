@@ -1,5 +1,4 @@
-import { Project } from '@prisma/client';
-import { ProjectGetAll, ProjectCreate } from '@type/project-api';
+import { ProjectCreate, ProjectGetAll } from '@type/project-api';
 import { ValidateScehma } from '@type/validation';
 import Joi from 'joi';
 
