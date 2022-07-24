@@ -24,6 +24,7 @@
 	import ServiceImages from '../../lib/components/services/ServiceImages.svelte';
 	import FloatingText from '$lib/components/global/FloatingText.svelte';
 	import { ScrollTrigger } from '$lib/gsap';
+import Seo from '$lib/components/global/SEO.svelte';
 
 	export let serviceData: Service;
 	let headerImageLoaded: boolean = false;
@@ -34,6 +35,11 @@
 		console.log('Header image loaded');
 	};
 </script>
+
+<Seo
+	title="{serviceData.name} - Web Revived | Web Development & Design Agency | Talk to us"
+	metaDescription="{serviceData.description || 'Web Revived website development services Orlando, Florida.'}"
+/>
 
 <PageHeader
 	pageName={serviceData.name}

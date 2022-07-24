@@ -2,9 +2,15 @@
 	import ContactSection from '$lib/components/global/ContactSection.svelte';
 	import HeaderImage from '$lib/components/global/HeaderImage.svelte';
 	import PageHeader from '$lib/components/global/PageHeader.svelte';
+import Seo from '$lib/components/global/SEO.svelte';
 	import ServiceProcess from '$lib/components/services/process/ServiceProcess.svelte';
 	import ServicesSection from '$lib/components/services/ServicesSection.svelte';
 </script>
+
+<Seo
+	title="Services - Web Revived | Web Development & Design Agency | Talk to us"
+	metaDescription="A digital brand agency that lives where design, technology, and experience collide"
+/>
 
 <PageHeader
 	pageName="Services"

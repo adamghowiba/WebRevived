@@ -29,7 +29,7 @@ const getByIdSchema = routeValidation({
 		contacts: Joi.boolean(),
 		projects: Joi.boolean(),
 		websites: Joi.boolean(),
-		users: Joi.boolean()
+		users: Joi.boolean(),
 	})
 });
 
