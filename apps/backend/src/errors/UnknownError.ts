@@ -1,6 +1,6 @@
 export default class UnknownError extends Error {
 	message: string;
-	status: string;
+	status: string | undefined;
 	statusCode: number;
 	error: unknown;
 

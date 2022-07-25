@@ -2,22 +2,8 @@
 	export const load: Load = async ({ fetch, params }) => {
 		const accountId = params.accountId;
 
-		const URLParams = new URLSearchParams();
-		URLParams.set('projects', 'true');
-		URLParams.set('contacts', 'true');
-		URLParams.set('websites', 'true');
-		URLParams.set('users', 'true');
-
-		const URL = `${HOST}/account/${accountId}?${URLParams.toString()}`;
-		const response = await fetch(URL, {
-			credentials: 'include'
-		});
-
-		const accountData = await response.json();
-
 		return {
 			props: {
-				accountData,
 				accountId
 			}
 		};
@@ -29,55 +15,87 @@
 	import ContactBlock from '$lib/components/releated-list/ContactBlock.svelte';
 	import ReleatedList from '$lib/components/releated-list/ReleatedList.svelte';
 	import { HOST } from '$lib/constants/config';
+	import { isLoading } from '$lib/utils/store-utils';
 	import BusinessCard from '$lib/views/account/sections/BusinessCard-Account.svelte';
 	import DetailCard from '$lib/views/account/sections/DetailCard-Account.svelte';
-	import ProjectsAccount from '$lib/views/account/sections/Projects-Account.svelte';
 	import TeamMembersAccount from '$lib/views/account/sections/Representatives-Account.svelte';
 	import WebsitesAccount from '$lib/views/account/sections/Websites-account.svelte';
+	import ProjectRelatedList from '$lib/views/contact/ProjectRelatedList.svelte';
+	import TeamRelatedList from '$lib/views/contact/TeamRelatedList.svelte';
 	import type { Load } from '@sveltejs/kit';
-	import type { Account, Contact, Project, Website, User } from '@webrevived/types/prisma';
+	import { useQuery } from '@sveltestack/svelte-query';
 
-	export let accountData: Account & {
-		projects: Project[];
-		contacts: Contact[];
-		websites: Website[];
-		users: User[];
-	};
 	export let accountId: number;
 
-	// console.log(accountData);
+	const accountData = useQuery('accountData', async () => {
+		return await accountApi.getAccountByID(accountId, {
+			projects: true,
+			users: true,
+			websites: true,
+			contacts: true
+		});
+	});
+
+	const modals = {
+		user: {
+			isOpen: false,
+			isLoading: false
+		}
+	};
 
 	const handleUpdateData = async (event: { detail: { inputKey: string; value: string } }) => {
 		const { inputKey, value } = event.detail;
 
 		const result = await accountApi.putAccount(accountId, { [inputKey]: value });
 	};
+
+	const saveAssignedProject = async ({ detail }: { detail: number[] }) => {
+		const result = await accountApi.putAccount(accountId, { projects: detail });
+		console.debug(result);
+	};
+
+	const saveAssignedUsers = async ({ detail }: { detail: number[] }) => {
+		const updated = await accountApi.putAccount(accountId, { users: detail });
+		$accountData.refetch();
+	};
+
+	const refreshData = () => {
+		$accountData.refetch();
+
+		$accountData.data = $accountData.data;
+	};
 </script>
 
 <main class="container">
-	<BusinessCard
-		accountName={accountData.name}
-		city={accountData.city}
-		industry={accountData.industry}
-		phone={accountData.phone}
-		{accountId}
-	/>
+	<button on:click={refreshData}>Refretch</button>
+	{#if $accountData.isLoading}
+		<h2>Loading..</h2>
+	{:else if $accountData.isSuccess}
+		<BusinessCard cardData={{ ...$accountData.data }} {accountId} />
 
-	<DetailCard {accountData} on:save={handleUpdateData} />
+		<DetailCard accountData={$accountData.data} on:save={handleUpdateData} />
 
-	<ReleatedList title="Contacts" isEmpty={!accountData.contacts?.length}>
-		<div class="contacts">
-			{#each accountData.contacts as contact}
-				<ContactBlock name="{contact.first_name} {contact.last_name}" email={contact.email} />
-			{/each}
-		</div>
-	</ReleatedList>
+		<ReleatedList title="Contacts" isEmpty={!$accountData.data.contacts?.length}>
+			<div class="contacts">
+				{#each $accountData.data.contacts as contact}
+					<ContactBlock name="{contact.first_name} {contact.last_name}" email={contact.email} />
+				{/each}
+			</div>
+		</ReleatedList>
 
-	<ProjectsAccount projects={accountData.projects} />
+		<ProjectRelatedList projects={$accountData.data.projects} on:save={saveAssignedProject} />
 
-	<WebsitesAccount {accountId} websites={accountData.websites} />
+		<WebsitesAccount {accountId} websites={$accountData.data.websites} />
 
-	<TeamMembersAccount {accountId} bind:representatives={accountData.users} />
+		<TeamMembersAccount {accountId} representatives={$accountData.data.users} />
+
+		<TeamRelatedList
+			users={$accountData.data.users}
+			on:save={saveAssignedUsers}
+			isAssignModalOpen={modals.user.isOpen}
+			isLoading={modals.user.isLoading}
+		/>
+	{/if}
 </main>
 
 <style lang="scss">

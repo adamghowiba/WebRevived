@@ -3,7 +3,13 @@
 	import ContactInputs from '$lib/components/contact/ContactInputs.svelte';
 	import ContactSelect from '$lib/components/contact/ContactSelect.svelte';
 	import ContactSection from '$lib/components/global/ContactSection.svelte';
+import Seo from '$lib/components/global/SEO.svelte';
 </script>
+
+<Seo
+	title="Contact - Web Revived | Web Development & Design Agency | Talk to us"
+	metaDescription="Web Revived Contact. Let's build something awesome together."
+/>
 
 <header class="section--sm container">
 	<h1>Let's build something awesome together. 👋</h1>

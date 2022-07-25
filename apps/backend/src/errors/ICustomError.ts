@@ -9,8 +9,6 @@
 export default abstract class ICustomError extends Error {
 	abstract isOperational: boolean;
 
-	message: string;
-
 	statusCode: number;
 
 	status: string;

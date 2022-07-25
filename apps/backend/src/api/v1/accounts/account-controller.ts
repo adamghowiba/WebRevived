@@ -19,10 +19,10 @@ export const getAccountByID = catchAsync(async (req: AccountRequest.GetRequest, 
 	const id = parseInt(req.params.account_id, 10);
 	if (!id) throw new ApiError('account_id is required');
 
-	const { error, values } = validateRequest<AccountRequest.GetRequest>(accountValidation.getByIdSchema, { req });
+	const { error, values } = validateRequest<AccountRequest.GetRequest>(accountValidation.getByIdSchema, req);
 	if (error) throw new ApiError(error);
 
-	const account = await accountService.getAccountByID(id, values.query);
+	const account = await accountService.getAccountByID(id, values?.query);
 
 	res.json(account);
 });

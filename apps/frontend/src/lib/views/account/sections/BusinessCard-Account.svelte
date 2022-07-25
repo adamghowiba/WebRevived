@@ -3,12 +3,10 @@
 	import CardBase from '$lib/components/global/CardBase.svelte';
 	import EditInputWrap from '$lib/components/global/EditInputWrap.svelte';
 	import EditableInput from '$lib/components/inputs/editable/EditableInput.svelte';
+	import type { Account } from '@webrevived/types/prisma';
 	import * as yup from 'yup';
 
-	export let accountName: string;
-	export let phone: string;
-	export let industry: string;
-	export let city: string;
+	export let cardData: Pick<Account, 'name' | 'phone' | 'industry' | 'city'>;
 	export let accountId: number;
 
 	const accountSchema = yup.object({
@@ -27,17 +25,17 @@
 		<EditableInput
 			inputKey="name"
 			label="Account Name"
-			value={accountName}
+			bind:value={cardData.name}
 			on:save={handleUpdateData}
 		/>
-		<EditableInput inputKey="phone" label="Phone" value={phone} on:save={handleUpdateData} />
+		<EditableInput inputKey="phone" label="Phone" bind:value={cardData.phone} on:save={handleUpdateData} />
 		<EditableInput
 			inputKey="industry"
 			label="Industry"
-			value={industry}
+			bind:value={cardData.industry}
 			on:save={handleUpdateData}
 		/>
-		<EditableInput inputKey="city" label="City" value={city} on:save={handleUpdateData} />
+		<EditableInput inputKey="city" label="City" bind:value={cardData.city} on:save={handleUpdateData} />
 	</EditInputWrap>
 </CardBase>
 

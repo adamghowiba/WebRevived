@@ -10,7 +10,7 @@ export const findUserById = async (userId: number) => {
 		});
 
 		return user;
-	} catch (error) {
+	} catch (error: any) {
 		throw new DatabaseError(error);
 	}
 };
@@ -22,7 +22,7 @@ export const findByEmail = async (email: string) => {
 		});
 
 		return user;
-	} catch (error) {
+	} catch (error: any) {
 		throw new DatabaseError(error);
 	}
 };
@@ -32,12 +32,12 @@ export const getAllUsers = async (limit = 30) => {
 		const user = await prisma.user.findMany({ take: limit });
 
 		return user;
-	} catch (error) {
+	} catch (error: any) {
 		throw new DatabaseError(error);
 	}
 };
 
-export const createUser = async ({ email, first_name, last_name, password, role }: Omit<Partial<User>, 'id'>) => {
+export const createUser = async ({ email, first_name, last_name, password, role }: Omit<User, 'id'>) => {
 	try {
 		const createdUser = await prisma.user.create({
 			data: {

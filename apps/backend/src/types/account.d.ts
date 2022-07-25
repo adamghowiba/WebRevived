@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client';
-import { AccountApi as AccountType } from '@webrevived/types/account';
+import { AccountApi } from '@webrevived/types/account';
 import { Request } from 'express';
 
 export interface Address {
@@ -14,8 +14,8 @@ export interface Address {
 declare namespace AccountRequest {
 	/* GET ACCOUNT */
 	type GetQueryParams = Prisma.AccountInclude;
-	type GetRequest = Request<AccountType.GetParams, unknown, unknown, GetQueryParams>;
+	type GetRequest = Request<AccountApi.GetParams, unknown, unknown, GetQueryParams>;
 
 	/* PUT ACCOUNT */
-	type PutRequest = Request<AccountType.GetParams, unknown, AccountType.PutBody, unknown>;
+	type PutRequest = Request<AccountApi.GetParams, unknown, AccountApi.PutBody, unknown>;
 }

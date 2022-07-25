@@ -50,6 +50,26 @@
 	style="--button-color: {BUTTON_COLOR[color]}"
 	on:click
 >
+	<svelte:element this={href ? 'a' : 'button'} class={buttonClasses} {disabled}>
+		{#if icon}
+			<Icon
+				icon={iconStyles.icon}
+				width={iconStyles.size}
+				height={iconStyles.size}
+				color={iconStyles.color}
+				rotation={iconStyles.rotation}
+			/>
+		{/if}
+		<slot />
+	</svelte:element>
+</div>
+
+<!-- <div
+	class="button-wrap location--{iconStyles.location}"
+	class:disabled
+	style="--button-color: {BUTTON_COLOR[color]}"
+	on:click
+>
 	{#if href}
 		<a class={buttonClasses} {href}>
 			{#if icon}
@@ -77,11 +97,20 @@
 			<slot />
 		</button>
 	{/if}
-</div>
-
+</div> -->
 <style lang="scss">
 	.button-wrap {
 		width: auto;
+	}
+
+	.button {
+		appearance: none;
+		background-color: transparent;
+		outline: none;
+		border: none;
+		padding: 0;
+		margin: 0;
+		min-height: auto;
 	}
 
 	.button {
@@ -125,7 +154,8 @@
 			color: white;
 		}
 		&.color--default {
-			background: linear-gradient(var(--color-surface) 0,var(--color-background) 100%) no-repeat padding-box;
+			background: linear-gradient(var(--color-surface) 0, var(--color-background) 100%) no-repeat
+				padding-box;
 			border: 1px solid var(--color-gray-300);
 			box-shadow: 0 -1px 0 0 rgba(208, 212, 223, 0.274) inset;
 		}
@@ -173,15 +203,5 @@
 		&.disabled {
 			opacity: 0.7;
 		}
-	}
-
-	button {
-		appearance: none;
-		background-color: transparent;
-		outline: none;
-		border: none;
-		padding: 0;
-		margin: 0;
-		min-height: auto;
 	}
 </style>

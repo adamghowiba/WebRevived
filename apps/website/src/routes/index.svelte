@@ -11,6 +11,7 @@
 	import { onMount } from 'svelte';
 	import { gsap, ScrollTrigger } from '$lib/gsap';
 	import NewFooter from '$lib/components/global/NewFooter.svelte';
+	import Seo from '$lib/components/global/SEO.svelte';
 
 	let barIcon: HTMLElement;
 
@@ -47,6 +48,11 @@
 		return () => destory();
 	}); */
 </script>
+
+<Seo
+	title="Web Revived | Development & Design Agency"
+	metaDescription="Orlando based marketing agency driving experiences for brands with purpose"
+/>
 
 <Hero />
 

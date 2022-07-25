@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
-import Navbar from '$lib/components/navbar/Navbar.svelte';
+	import Navbar from '$lib/components/navbar/Navbar.svelte';
+import { queryClientStore } from '$lib/stores/queryClient-store';
 	import type { Load } from '@sveltejs/kit';
 
 	export const load: Load = async ({ session, url }) => {
@@ -16,13 +17,19 @@ import Navbar from '$lib/components/navbar/Navbar.svelte';
 </script>
 
 <script lang="ts">
+	import { QueryClient, QueryClientProvider } from '@sveltestack/svelte-query';
 	let currentTab: string;
-</script>
 
+	const queryClient = new QueryClient();
+
+	queryClientStore.set(queryClient);
+</script>
 
 <!-- <h6>Welcome {$session.user.email}</h6> -->
 <Navbar />
-<slot />
+<QueryClientProvider client={queryClient}>
+	<slot />
+</QueryClientProvider>
 
 <style lang="scss">
 	nav {

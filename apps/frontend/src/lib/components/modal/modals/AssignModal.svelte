@@ -10,11 +10,11 @@
 	import ModalHeader from '../ModalHeader.svelte';
 
 	export let isLoading: boolean = false;
-	export let title: string;
 	export let dataRows: any[];
 	export let columns: DataTableCol[];
 	export let dataId: string = 'id';
 	export let selectedRows: number[] = [];
+	export let modelName: string = 'project'
 
 	const dispatch = createEventDispatcher();
 
@@ -27,8 +27,8 @@
 	};
 </script>
 
-<Modal title="Assign People" width="70%" on:clickOutside={() => dispatch('exit')}>
-	<ModalHeader slot="header" {title} on:exit />
+<Modal title="Assign {modelName}" width="70%" on:clickOutside={() => dispatch('exit')}>
+	<ModalHeader slot="header" title="Assign {modelName}" on:exit />
 
 	<div class="body-wrap">
 		<header>
@@ -60,7 +60,7 @@
 		<div class="footer">
 			{#if selectedRows?.length}
 				<div class="footer__selected" transition:fly={{ y: 10, duration: 300 }}>
-					<p class="footer__selected-text">{selectedRows.length} Rep selected</p>
+					<p class="footer__selected-text">{selectedRows.length} {modelName} selected</p>
 					<p class="footer__clear" on:click={() => (selectedRows = [])}>Clear</p>
 				</div>
 			{/if}

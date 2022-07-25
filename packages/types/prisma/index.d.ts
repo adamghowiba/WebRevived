@@ -468,7 +468,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 3.14.0
-   * Query Engine version: 2b0c12756921c891fec4f68d9444e18c7d5d4a6a
+   * Query Engine version: 461d6a05159055555eb7dfb337c9fb271cbd4d7e
    */
   export type PrismaVersion = {
     client: string
@@ -1182,14 +1182,14 @@ export namespace Prisma {
   export type AccountCountOutputType = {
     users: number
     contacts: number
-    website: number
+    websites: number
     projects: number
   }
 
   export type AccountCountOutputTypeSelect = {
     users?: boolean
     contacts?: boolean
-    website?: boolean
+    websites?: boolean
     projects?: boolean
   }
 
@@ -1237,11 +1237,13 @@ export namespace Prisma {
   export type ContactCountOutputType = {
     forms: number
     account: number
+    projects: number
   }
 
   export type ContactCountOutputTypeSelect = {
     forms?: boolean
     account?: boolean
+    projects?: boolean
   }
 
   export type ContactCountOutputTypeGetPayload<
@@ -4498,7 +4500,7 @@ export namespace Prisma {
     country?: boolean
     users?: boolean | UserFindManyArgs
     contacts?: boolean | ContactFindManyArgs
-    website?: boolean | WebsiteFindManyArgs
+    websites?: boolean | WebsiteFindManyArgs
     portal?: boolean | PortalArgs
     projects?: boolean | ProjectFindManyArgs
     _count?: boolean | AccountCountOutputTypeArgs
@@ -4507,7 +4509,7 @@ export namespace Prisma {
   export type AccountInclude = {
     users?: boolean | UserFindManyArgs
     contacts?: boolean | ContactFindManyArgs
-    website?: boolean | WebsiteFindManyArgs
+    websites?: boolean | WebsiteFindManyArgs
     portal?: boolean | PortalArgs
     projects?: boolean | ProjectFindManyArgs
     _count?: boolean | AccountCountOutputTypeArgs
@@ -4526,7 +4528,7 @@ export namespace Prisma {
     [P in TrueKeys<S['include']>]:
         P extends 'users' ? Array < UserGetPayload<S['include'][P]>>  :
         P extends 'contacts' ? Array < ContactGetPayload<S['include'][P]>>  :
-        P extends 'website' ? Array < WebsiteGetPayload<S['include'][P]>>  :
+        P extends 'websites' ? Array < WebsiteGetPayload<S['include'][P]>>  :
         P extends 'portal' ? PortalGetPayload<S['include'][P]> | null :
         P extends 'projects' ? Array < ProjectGetPayload<S['include'][P]>>  :
         P extends '_count' ? AccountCountOutputTypeGetPayload<S['include'][P]> :  never
@@ -4536,7 +4538,7 @@ export namespace Prisma {
     [P in TrueKeys<S['select']>]:
         P extends 'users' ? Array < UserGetPayload<S['select'][P]>>  :
         P extends 'contacts' ? Array < ContactGetPayload<S['select'][P]>>  :
-        P extends 'website' ? Array < WebsiteGetPayload<S['select'][P]>>  :
+        P extends 'websites' ? Array < WebsiteGetPayload<S['select'][P]>>  :
         P extends 'portal' ? PortalGetPayload<S['select'][P]> | null :
         P extends 'projects' ? Array < ProjectGetPayload<S['select'][P]>>  :
         P extends '_count' ? AccountCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Account ? Account[P] : never
@@ -4883,7 +4885,7 @@ export namespace Prisma {
 
     contacts<T extends ContactFindManyArgs = {}>(args?: Subset<T, ContactFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Contact>>, PrismaPromise<Array<ContactGetPayload<T>>>>;
 
-    website<T extends WebsiteFindManyArgs = {}>(args?: Subset<T, WebsiteFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Website>>, PrismaPromise<Array<WebsiteGetPayload<T>>>>;
+    websites<T extends WebsiteFindManyArgs = {}>(args?: Subset<T, WebsiteFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Website>>, PrismaPromise<Array<WebsiteGetPayload<T>>>>;
 
     portal<T extends PortalArgs = {}>(args?: Subset<T, PortalArgs>): CheckSelect<T, Prisma__PortalClient<Portal | null >, Prisma__PortalClient<PortalGetPayload<T> | null >>;
 
@@ -5457,7 +5459,7 @@ export namespace Prisma {
     account?: boolean | AccountFindManyArgs
     portal_token?: boolean | PortalInvitationArgs
     portal_user?: boolean | PortalUserArgs
-    Project?: boolean | ProjectArgs
+    projects?: boolean | ProjectFindManyArgs
     projectId?: boolean
     _count?: boolean | ContactCountOutputTypeArgs
   }
@@ -5467,7 +5469,7 @@ export namespace Prisma {
     account?: boolean | AccountFindManyArgs
     portal_token?: boolean | PortalInvitationArgs
     portal_user?: boolean | PortalUserArgs
-    Project?: boolean | ProjectArgs
+    projects?: boolean | ProjectFindManyArgs
     _count?: boolean | ContactCountOutputTypeArgs
   }
 
@@ -5486,7 +5488,7 @@ export namespace Prisma {
         P extends 'account' ? Array < AccountGetPayload<S['include'][P]>>  :
         P extends 'portal_token' ? PortalInvitationGetPayload<S['include'][P]> | null :
         P extends 'portal_user' ? PortalUserGetPayload<S['include'][P]> | null :
-        P extends 'Project' ? ProjectGetPayload<S['include'][P]> | null :
+        P extends 'projects' ? Array < ProjectGetPayload<S['include'][P]>>  :
         P extends '_count' ? ContactCountOutputTypeGetPayload<S['include'][P]> :  never
   } 
     : 'select' extends U
@@ -5496,7 +5498,7 @@ export namespace Prisma {
         P extends 'account' ? Array < AccountGetPayload<S['select'][P]>>  :
         P extends 'portal_token' ? PortalInvitationGetPayload<S['select'][P]> | null :
         P extends 'portal_user' ? PortalUserGetPayload<S['select'][P]> | null :
-        P extends 'Project' ? ProjectGetPayload<S['select'][P]> | null :
+        P extends 'projects' ? Array < ProjectGetPayload<S['select'][P]>>  :
         P extends '_count' ? ContactCountOutputTypeGetPayload<S['select'][P]> :  P extends keyof Contact ? Contact[P] : never
   } 
     : Contact
@@ -5845,7 +5847,7 @@ export namespace Prisma {
 
     portal_user<T extends PortalUserArgs = {}>(args?: Subset<T, PortalUserArgs>): CheckSelect<T, Prisma__PortalUserClient<PortalUser | null >, Prisma__PortalUserClient<PortalUserGetPayload<T> | null >>;
 
-    Project<T extends ProjectArgs = {}>(args?: Subset<T, ProjectArgs>): CheckSelect<T, Prisma__ProjectClient<Project | null >, Prisma__ProjectClient<ProjectGetPayload<T> | null >>;
+    projects<T extends ProjectFindManyArgs = {}>(args?: Subset<T, ProjectFindManyArgs>): CheckSelect<T, PrismaPromise<Array<Project>>, PrismaPromise<Array<ProjectGetPayload<T>>>>;
 
     private get _document();
     /**
@@ -12742,7 +12744,7 @@ export namespace Prisma {
     country?: StringNullableFilter | string | null
     users?: UserListRelationFilter
     contacts?: ContactListRelationFilter
-    website?: WebsiteListRelationFilter
+    websites?: WebsiteListRelationFilter
     portal?: XOR<PortalRelationFilter, PortalWhereInput> | null
     projects?: ProjectListRelationFilter
   }
@@ -12759,7 +12761,7 @@ export namespace Prisma {
     country?: SortOrder
     users?: UserOrderByRelationAggregateInput
     contacts?: ContactOrderByRelationAggregateInput
-    website?: WebsiteOrderByRelationAggregateInput
+    websites?: WebsiteOrderByRelationAggregateInput
     portal?: PortalOrderByWithRelationInput
     projects?: ProjectOrderByRelationAggregateInput
   }
@@ -12816,7 +12818,7 @@ export namespace Prisma {
     account?: AccountListRelationFilter
     portal_token?: XOR<PortalInvitationRelationFilter, PortalInvitationWhereInput> | null
     portal_user?: XOR<PortalUserRelationFilter, PortalUserWhereInput> | null
-    Project?: XOR<ProjectRelationFilter, ProjectWhereInput> | null
+    projects?: ProjectListRelationFilter
     projectId?: IntNullableFilter | number | null
   }
 
@@ -12832,13 +12834,12 @@ export namespace Prisma {
     account?: AccountOrderByRelationAggregateInput
     portal_token?: PortalInvitationOrderByWithRelationInput
     portal_user?: PortalUserOrderByWithRelationInput
-    Project?: ProjectOrderByWithRelationInput
+    projects?: ProjectOrderByRelationAggregateInput
     projectId?: SortOrder
   }
 
   export type ContactWhereUniqueInput = {
     id?: number
-    email?: string
     portal_uid?: number
   }
 
@@ -13354,7 +13355,7 @@ export namespace Prisma {
     type: string
     description?: string | null
     slack_channel?: string | null
-    contacts?: ContactCreateNestedManyWithoutProjectInput
+    contacts?: ContactCreateNestedManyWithoutProjectsInput
     users?: UserCreateNestedManyWithoutProjectsInput
     account?: AccountCreateNestedOneWithoutProjectsInput
     due_date?: Date | string | null
@@ -13367,7 +13368,7 @@ export namespace Prisma {
     type: string
     description?: string | null
     slack_channel?: string | null
-    contacts?: ContactUncheckedCreateNestedManyWithoutProjectInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutProjectsInput
     users?: UserUncheckedCreateNestedManyWithoutProjectsInput
     account_id?: number | null
     due_date?: Date | string | null
@@ -13379,7 +13380,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     slack_channel?: NullableStringFieldUpdateOperationsInput | string | null
-    contacts?: ContactUpdateManyWithoutProjectInput
+    contacts?: ContactUpdateManyWithoutProjectsInput
     users?: UserUpdateManyWithoutProjectsInput
     account?: AccountUpdateOneWithoutProjectsInput
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13392,7 +13393,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     slack_channel?: NullableStringFieldUpdateOperationsInput | string | null
-    contacts?: ContactUncheckedUpdateManyWithoutProjectInput
+    contacts?: ContactUncheckedUpdateManyWithoutProjectsInput
     users?: UserUncheckedUpdateManyWithoutProjectsInput
     account_id?: NullableIntFieldUpdateOperationsInput | number | null
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -13441,7 +13442,7 @@ export namespace Prisma {
     country?: string | null
     users?: UserCreateNestedManyWithoutAccountsInput
     contacts?: ContactCreateNestedManyWithoutAccountInput
-    website?: WebsiteCreateNestedManyWithoutAccountInput
+    websites?: WebsiteCreateNestedManyWithoutAccountInput
     portal?: PortalCreateNestedOneWithoutAccountInput
     projects?: ProjectCreateNestedManyWithoutAccountInput
   }
@@ -13458,7 +13459,7 @@ export namespace Prisma {
     country?: string | null
     users?: UserUncheckedCreateNestedManyWithoutAccountsInput
     contacts?: ContactUncheckedCreateNestedManyWithoutAccountInput
-    website?: WebsiteUncheckedCreateNestedManyWithoutAccountInput
+    websites?: WebsiteUncheckedCreateNestedManyWithoutAccountInput
     portal?: PortalUncheckedCreateNestedOneWithoutAccountInput
     projects?: ProjectUncheckedCreateNestedManyWithoutAccountInput
   }
@@ -13474,7 +13475,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutAccountsInput
     contacts?: ContactUpdateManyWithoutAccountInput
-    website?: WebsiteUpdateManyWithoutAccountInput
+    websites?: WebsiteUpdateManyWithoutAccountInput
     portal?: PortalUpdateOneWithoutAccountInput
     projects?: ProjectUpdateManyWithoutAccountInput
   }
@@ -13491,7 +13492,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutAccountsInput
     contacts?: ContactUncheckedUpdateManyWithoutAccountInput
-    website?: WebsiteUncheckedUpdateManyWithoutAccountInput
+    websites?: WebsiteUncheckedUpdateManyWithoutAccountInput
     portal?: PortalUncheckedUpdateOneWithoutAccountInput
     projects?: ProjectUncheckedUpdateManyWithoutAccountInput
   }
@@ -13542,7 +13543,8 @@ export namespace Prisma {
     account?: AccountCreateNestedManyWithoutContactsInput
     portal_token?: PortalInvitationCreateNestedOneWithoutConatctInput
     portal_user?: PortalUserCreateNestedOneWithoutContactInput
-    Project?: ProjectCreateNestedOneWithoutContactsInput
+    projects?: ProjectCreateNestedManyWithoutContactsInput
+    projectId?: number | null
   }
 
   export type ContactUncheckedCreateInput = {
@@ -13557,6 +13559,7 @@ export namespace Prisma {
     account?: AccountUncheckedCreateNestedManyWithoutContactsInput
     portal_token?: PortalInvitationUncheckedCreateNestedOneWithoutConatctInput
     portal_user?: PortalUserUncheckedCreateNestedOneWithoutContactInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutContactsInput
     projectId?: number | null
   }
 
@@ -13571,7 +13574,8 @@ export namespace Prisma {
     account?: AccountUpdateManyWithoutContactsInput
     portal_token?: PortalInvitationUpdateOneWithoutConatctInput
     portal_user?: PortalUserUpdateOneWithoutContactInput
-    Project?: ProjectUpdateOneWithoutContactsInput
+    projects?: ProjectUpdateManyWithoutContactsInput
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ContactUncheckedUpdateInput = {
@@ -13586,6 +13590,7 @@ export namespace Prisma {
     account?: AccountUncheckedUpdateManyWithoutContactsInput
     portal_token?: PortalInvitationUncheckedUpdateOneWithoutConatctInput
     portal_user?: PortalUserUncheckedUpdateOneWithoutContactInput
+    projects?: ProjectUncheckedUpdateManyWithoutContactsInput
     projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -13607,6 +13612,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     portal_uid?: NullableIntFieldUpdateOperationsInput | number | null
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ContactUncheckedUpdateManyInput = {
@@ -13624,7 +13630,7 @@ export namespace Prisma {
     url: string
     forms?: FormCreateNestedManyWithoutWebsiteInput
     users?: UserCreateNestedManyWithoutWebsiteInput
-    account: AccountCreateNestedOneWithoutWebsiteInput
+    account: AccountCreateNestedOneWithoutWebsitesInput
   }
 
   export type WebsiteUncheckedCreateInput = {
@@ -13639,7 +13645,7 @@ export namespace Prisma {
     url?: StringFieldUpdateOperationsInput | string
     forms?: FormUpdateManyWithoutWebsiteInput
     users?: UserUpdateManyWithoutWebsiteInput
-    account?: AccountUpdateOneRequiredWithoutWebsiteInput
+    account?: AccountUpdateOneRequiredWithoutWebsitesInput
   }
 
   export type WebsiteUncheckedUpdateInput = {
@@ -14372,11 +14378,6 @@ export namespace Prisma {
     isNot?: PortalUserWhereInput | null
   }
 
-  export type ProjectRelationFilter = {
-    is?: ProjectWhereInput | null
-    isNot?: ProjectWhereInput | null
-  }
-
   export type FormOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -14878,10 +14879,9 @@ export namespace Prisma {
     deleteMany?: Enumerable<UserScalarWhereInput>
   }
 
-  export type ContactCreateNestedManyWithoutProjectInput = {
-    create?: XOR<Enumerable<ContactCreateWithoutProjectInput>, Enumerable<ContactUncheckedCreateWithoutProjectInput>>
-    connectOrCreate?: Enumerable<ContactCreateOrConnectWithoutProjectInput>
-    createMany?: ContactCreateManyProjectInputEnvelope
+  export type ContactCreateNestedManyWithoutProjectsInput = {
+    create?: XOR<Enumerable<ContactCreateWithoutProjectsInput>, Enumerable<ContactUncheckedCreateWithoutProjectsInput>>
+    connectOrCreate?: Enumerable<ContactCreateOrConnectWithoutProjectsInput>
     connect?: Enumerable<ContactWhereUniqueInput>
   }
 
@@ -14897,10 +14897,9 @@ export namespace Prisma {
     connect?: AccountWhereUniqueInput
   }
 
-  export type ContactUncheckedCreateNestedManyWithoutProjectInput = {
-    create?: XOR<Enumerable<ContactCreateWithoutProjectInput>, Enumerable<ContactUncheckedCreateWithoutProjectInput>>
-    connectOrCreate?: Enumerable<ContactCreateOrConnectWithoutProjectInput>
-    createMany?: ContactCreateManyProjectInputEnvelope
+  export type ContactUncheckedCreateNestedManyWithoutProjectsInput = {
+    create?: XOR<Enumerable<ContactCreateWithoutProjectsInput>, Enumerable<ContactUncheckedCreateWithoutProjectsInput>>
+    connectOrCreate?: Enumerable<ContactCreateOrConnectWithoutProjectsInput>
     connect?: Enumerable<ContactWhereUniqueInput>
   }
 
@@ -14910,17 +14909,16 @@ export namespace Prisma {
     connect?: Enumerable<UserWhereUniqueInput>
   }
 
-  export type ContactUpdateManyWithoutProjectInput = {
-    create?: XOR<Enumerable<ContactCreateWithoutProjectInput>, Enumerable<ContactUncheckedCreateWithoutProjectInput>>
-    connectOrCreate?: Enumerable<ContactCreateOrConnectWithoutProjectInput>
-    upsert?: Enumerable<ContactUpsertWithWhereUniqueWithoutProjectInput>
-    createMany?: ContactCreateManyProjectInputEnvelope
+  export type ContactUpdateManyWithoutProjectsInput = {
+    create?: XOR<Enumerable<ContactCreateWithoutProjectsInput>, Enumerable<ContactUncheckedCreateWithoutProjectsInput>>
+    connectOrCreate?: Enumerable<ContactCreateOrConnectWithoutProjectsInput>
+    upsert?: Enumerable<ContactUpsertWithWhereUniqueWithoutProjectsInput>
     set?: Enumerable<ContactWhereUniqueInput>
     disconnect?: Enumerable<ContactWhereUniqueInput>
     delete?: Enumerable<ContactWhereUniqueInput>
     connect?: Enumerable<ContactWhereUniqueInput>
-    update?: Enumerable<ContactUpdateWithWhereUniqueWithoutProjectInput>
-    updateMany?: Enumerable<ContactUpdateManyWithWhereWithoutProjectInput>
+    update?: Enumerable<ContactUpdateWithWhereUniqueWithoutProjectsInput>
+    updateMany?: Enumerable<ContactUpdateManyWithWhereWithoutProjectsInput>
     deleteMany?: Enumerable<ContactScalarWhereInput>
   }
 
@@ -14951,17 +14949,16 @@ export namespace Prisma {
     set?: Date | string | null
   }
 
-  export type ContactUncheckedUpdateManyWithoutProjectInput = {
-    create?: XOR<Enumerable<ContactCreateWithoutProjectInput>, Enumerable<ContactUncheckedCreateWithoutProjectInput>>
-    connectOrCreate?: Enumerable<ContactCreateOrConnectWithoutProjectInput>
-    upsert?: Enumerable<ContactUpsertWithWhereUniqueWithoutProjectInput>
-    createMany?: ContactCreateManyProjectInputEnvelope
+  export type ContactUncheckedUpdateManyWithoutProjectsInput = {
+    create?: XOR<Enumerable<ContactCreateWithoutProjectsInput>, Enumerable<ContactUncheckedCreateWithoutProjectsInput>>
+    connectOrCreate?: Enumerable<ContactCreateOrConnectWithoutProjectsInput>
+    upsert?: Enumerable<ContactUpsertWithWhereUniqueWithoutProjectsInput>
     set?: Enumerable<ContactWhereUniqueInput>
     disconnect?: Enumerable<ContactWhereUniqueInput>
     delete?: Enumerable<ContactWhereUniqueInput>
     connect?: Enumerable<ContactWhereUniqueInput>
-    update?: Enumerable<ContactUpdateWithWhereUniqueWithoutProjectInput>
-    updateMany?: Enumerable<ContactUpdateManyWithWhereWithoutProjectInput>
+    update?: Enumerable<ContactUpdateWithWhereUniqueWithoutProjectsInput>
+    updateMany?: Enumerable<ContactUpdateManyWithWhereWithoutProjectsInput>
     deleteMany?: Enumerable<ContactScalarWhereInput>
   }
 
@@ -15194,10 +15191,10 @@ export namespace Prisma {
     connect?: PortalUserWhereUniqueInput
   }
 
-  export type ProjectCreateNestedOneWithoutContactsInput = {
-    create?: XOR<ProjectCreateWithoutContactsInput, ProjectUncheckedCreateWithoutContactsInput>
-    connectOrCreate?: ProjectCreateOrConnectWithoutContactsInput
-    connect?: ProjectWhereUniqueInput
+  export type ProjectCreateNestedManyWithoutContactsInput = {
+    create?: XOR<Enumerable<ProjectCreateWithoutContactsInput>, Enumerable<ProjectUncheckedCreateWithoutContactsInput>>
+    connectOrCreate?: Enumerable<ProjectCreateOrConnectWithoutContactsInput>
+    connect?: Enumerable<ProjectWhereUniqueInput>
   }
 
   export type FormUncheckedCreateNestedManyWithoutContactsInput = {
@@ -15222,6 +15219,12 @@ export namespace Prisma {
     create?: XOR<PortalUserCreateWithoutContactInput, PortalUserUncheckedCreateWithoutContactInput>
     connectOrCreate?: PortalUserCreateOrConnectWithoutContactInput
     connect?: PortalUserWhereUniqueInput
+  }
+
+  export type ProjectUncheckedCreateNestedManyWithoutContactsInput = {
+    create?: XOR<Enumerable<ProjectCreateWithoutContactsInput>, Enumerable<ProjectUncheckedCreateWithoutContactsInput>>
+    connectOrCreate?: Enumerable<ProjectCreateOrConnectWithoutContactsInput>
+    connect?: Enumerable<ProjectWhereUniqueInput>
   }
 
   export type FormUpdateManyWithoutContactsInput = {
@@ -15270,14 +15273,17 @@ export namespace Prisma {
     update?: XOR<PortalUserUpdateWithoutContactInput, PortalUserUncheckedUpdateWithoutContactInput>
   }
 
-  export type ProjectUpdateOneWithoutContactsInput = {
-    create?: XOR<ProjectCreateWithoutContactsInput, ProjectUncheckedCreateWithoutContactsInput>
-    connectOrCreate?: ProjectCreateOrConnectWithoutContactsInput
-    upsert?: ProjectUpsertWithoutContactsInput
-    disconnect?: boolean
-    delete?: boolean
-    connect?: ProjectWhereUniqueInput
-    update?: XOR<ProjectUpdateWithoutContactsInput, ProjectUncheckedUpdateWithoutContactsInput>
+  export type ProjectUpdateManyWithoutContactsInput = {
+    create?: XOR<Enumerable<ProjectCreateWithoutContactsInput>, Enumerable<ProjectUncheckedCreateWithoutContactsInput>>
+    connectOrCreate?: Enumerable<ProjectCreateOrConnectWithoutContactsInput>
+    upsert?: Enumerable<ProjectUpsertWithWhereUniqueWithoutContactsInput>
+    set?: Enumerable<ProjectWhereUniqueInput>
+    disconnect?: Enumerable<ProjectWhereUniqueInput>
+    delete?: Enumerable<ProjectWhereUniqueInput>
+    connect?: Enumerable<ProjectWhereUniqueInput>
+    update?: Enumerable<ProjectUpdateWithWhereUniqueWithoutContactsInput>
+    updateMany?: Enumerable<ProjectUpdateManyWithWhereWithoutContactsInput>
+    deleteMany?: Enumerable<ProjectScalarWhereInput>
   }
 
   export type FormUncheckedUpdateManyWithoutContactsInput = {
@@ -15326,6 +15332,19 @@ export namespace Prisma {
     update?: XOR<PortalUserUpdateWithoutContactInput, PortalUserUncheckedUpdateWithoutContactInput>
   }
 
+  export type ProjectUncheckedUpdateManyWithoutContactsInput = {
+    create?: XOR<Enumerable<ProjectCreateWithoutContactsInput>, Enumerable<ProjectUncheckedCreateWithoutContactsInput>>
+    connectOrCreate?: Enumerable<ProjectCreateOrConnectWithoutContactsInput>
+    upsert?: Enumerable<ProjectUpsertWithWhereUniqueWithoutContactsInput>
+    set?: Enumerable<ProjectWhereUniqueInput>
+    disconnect?: Enumerable<ProjectWhereUniqueInput>
+    delete?: Enumerable<ProjectWhereUniqueInput>
+    connect?: Enumerable<ProjectWhereUniqueInput>
+    update?: Enumerable<ProjectUpdateWithWhereUniqueWithoutContactsInput>
+    updateMany?: Enumerable<ProjectUpdateManyWithWhereWithoutContactsInput>
+    deleteMany?: Enumerable<ProjectScalarWhereInput>
+  }
+
   export type FormCreateNestedManyWithoutWebsiteInput = {
     create?: XOR<Enumerable<FormCreateWithoutWebsiteInput>, Enumerable<FormUncheckedCreateWithoutWebsiteInput>>
     connectOrCreate?: Enumerable<FormCreateOrConnectWithoutWebsiteInput>
@@ -15339,9 +15358,9 @@ export namespace Prisma {
     connect?: Enumerable<UserWhereUniqueInput>
   }
 
-  export type AccountCreateNestedOneWithoutWebsiteInput = {
-    create?: XOR<AccountCreateWithoutWebsiteInput, AccountUncheckedCreateWithoutWebsiteInput>
-    connectOrCreate?: AccountCreateOrConnectWithoutWebsiteInput
+  export type AccountCreateNestedOneWithoutWebsitesInput = {
+    create?: XOR<AccountCreateWithoutWebsitesInput, AccountUncheckedCreateWithoutWebsitesInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutWebsitesInput
     connect?: AccountWhereUniqueInput
   }
 
@@ -15385,12 +15404,12 @@ export namespace Prisma {
     deleteMany?: Enumerable<UserScalarWhereInput>
   }
 
-  export type AccountUpdateOneRequiredWithoutWebsiteInput = {
-    create?: XOR<AccountCreateWithoutWebsiteInput, AccountUncheckedCreateWithoutWebsiteInput>
-    connectOrCreate?: AccountCreateOrConnectWithoutWebsiteInput
-    upsert?: AccountUpsertWithoutWebsiteInput
+  export type AccountUpdateOneRequiredWithoutWebsitesInput = {
+    create?: XOR<AccountCreateWithoutWebsitesInput, AccountUncheckedCreateWithoutWebsitesInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutWebsitesInput
+    upsert?: AccountUpsertWithoutWebsitesInput
     connect?: AccountWhereUniqueInput
-    update?: XOR<AccountUpdateWithoutWebsiteInput, AccountUncheckedUpdateWithoutWebsiteInput>
+    update?: XOR<AccountUpdateWithoutWebsitesInput, AccountUncheckedUpdateWithoutWebsitesInput>
   }
 
   export type FormUncheckedUpdateManyWithoutWebsiteInput = {
@@ -15845,7 +15864,7 @@ export namespace Prisma {
   export type WebsiteCreateWithoutUsersInput = {
     url: string
     forms?: FormCreateNestedManyWithoutWebsiteInput
-    account: AccountCreateNestedOneWithoutWebsiteInput
+    account: AccountCreateNestedOneWithoutWebsitesInput
   }
 
   export type WebsiteUncheckedCreateWithoutUsersInput = {
@@ -15865,7 +15884,7 @@ export namespace Prisma {
     type: string
     description?: string | null
     slack_channel?: string | null
-    contacts?: ContactCreateNestedManyWithoutProjectInput
+    contacts?: ContactCreateNestedManyWithoutProjectsInput
     account?: AccountCreateNestedOneWithoutProjectsInput
     due_date?: Date | string | null
     createdAt?: Date | string
@@ -15877,7 +15896,7 @@ export namespace Prisma {
     type: string
     description?: string | null
     slack_channel?: string | null
-    contacts?: ContactUncheckedCreateNestedManyWithoutProjectInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutProjectsInput
     account_id?: number | null
     due_date?: Date | string | null
     createdAt?: Date | string
@@ -15898,7 +15917,7 @@ export namespace Prisma {
     code?: string | null
     country?: string | null
     contacts?: ContactCreateNestedManyWithoutAccountInput
-    website?: WebsiteCreateNestedManyWithoutAccountInput
+    websites?: WebsiteCreateNestedManyWithoutAccountInput
     portal?: PortalCreateNestedOneWithoutAccountInput
     projects?: ProjectCreateNestedManyWithoutAccountInput
   }
@@ -15914,7 +15933,7 @@ export namespace Prisma {
     code?: string | null
     country?: string | null
     contacts?: ContactUncheckedCreateNestedManyWithoutAccountInput
-    website?: WebsiteUncheckedCreateNestedManyWithoutAccountInput
+    websites?: WebsiteUncheckedCreateNestedManyWithoutAccountInput
     portal?: PortalUncheckedCreateNestedOneWithoutAccountInput
     projects?: ProjectUncheckedCreateNestedManyWithoutAccountInput
   }
@@ -16126,7 +16145,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter | Date | string
   }
 
-  export type ContactCreateWithoutProjectInput = {
+  export type ContactCreateWithoutProjectsInput = {
     first_name: string
     last_name: string
     title?: string
@@ -16137,9 +16156,10 @@ export namespace Prisma {
     account?: AccountCreateNestedManyWithoutContactsInput
     portal_token?: PortalInvitationCreateNestedOneWithoutConatctInput
     portal_user?: PortalUserCreateNestedOneWithoutContactInput
+    projectId?: number | null
   }
 
-  export type ContactUncheckedCreateWithoutProjectInput = {
+  export type ContactUncheckedCreateWithoutProjectsInput = {
     id?: number
     first_name: string
     last_name: string
@@ -16151,16 +16171,12 @@ export namespace Prisma {
     account?: AccountUncheckedCreateNestedManyWithoutContactsInput
     portal_token?: PortalInvitationUncheckedCreateNestedOneWithoutConatctInput
     portal_user?: PortalUserUncheckedCreateNestedOneWithoutContactInput
+    projectId?: number | null
   }
 
-  export type ContactCreateOrConnectWithoutProjectInput = {
+  export type ContactCreateOrConnectWithoutProjectsInput = {
     where: ContactWhereUniqueInput
-    create: XOR<ContactCreateWithoutProjectInput, ContactUncheckedCreateWithoutProjectInput>
-  }
-
-  export type ContactCreateManyProjectInputEnvelope = {
-    data: Enumerable<ContactCreateManyProjectInput>
-    skipDuplicates?: boolean
+    create: XOR<ContactCreateWithoutProjectsInput, ContactUncheckedCreateWithoutProjectsInput>
   }
 
   export type UserCreateWithoutProjectsInput = {
@@ -16214,7 +16230,7 @@ export namespace Prisma {
     country?: string | null
     users?: UserCreateNestedManyWithoutAccountsInput
     contacts?: ContactCreateNestedManyWithoutAccountInput
-    website?: WebsiteCreateNestedManyWithoutAccountInput
+    websites?: WebsiteCreateNestedManyWithoutAccountInput
     portal?: PortalCreateNestedOneWithoutAccountInput
   }
 
@@ -16230,7 +16246,7 @@ export namespace Prisma {
     country?: string | null
     users?: UserUncheckedCreateNestedManyWithoutAccountsInput
     contacts?: ContactUncheckedCreateNestedManyWithoutAccountInput
-    website?: WebsiteUncheckedCreateNestedManyWithoutAccountInput
+    websites?: WebsiteUncheckedCreateNestedManyWithoutAccountInput
     portal?: PortalUncheckedCreateNestedOneWithoutAccountInput
   }
 
@@ -16239,18 +16255,18 @@ export namespace Prisma {
     create: XOR<AccountCreateWithoutProjectsInput, AccountUncheckedCreateWithoutProjectsInput>
   }
 
-  export type ContactUpsertWithWhereUniqueWithoutProjectInput = {
+  export type ContactUpsertWithWhereUniqueWithoutProjectsInput = {
     where: ContactWhereUniqueInput
-    update: XOR<ContactUpdateWithoutProjectInput, ContactUncheckedUpdateWithoutProjectInput>
-    create: XOR<ContactCreateWithoutProjectInput, ContactUncheckedCreateWithoutProjectInput>
+    update: XOR<ContactUpdateWithoutProjectsInput, ContactUncheckedUpdateWithoutProjectsInput>
+    create: XOR<ContactCreateWithoutProjectsInput, ContactUncheckedCreateWithoutProjectsInput>
   }
 
-  export type ContactUpdateWithWhereUniqueWithoutProjectInput = {
+  export type ContactUpdateWithWhereUniqueWithoutProjectsInput = {
     where: ContactWhereUniqueInput
-    data: XOR<ContactUpdateWithoutProjectInput, ContactUncheckedUpdateWithoutProjectInput>
+    data: XOR<ContactUpdateWithoutProjectsInput, ContactUncheckedUpdateWithoutProjectsInput>
   }
 
-  export type ContactUpdateManyWithWhereWithoutProjectInput = {
+  export type ContactUpdateManyWithWhereWithoutProjectsInput = {
     where: ContactScalarWhereInput
     data: XOR<ContactUpdateManyMutationInput, ContactUncheckedUpdateManyWithoutContactsInput>
   }
@@ -16301,7 +16317,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutAccountsInput
     contacts?: ContactUpdateManyWithoutAccountInput
-    website?: WebsiteUpdateManyWithoutAccountInput
+    websites?: WebsiteUpdateManyWithoutAccountInput
     portal?: PortalUpdateOneWithoutAccountInput
   }
 
@@ -16317,7 +16333,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutAccountsInput
     contacts?: ContactUncheckedUpdateManyWithoutAccountInput
-    website?: WebsiteUncheckedUpdateManyWithoutAccountInput
+    websites?: WebsiteUncheckedUpdateManyWithoutAccountInput
     portal?: PortalUncheckedUpdateOneWithoutAccountInput
   }
 
@@ -16371,7 +16387,8 @@ export namespace Prisma {
     forms?: FormCreateNestedManyWithoutContactsInput
     portal_token?: PortalInvitationCreateNestedOneWithoutConatctInput
     portal_user?: PortalUserCreateNestedOneWithoutContactInput
-    Project?: ProjectCreateNestedOneWithoutContactsInput
+    projects?: ProjectCreateNestedManyWithoutContactsInput
+    projectId?: number | null
   }
 
   export type ContactUncheckedCreateWithoutAccountInput = {
@@ -16385,6 +16402,7 @@ export namespace Prisma {
     forms?: FormUncheckedCreateNestedManyWithoutContactsInput
     portal_token?: PortalInvitationUncheckedCreateNestedOneWithoutConatctInput
     portal_user?: PortalUserUncheckedCreateNestedOneWithoutContactInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutContactsInput
     projectId?: number | null
   }
 
@@ -16435,7 +16453,7 @@ export namespace Prisma {
     type: string
     description?: string | null
     slack_channel?: string | null
-    contacts?: ContactCreateNestedManyWithoutProjectInput
+    contacts?: ContactCreateNestedManyWithoutProjectsInput
     users?: UserCreateNestedManyWithoutProjectsInput
     due_date?: Date | string | null
     createdAt?: Date | string
@@ -16447,7 +16465,7 @@ export namespace Prisma {
     type: string
     description?: string | null
     slack_channel?: string | null
-    contacts?: ContactUncheckedCreateNestedManyWithoutProjectInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutProjectsInput
     users?: UserUncheckedCreateNestedManyWithoutProjectsInput
     due_date?: Date | string | null
     createdAt?: Date | string
@@ -16508,7 +16526,7 @@ export namespace Prisma {
 
   export type WebsiteUpdateManyWithWhereWithoutAccountInput = {
     where: WebsiteScalarWhereInput
-    data: XOR<WebsiteUpdateManyMutationInput, WebsiteUncheckedUpdateManyWithoutWebsiteInput>
+    data: XOR<WebsiteUpdateManyMutationInput, WebsiteUncheckedUpdateManyWithoutWebsitesInput>
   }
 
   export type PortalUpsertWithoutAccountInput = {
@@ -16569,7 +16587,7 @@ export namespace Prisma {
     code?: string | null
     country?: string | null
     users?: UserCreateNestedManyWithoutAccountsInput
-    website?: WebsiteCreateNestedManyWithoutAccountInput
+    websites?: WebsiteCreateNestedManyWithoutAccountInput
     portal?: PortalCreateNestedOneWithoutAccountInput
     projects?: ProjectCreateNestedManyWithoutAccountInput
   }
@@ -16585,7 +16603,7 @@ export namespace Prisma {
     code?: string | null
     country?: string | null
     users?: UserUncheckedCreateNestedManyWithoutAccountsInput
-    website?: WebsiteUncheckedCreateNestedManyWithoutAccountInput
+    websites?: WebsiteUncheckedCreateNestedManyWithoutAccountInput
     portal?: PortalUncheckedCreateNestedOneWithoutAccountInput
     projects?: ProjectUncheckedCreateNestedManyWithoutAccountInput
   }
@@ -16724,32 +16742,20 @@ export namespace Prisma {
     portal_id?: IntFieldUpdateOperationsInput | number
   }
 
-  export type ProjectUpsertWithoutContactsInput = {
+  export type ProjectUpsertWithWhereUniqueWithoutContactsInput = {
+    where: ProjectWhereUniqueInput
     update: XOR<ProjectUpdateWithoutContactsInput, ProjectUncheckedUpdateWithoutContactsInput>
     create: XOR<ProjectCreateWithoutContactsInput, ProjectUncheckedCreateWithoutContactsInput>
   }
 
-  export type ProjectUpdateWithoutContactsInput = {
-    name?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    slack_channel?: NullableStringFieldUpdateOperationsInput | string | null
-    users?: UserUpdateManyWithoutProjectsInput
-    account?: AccountUpdateOneWithoutProjectsInput
-    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type ProjectUpdateWithWhereUniqueWithoutContactsInput = {
+    where: ProjectWhereUniqueInput
+    data: XOR<ProjectUpdateWithoutContactsInput, ProjectUncheckedUpdateWithoutContactsInput>
   }
 
-  export type ProjectUncheckedUpdateWithoutContactsInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    name?: StringFieldUpdateOperationsInput | string
-    type?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    slack_channel?: NullableStringFieldUpdateOperationsInput | string | null
-    users?: UserUncheckedUpdateManyWithoutProjectsInput
-    account_id?: NullableIntFieldUpdateOperationsInput | number | null
-    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type ProjectUpdateManyWithWhereWithoutContactsInput = {
+    where: ProjectScalarWhereInput
+    data: XOR<ProjectUpdateManyMutationInput, ProjectUncheckedUpdateManyWithoutProjectsInput>
   }
 
   export type FormCreateWithoutWebsiteInput = {
@@ -16815,7 +16821,7 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutWebsiteInput, UserUncheckedCreateWithoutWebsiteInput>
   }
 
-  export type AccountCreateWithoutWebsiteInput = {
+  export type AccountCreateWithoutWebsitesInput = {
     name: string
     industry?: string | null
     phone?: string | null
@@ -16830,7 +16836,7 @@ export namespace Prisma {
     projects?: ProjectCreateNestedManyWithoutAccountInput
   }
 
-  export type AccountUncheckedCreateWithoutWebsiteInput = {
+  export type AccountUncheckedCreateWithoutWebsitesInput = {
     id?: number
     name: string
     industry?: string | null
@@ -16846,9 +16852,9 @@ export namespace Prisma {
     projects?: ProjectUncheckedCreateNestedManyWithoutAccountInput
   }
 
-  export type AccountCreateOrConnectWithoutWebsiteInput = {
+  export type AccountCreateOrConnectWithoutWebsitesInput = {
     where: AccountWhereUniqueInput
-    create: XOR<AccountCreateWithoutWebsiteInput, AccountUncheckedCreateWithoutWebsiteInput>
+    create: XOR<AccountCreateWithoutWebsitesInput, AccountUncheckedCreateWithoutWebsitesInput>
   }
 
   export type FormUpsertWithWhereUniqueWithoutWebsiteInput = {
@@ -16883,12 +16889,12 @@ export namespace Prisma {
     data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutUsersInput>
   }
 
-  export type AccountUpsertWithoutWebsiteInput = {
-    update: XOR<AccountUpdateWithoutWebsiteInput, AccountUncheckedUpdateWithoutWebsiteInput>
-    create: XOR<AccountCreateWithoutWebsiteInput, AccountUncheckedCreateWithoutWebsiteInput>
+  export type AccountUpsertWithoutWebsitesInput = {
+    update: XOR<AccountUpdateWithoutWebsitesInput, AccountUncheckedUpdateWithoutWebsitesInput>
+    create: XOR<AccountCreateWithoutWebsitesInput, AccountUncheckedCreateWithoutWebsitesInput>
   }
 
-  export type AccountUpdateWithoutWebsiteInput = {
+  export type AccountUpdateWithoutWebsitesInput = {
     name?: StringFieldUpdateOperationsInput | string
     industry?: NullableStringFieldUpdateOperationsInput | string | null
     phone?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16903,7 +16909,7 @@ export namespace Prisma {
     projects?: ProjectUpdateManyWithoutAccountInput
   }
 
-  export type AccountUncheckedUpdateWithoutWebsiteInput = {
+  export type AccountUncheckedUpdateWithoutWebsitesInput = {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     industry?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16929,7 +16935,8 @@ export namespace Prisma {
     forms?: FormCreateNestedManyWithoutContactsInput
     account?: AccountCreateNestedManyWithoutContactsInput
     portal_token?: PortalInvitationCreateNestedOneWithoutConatctInput
-    Project?: ProjectCreateNestedOneWithoutContactsInput
+    projects?: ProjectCreateNestedManyWithoutContactsInput
+    projectId?: number | null
   }
 
   export type ContactUncheckedCreateWithoutPortal_userInput = {
@@ -16943,6 +16950,7 @@ export namespace Prisma {
     forms?: FormUncheckedCreateNestedManyWithoutContactsInput
     account?: AccountUncheckedCreateNestedManyWithoutContactsInput
     portal_token?: PortalInvitationUncheckedCreateNestedOneWithoutConatctInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutContactsInput
     projectId?: number | null
   }
 
@@ -16980,7 +16988,8 @@ export namespace Prisma {
     forms?: FormUpdateManyWithoutContactsInput
     account?: AccountUpdateManyWithoutContactsInput
     portal_token?: PortalInvitationUpdateOneWithoutConatctInput
-    Project?: ProjectUpdateOneWithoutContactsInput
+    projects?: ProjectUpdateManyWithoutContactsInput
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ContactUncheckedUpdateWithoutPortal_userInput = {
@@ -16994,6 +17003,7 @@ export namespace Prisma {
     forms?: FormUncheckedUpdateManyWithoutContactsInput
     account?: AccountUncheckedUpdateManyWithoutContactsInput
     portal_token?: PortalInvitationUncheckedUpdateOneWithoutConatctInput
+    projects?: ProjectUncheckedUpdateManyWithoutContactsInput
     projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -17021,7 +17031,8 @@ export namespace Prisma {
     forms?: FormCreateNestedManyWithoutContactsInput
     account?: AccountCreateNestedManyWithoutContactsInput
     portal_user?: PortalUserCreateNestedOneWithoutContactInput
-    Project?: ProjectCreateNestedOneWithoutContactsInput
+    projects?: ProjectCreateNestedManyWithoutContactsInput
+    projectId?: number | null
   }
 
   export type ContactUncheckedCreateWithoutPortal_tokenInput = {
@@ -17035,6 +17046,7 @@ export namespace Prisma {
     forms?: FormUncheckedCreateNestedManyWithoutContactsInput
     account?: AccountUncheckedCreateNestedManyWithoutContactsInput
     portal_user?: PortalUserUncheckedCreateNestedOneWithoutContactInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutContactsInput
     projectId?: number | null
   }
 
@@ -17058,7 +17070,8 @@ export namespace Prisma {
     forms?: FormUpdateManyWithoutContactsInput
     account?: AccountUpdateManyWithoutContactsInput
     portal_user?: PortalUserUpdateOneWithoutContactInput
-    Project?: ProjectUpdateOneWithoutContactsInput
+    projects?: ProjectUpdateManyWithoutContactsInput
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ContactUncheckedUpdateWithoutPortal_tokenInput = {
@@ -17072,6 +17085,7 @@ export namespace Prisma {
     forms?: FormUncheckedUpdateManyWithoutContactsInput
     account?: AccountUncheckedUpdateManyWithoutContactsInput
     portal_user?: PortalUserUncheckedUpdateOneWithoutContactInput
+    projects?: ProjectUncheckedUpdateManyWithoutContactsInput
     projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -17106,7 +17120,7 @@ export namespace Prisma {
     country?: string | null
     users?: UserCreateNestedManyWithoutAccountsInput
     contacts?: ContactCreateNestedManyWithoutAccountInput
-    website?: WebsiteCreateNestedManyWithoutAccountInput
+    websites?: WebsiteCreateNestedManyWithoutAccountInput
     projects?: ProjectCreateNestedManyWithoutAccountInput
   }
 
@@ -17122,7 +17136,7 @@ export namespace Prisma {
     country?: string | null
     users?: UserUncheckedCreateNestedManyWithoutAccountsInput
     contacts?: ContactUncheckedCreateNestedManyWithoutAccountInput
-    website?: WebsiteUncheckedCreateNestedManyWithoutAccountInput
+    websites?: WebsiteUncheckedCreateNestedManyWithoutAccountInput
     projects?: ProjectUncheckedCreateNestedManyWithoutAccountInput
   }
 
@@ -17172,7 +17186,7 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutAccountsInput
     contacts?: ContactUpdateManyWithoutAccountInput
-    website?: WebsiteUpdateManyWithoutAccountInput
+    websites?: WebsiteUpdateManyWithoutAccountInput
     projects?: ProjectUpdateManyWithoutAccountInput
   }
 
@@ -17188,14 +17202,14 @@ export namespace Prisma {
     country?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutAccountsInput
     contacts?: ContactUncheckedUpdateManyWithoutAccountInput
-    website?: WebsiteUncheckedUpdateManyWithoutAccountInput
+    websites?: WebsiteUncheckedUpdateManyWithoutAccountInput
     projects?: ProjectUncheckedUpdateManyWithoutAccountInput
   }
 
   export type WebsiteCreateWithoutFormsInput = {
     url: string
     users?: UserCreateNestedManyWithoutWebsiteInput
-    account: AccountCreateNestedOneWithoutWebsiteInput
+    account: AccountCreateNestedOneWithoutWebsitesInput
   }
 
   export type WebsiteUncheckedCreateWithoutFormsInput = {
@@ -17220,7 +17234,8 @@ export namespace Prisma {
     account?: AccountCreateNestedManyWithoutContactsInput
     portal_token?: PortalInvitationCreateNestedOneWithoutConatctInput
     portal_user?: PortalUserCreateNestedOneWithoutContactInput
-    Project?: ProjectCreateNestedOneWithoutContactsInput
+    projects?: ProjectCreateNestedManyWithoutContactsInput
+    projectId?: number | null
   }
 
   export type ContactUncheckedCreateWithoutFormsInput = {
@@ -17234,6 +17249,7 @@ export namespace Prisma {
     account?: AccountUncheckedCreateNestedManyWithoutContactsInput
     portal_token?: PortalInvitationUncheckedCreateNestedOneWithoutConatctInput
     portal_user?: PortalUserUncheckedCreateNestedOneWithoutContactInput
+    projects?: ProjectUncheckedCreateNestedManyWithoutContactsInput
     projectId?: number | null
   }
 
@@ -17271,7 +17287,7 @@ export namespace Prisma {
   export type WebsiteUpdateWithoutFormsInput = {
     url?: StringFieldUpdateOperationsInput | string
     users?: UserUpdateManyWithoutWebsiteInput
-    account?: AccountUpdateOneRequiredWithoutWebsiteInput
+    account?: AccountUpdateOneRequiredWithoutWebsitesInput
   }
 
   export type WebsiteUncheckedUpdateWithoutFormsInput = {
@@ -17362,7 +17378,7 @@ export namespace Prisma {
   export type WebsiteUpdateWithoutUsersInput = {
     url?: StringFieldUpdateOperationsInput | string
     forms?: FormUpdateManyWithoutWebsiteInput
-    account?: AccountUpdateOneRequiredWithoutWebsiteInput
+    account?: AccountUpdateOneRequiredWithoutWebsitesInput
   }
 
   export type WebsiteUncheckedUpdateWithoutUsersInput = {
@@ -17383,7 +17399,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     slack_channel?: NullableStringFieldUpdateOperationsInput | string | null
-    contacts?: ContactUpdateManyWithoutProjectInput
+    contacts?: ContactUpdateManyWithoutProjectsInput
     account?: AccountUpdateOneWithoutProjectsInput
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17395,7 +17411,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     slack_channel?: NullableStringFieldUpdateOperationsInput | string | null
-    contacts?: ContactUncheckedUpdateManyWithoutProjectInput
+    contacts?: ContactUncheckedUpdateManyWithoutProjectsInput
     account_id?: NullableIntFieldUpdateOperationsInput | number | null
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17422,7 +17438,7 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     contacts?: ContactUpdateManyWithoutAccountInput
-    website?: WebsiteUpdateManyWithoutAccountInput
+    websites?: WebsiteUpdateManyWithoutAccountInput
     portal?: PortalUpdateOneWithoutAccountInput
     projects?: ProjectUpdateManyWithoutAccountInput
   }
@@ -17438,7 +17454,7 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     contacts?: ContactUncheckedUpdateManyWithoutAccountInput
-    website?: WebsiteUncheckedUpdateManyWithoutAccountInput
+    websites?: WebsiteUncheckedUpdateManyWithoutAccountInput
     portal?: PortalUncheckedUpdateOneWithoutAccountInput
     projects?: ProjectUncheckedUpdateManyWithoutAccountInput
   }
@@ -17520,17 +17536,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ContactCreateManyProjectInput = {
-    id?: number
-    first_name: string
-    last_name: string
-    title?: string
-    email: string
-    phone?: string | null
-    portal_uid?: number | null
-  }
-
-  export type ContactUpdateWithoutProjectInput = {
+  export type ContactUpdateWithoutProjectsInput = {
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
@@ -17541,9 +17547,10 @@ export namespace Prisma {
     account?: AccountUpdateManyWithoutContactsInput
     portal_token?: PortalInvitationUpdateOneWithoutConatctInput
     portal_user?: PortalUserUpdateOneWithoutContactInput
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
-  export type ContactUncheckedUpdateWithoutProjectInput = {
+  export type ContactUncheckedUpdateWithoutProjectsInput = {
     id?: IntFieldUpdateOperationsInput | number
     first_name?: StringFieldUpdateOperationsInput | string
     last_name?: StringFieldUpdateOperationsInput | string
@@ -17555,6 +17562,7 @@ export namespace Prisma {
     account?: AccountUncheckedUpdateManyWithoutContactsInput
     portal_token?: PortalInvitationUncheckedUpdateOneWithoutConatctInput
     portal_user?: PortalUserUncheckedUpdateOneWithoutContactInput
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ContactUncheckedUpdateManyWithoutContactsInput = {
@@ -17565,6 +17573,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     portal_uid?: NullableIntFieldUpdateOperationsInput | number | null
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type UserUpdateWithoutProjectsInput = {
@@ -17662,7 +17671,8 @@ export namespace Prisma {
     forms?: FormUpdateManyWithoutContactsInput
     portal_token?: PortalInvitationUpdateOneWithoutConatctInput
     portal_user?: PortalUserUpdateOneWithoutContactInput
-    Project?: ProjectUpdateOneWithoutContactsInput
+    projects?: ProjectUpdateManyWithoutContactsInput
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ContactUncheckedUpdateWithoutAccountInput = {
@@ -17676,6 +17686,7 @@ export namespace Prisma {
     forms?: FormUncheckedUpdateManyWithoutContactsInput
     portal_token?: PortalInvitationUncheckedUpdateOneWithoutConatctInput
     portal_user?: PortalUserUncheckedUpdateOneWithoutContactInput
+    projects?: ProjectUncheckedUpdateManyWithoutContactsInput
     projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -17692,12 +17703,17 @@ export namespace Prisma {
     users?: UserUncheckedUpdateManyWithoutWebsiteInput
   }
 
+  export type WebsiteUncheckedUpdateManyWithoutWebsitesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    url?: StringFieldUpdateOperationsInput | string
+  }
+
   export type ProjectUpdateWithoutAccountInput = {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     slack_channel?: NullableStringFieldUpdateOperationsInput | string | null
-    contacts?: ContactUpdateManyWithoutProjectInput
+    contacts?: ContactUpdateManyWithoutProjectsInput
     users?: UserUpdateManyWithoutProjectsInput
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17709,7 +17725,7 @@ export namespace Prisma {
     type?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
     slack_channel?: NullableStringFieldUpdateOperationsInput | string | null
-    contacts?: ContactUncheckedUpdateManyWithoutProjectInput
+    contacts?: ContactUncheckedUpdateManyWithoutProjectsInput
     users?: UserUncheckedUpdateManyWithoutProjectsInput
     due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17744,7 +17760,7 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateManyWithoutAccountsInput
-    website?: WebsiteUpdateManyWithoutAccountInput
+    websites?: WebsiteUpdateManyWithoutAccountInput
     portal?: PortalUpdateOneWithoutAccountInput
     projects?: ProjectUpdateManyWithoutAccountInput
   }
@@ -17760,7 +17776,7 @@ export namespace Prisma {
     code?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutAccountsInput
-    website?: WebsiteUncheckedUpdateManyWithoutAccountInput
+    websites?: WebsiteUncheckedUpdateManyWithoutAccountInput
     portal?: PortalUncheckedUpdateOneWithoutAccountInput
     projects?: ProjectUncheckedUpdateManyWithoutAccountInput
   }
@@ -17775,6 +17791,29 @@ export namespace Prisma {
     state?: NullableStringFieldUpdateOperationsInput | string | null
     code?: NullableStringFieldUpdateOperationsInput | string | null
     country?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ProjectUpdateWithoutContactsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slack_channel?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUpdateManyWithoutProjectsInput
+    account?: AccountUpdateOneWithoutProjectsInput
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProjectUncheckedUpdateWithoutContactsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    slack_channel?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUncheckedUpdateManyWithoutProjectsInput
+    account_id?: NullableIntFieldUpdateOperationsInput | number | null
+    due_date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FormCreateManyWebsiteInput = {
@@ -17866,7 +17905,8 @@ export namespace Prisma {
     account?: AccountUpdateManyWithoutContactsInput
     portal_token?: PortalInvitationUpdateOneWithoutConatctInput
     portal_user?: PortalUserUpdateOneWithoutContactInput
-    Project?: ProjectUpdateOneWithoutContactsInput
+    projects?: ProjectUpdateManyWithoutContactsInput
+    projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ContactUncheckedUpdateWithoutFormsInput = {
@@ -17880,6 +17920,7 @@ export namespace Prisma {
     account?: AccountUncheckedUpdateManyWithoutContactsInput
     portal_token?: PortalInvitationUncheckedUpdateOneWithoutConatctInput
     portal_user?: PortalUserUncheckedUpdateOneWithoutContactInput
+    projects?: ProjectUncheckedUpdateManyWithoutContactsInput
     projectId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+import { browser } from '$app/env';
 	import { goto } from '$app/navigation';
 	import authApi from '$lib/api/auth-api';
 	import Button from '$lib/components/button/Button.svelte';
@@ -20,10 +21,11 @@
 			console.debug(formError);
 		},
 		onSuccess: () => {
-			goto('/');
+			window.location.pathname = '/';
 		},
 		extend: validator({ schema: authValidation.loginSchema })
 	});
+
 </script>
 
 <main>

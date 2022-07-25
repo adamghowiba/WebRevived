@@ -18,9 +18,14 @@ export default class App {
 	}
 
 	registerCors() {
-		this.app.use(cors({ origin: (req, callback) => {
-			callback(null, '*')
-		}, credentials: true }));
+		this.app.use(
+			cors({
+				origin: (req, callback) => {
+					callback(null, req);
+				},
+				credentials: true
+			})
+		);
 		return this;
 	}
 

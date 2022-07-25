@@ -70,7 +70,7 @@
 	</h3> -->
 	<h3>
 		We make things, and we're awesome at it. Web Revived is a tight-knit team of experts who are
-		ready to tackle the most intricate puzzles when it comes to digital marketing.
+		ready to tackle the most intricate puzzles when it comes to digital marketing, web development and design.
 	</h3>
 </section>
 

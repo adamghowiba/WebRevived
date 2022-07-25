@@ -1,11 +1,19 @@
+/* eslint-disable arrow-body-style */
 import { User } from '@prisma/client';
+import { Prisma } from '@webrevived/types/prisma';
 
 /**
  * Transforms a list of ids into a prisma connect format
  *
  * @example [1, 2, 3] = [{id: 1}, {id: 2}, ..]
  */
-export const transformIdsArray = (ids: number[]) => (ids?.length ? ids.map(id => ({ id })) : undefined);
+export const transformIdsArray = (ids: number[] | undefined) =>
+	ids?.length ? ids.map(id => ({ id })) : undefined;
+
+export const connectIds = (ids: number[] | undefined): { connect: { id: number }[] | undefined } | undefined => {
+	if (!ids) return undefined;
+	return { connect: transformIdsArray(ids) };
+};
 
 /**
  * Transforms a list of users into a comma seperated string

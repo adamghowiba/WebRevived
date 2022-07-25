@@ -1,6 +1,6 @@
 import primsa from '@common/db';
 import { PortalInvitation } from '@prisma/client';
-export const getPortalTokenByContactId = async (contactId: number): Promise<PortalInvitation> => {
+export const getPortalTokenByContactId = async (contactId: number): Promise<PortalInvitation | null> => {
 	const portalToken = await primsa.portalInvitation.findUnique({
 		where: {
 			contact_id: contactId
@@ -10,7 +10,7 @@ export const getPortalTokenByContactId = async (contactId: number): Promise<Port
 	return portalToken;
 };
 
-export const checkPortalToken = async (token: string): Promise<PortalInvitation> => {
+export const checkPortalToken = async (token: string): Promise<PortalInvitation | null> => {
 	const portalToken = await primsa.portalInvitation.findFirst({
 		where: {
 			token

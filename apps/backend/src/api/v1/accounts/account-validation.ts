@@ -11,7 +11,7 @@ export const accountRequestBody = Joi.object({
 	industry: Joi.string().optional()
 });
 
-const createAccount: ValidateScehma = {
+const createAccount: ValidateScehma & { body: Joi.ObjectSchema } = {
 	body: Joi.object<Account>().keys({
 		name: Joi.string().required(),
 		city: Joi.string().optional(),
@@ -29,11 +29,12 @@ const getByIdSchema = routeValidation({
 		contacts: Joi.boolean(),
 		projects: Joi.boolean(),
 		websites: Joi.boolean(),
-		users: Joi.boolean()
+		users: Joi.boolean(),
 	})
 });
 
 const updateAccountOptional = createAccount.body.fork('name', schema => schema.optional());
+
 const updateAccount = routeValidation({
 	body: updateAccountOptional.concat(
 		Joi.object<AccountApi.PutInclude>({

@@ -6,8 +6,14 @@
 	import Faq from '$lib/components/global/FAQ.svelte';
 	import HeaderImage from '$lib/components/global/HeaderImage.svelte';
 	import PageHeader from '$lib/components/global/PageHeader.svelte';
-import { IMAGE_URL } from '$lib/constants/config';
+	import Seo from '$lib/components/global/SEO.svelte';
+	import { IMAGE_URL } from '$lib/constants/config';
 </script>
+
+<Seo
+	title="About - Web Revived | Web Development & Design Agency"
+	metaDescription="A team of designers, writers, strategists, developer and doers with 12+ years expierence."
+/>
 
 <PageHeader
 	pageName="About"
@@ -41,9 +47,9 @@ import { IMAGE_URL } from '$lib/constants/config';
 
 <ArticleContent title="Simply put, we do what others don't">
 	<p>
-		When you work with Web Revived, you are getting a team of experts to ensure that your
-		business reaches new heights. Because it's not just work, it's passion. It's not just clients,
-		it's people. Every project we take on is important to us.
+		When you work with Web Revived, you are getting a team of experts to ensure that your business
+		reaches new heights. Because it's not just work, it's passion. It's not just clients, it's
+		people. Every project we take on is important to us.
 	</p>
 
 	<p>
@@ -56,7 +62,6 @@ import { IMAGE_URL } from '$lib/constants/config';
 <Faq />
 
 <ContactSection />
-
 
 <style lang="scss">
 	.italic {

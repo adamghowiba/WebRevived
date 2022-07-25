@@ -3,7 +3,13 @@
 
 generator client {
   provider = "prisma-client-js"
-  output = "../../../packages/types"
+  output = "../../../packages/types/prisma"
+}
+
+generator zod {
+  provider = "zod-prisma"
+  output = "../src/validations"
+  modelCase = "camelCase"
 }
 
 datasource db {
@@ -28,7 +34,7 @@ model User {
   title       String?
   clickup_uid String?
   slack_uid   String?
-  zoho_uid    String?
+  zoho_uid    String? 
   bio         String?
   website     Website[]
   projects    Project[]
@@ -73,7 +79,7 @@ model Account {
   country  String?
   users    User[]
   contacts Contact[]
-  website  Website[]
+  websites  Website[]
   portal   Portal?
   projects Project[]
 }
@@ -83,14 +89,14 @@ model Contact {
   first_name   String
   last_name    String
   title        String            @default("member")
-  email        String            @unique
+  email        String            
   phone        String?
   portal_uid   Int?              @unique
   forms        Form[]
   account      Account[]
   portal_token PortalInvitation?
   portal_user  PortalUser?
-  Project      Project?          @relation(fields: [projectId], references: [id])
+  projects     Project[]
   projectId    Int?
 }
 

@@ -15,9 +15,9 @@
 <CardBase>
 	<div class="details">
 		<EditInputWrap validationSchema={accountSchema}>
-			<EditableInput label="Account Name" inputKey="name" value={accountData.name} on:save />
-			<EditableInput label="Phone" inputKey="phone" value={accountData.phone} on:save />
-			<EditableInput label="Industry" inputKey="industry" value={accountData.industry} on:save />
+			<EditableInput label="Account Name" inputKey="name" bind:value={accountData.name} on:save />
+			<EditableInput label="Phone" inputKey="phone" bind:value={accountData.phone} on:save />
+			<EditableInput label="Industry" inputKey="industry" bind:value={accountData.industry} on:save />
 		</EditInputWrap>
 	</div>
 </CardBase>
