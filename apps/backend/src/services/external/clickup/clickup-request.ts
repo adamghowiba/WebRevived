@@ -5,7 +5,7 @@ import fetch, { RequestInit } from 'node-fetch';
 type RequestMethod = 'get' | 'post' | 'put' | 'delete';
 
 export default class ClickUpRequest {
-	method: RequestMethod;
+	method!: RequestMethod;
 
 	clickUpUrl: string;
 
@@ -19,7 +19,7 @@ export default class ClickUpRequest {
 	async request<T = unknown>(
 		endpoint: string,
 		method: RequestMethod,
-		params: { [key: string]: string },
+		params?: { [key: string]: string },
 		data = {}
 	): Promise<T> {
 		const requestData: RequestInit = {
@@ -37,7 +37,9 @@ export default class ClickUpRequest {
 
 		const response = await fetch(`${this.clickUpUrl}${endpoint}?${urlParams.toString()}`, requestData);
 
-		const isJsonResponse = response.headers.get('Content-Type').split(';')[0] === 'application/json';
+		const contentType = response.headers.get('Content-Type');
+
+		const isJsonResponse = contentType && contentType.split(';')[0] === 'application/json';
 		const result: T = await (isJsonResponse ? response.json() : response.text());
 
 		return result;
